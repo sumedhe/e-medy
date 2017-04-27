@@ -9,6 +9,7 @@ package emedy;
  * @author sumedhe
  */
 import emedy.ui.*;
+import javax.swing.UIManager;
         
 public class EMedy {
 
@@ -16,6 +17,15 @@ public class EMedy {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        // Set GTK+ as the default LookAndFeel
+        try { 
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); 
+        } catch (Exception ex) { 
+            ex.printStackTrace(); 
+        }
+        
+        // Show Home Window
         Home home = new Home();
         home.setVisible(true);
     }
