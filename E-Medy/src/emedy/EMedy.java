@@ -10,6 +10,7 @@ package emedy;
  */
 import emedy.ui.*;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
         
 public class EMedy {
 
@@ -21,8 +22,8 @@ public class EMedy {
         // Set GTK+ as the default LookAndFeel
         try { 
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel"); 
-        } catch (Exception ex) { 
-            ex.printStackTrace(); 
+//            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel"); 
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) { 
         }
         
         // Show Home Window
