@@ -15,6 +15,23 @@ public class Employee {
     Date start_date;
     int designation_id;
 
+    
+    
+    public Employee(String first_name, String last_name, String nic, Date dob, char Gender, String address, String phone, String mobile, Date start_date, int designation_id) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.nic = nic;
+        this.dob = dob;
+        this.Gender = Gender;
+        this.address = address;
+        this.phone = phone;
+        this.mobile = mobile;
+        this.start_date = start_date;
+        this.designation_id = designation_id;
+    }
+    
+
+    
     public int getEmployee_id() {
         return employee_id;
     }

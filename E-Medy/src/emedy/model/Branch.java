@@ -3,6 +3,14 @@ package emedy.model;
 public class Branch {
     int branch_id;
     String name;
+    
+
+    
+    public Branch(String name) {
+        this.name = name;
+    }
+    
+    
 
     public int getBranch_id() {
         return branch_id;

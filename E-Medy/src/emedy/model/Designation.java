@@ -5,6 +5,15 @@ public class Designation {
     String name;
     double wage;
 
+    
+    
+    public Designation(String name, double wage) {
+        this.name = name;
+        this.wage = wage;
+    }
+
+    
+    
     public int getDesignation_id() {
         return designation_id;
     }

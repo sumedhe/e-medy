@@ -15,7 +15,26 @@ public class Patient {
     int consultant_id;
     int blood_group;
     Date registered_on;
+    
+    
 
+    public Patient(int patient_id, String first_name, String last_name, String nic, Date dob, char gender, String address, String phone, String mobile, int consultant_id, int blood_group, Date registered_on) {
+        this.patient_id = patient_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.nic = nic;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
+        this.mobile = mobile;
+        this.consultant_id = consultant_id;
+        this.blood_group = blood_group;
+        this.registered_on = registered_on;
+    }
+
+    
+    
     public int getPatient_id() {
         return patient_id;
     }
