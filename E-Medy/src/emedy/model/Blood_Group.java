@@ -1,7 +1,7 @@
 package emedy.model;
 
 public class Blood_Group {
-    int blood_group_id;
+    int bloodGroupId;
     String name;
 
     
@@ -10,13 +10,12 @@ public class Blood_Group {
     }
 
     
-    
-    public int getBlood_group_id() {
-        return blood_group_id;
+    public int getBloodGroupId() {
+        return bloodGroupId;
     }
 
-    public void setBlood_group_id(int blood_group_id) {
-        this.blood_group_id = blood_group_id;
+    public void setBloodGroupId(int bloodGroupId) {
+        this.bloodGroupId = bloodGroupId;
     }
 
     public String getName() {
@@ -26,6 +25,9 @@ public class Blood_Group {
     public void setName(String name) {
         this.name = name;
     }
+
+   
+    
     
     
     

@@ -1,92 +1,92 @@
 package emedy.model;
 
 public class Admission {
-    int admission_id;    
-    int ward_id;
-    int patient_id;
-    String recommended_by;
-    int confirmed_doctor_id;
-    String custodian_name;
-    String custodian_nic;
-    String custodian_phone;
+    int admissionId;    
+    int wardId;
+    int patientId;
+    String recommendedBy;
+    int confirmedDoctorId;
+    String custodianName;
+    String custodianNIC;
+    String custodianPhone;
     double payment;
 
     
     
     public Admission(int ward_id, int patient_id, String recommended_by, int confirmed_doctor_id, String custodian_name, String custodian_nic, String custodian_phone, double payment) {
-        this.ward_id = ward_id;
-        this.patient_id = patient_id;
-        this.recommended_by = recommended_by;
-        this.confirmed_doctor_id = confirmed_doctor_id;
-        this.custodian_name = custodian_name;
-        this.custodian_nic = custodian_nic;
-        this.custodian_phone = custodian_phone;
+        this.wardId = ward_id;
+        this.patientId = patient_id;
+        this.recommendedBy = recommended_by;
+        this.confirmedDoctorId = confirmed_doctor_id;
+        this.custodianName = custodian_name;
+        this.custodianNIC = custodian_nic;
+        this.custodianPhone = custodian_phone;
         this.payment = payment;
     }
-
     
-    public int getAdmission_id() {
-        return admission_id;
+
+    public int getAdmissionId() {
+        return admissionId;
     }
 
-    public void setAdmission_id(int admission_id) {
-        this.admission_id = admission_id;
+    public void setAdmissionId(int admissionId) {
+        this.admissionId = admissionId;
     }
 
-    public int getWard_id() {
-        return ward_id;
+    public int getWardId() {
+        return wardId;
     }
 
-    public void setWard_id(int ward_id) {
-        this.ward_id = ward_id;
+    public void setWardId(int wardId) {
+        this.wardId = wardId;
     }
 
-    public int getPatient_id() {
-        return patient_id;
+    public int getPatientId() {
+        return patientId;
     }
 
-    public void setPatient_id(int patient_id) {
-        this.patient_id = patient_id;
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
     }
 
-    public String getRecommended_by() {
-        return recommended_by;
+    public String getRecommendedBy() {
+        return recommendedBy;
     }
 
-    public void setRecommended_by(String recommended_by) {
-        this.recommended_by = recommended_by;
+    public void setRecommendedBy(String recommendedBy) {
+        this.recommendedBy = recommendedBy;
     }
 
-    public int getConfirmed_doctor_id() {
-        return confirmed_doctor_id;
+    public int getConfirmedDoctorId() {
+        return confirmedDoctorId;
     }
 
-    public void setConfirmed_doctor_id(int confirmed_doctor_id) {
-        this.confirmed_doctor_id = confirmed_doctor_id;
+    public void setConfirmedDoctorId(int confirmedDoctorId) {
+        this.confirmedDoctorId = confirmedDoctorId;
     }
 
-    public String getCustodian_name() {
-        return custodian_name;
+    public String getCustodianName() {
+        return custodianName;
     }
 
-    public void setCustodian_name(String custodian_name) {
-        this.custodian_name = custodian_name;
+    public void setCustodianName(String custodianName) {
+        this.custodianName = custodianName;
     }
 
-    public String getCustodian_nic() {
-        return custodian_nic;
+    public String getCustodianNIC() {
+        return custodianNIC;
     }
 
-    public void setCustodian_nic(String custodian_nic) {
-        this.custodian_nic = custodian_nic;
+    public void setCustodianNIC(String custodianNIC) {
+        this.custodianNIC = custodianNIC;
     }
 
-    public String getCustodian_phone() {
-        return custodian_phone;
+    public String getCustodianPhone() {
+        return custodianPhone;
     }
 
-    public void setCustodian_phone(String custodian_phone) {
-        this.custodian_phone = custodian_phone;
+    public void setCustodianPhone(String custodianPhone) {
+        this.custodianPhone = custodianPhone;
     }
 
     public double getPayment() {
@@ -96,6 +96,9 @@ public class Admission {
     public void setPayment(double payment) {
         this.payment = payment;
     }
+
+    
+
     
     
     

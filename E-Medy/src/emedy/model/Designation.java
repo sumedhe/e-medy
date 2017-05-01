@@ -1,25 +1,24 @@
 package emedy.model;
 
 public class Designation {
-    int designation_id;
+    int designationId;
     String name;
     double wage;
 
-    
     
     public Designation(String name, double wage) {
         this.name = name;
         this.wage = wage;
     }
+    
+    
 
-    
-    
-    public int getDesignation_id() {
-        return designation_id;
+    public int getDesignationId() {
+        return designationId;
     }
 
-    public void setDesignation_id(int designation_id) {
-        this.designation_id = designation_id;
+    public void setDesignationId(int designationId) {
+        this.designationId = designationId;
     }
 
     public String getName() {
@@ -37,6 +36,8 @@ public class Designation {
     public void setWage(double wage) {
         this.wage = wage;
     }
+
+    
     
     
 }

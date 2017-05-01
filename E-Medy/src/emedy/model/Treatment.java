@@ -1,7 +1,7 @@
 package emedy.model;
 
 public class Treatment {
-    int treatment_id;
+    int treatmentId;
     String name;
     double fee;
 
@@ -10,14 +10,14 @@ public class Treatment {
         this.name = name;
         this.fee = fee;
     }
-
     
-    public int getTreatment_id() {
-        return treatment_id;
+
+    public int getTreatmentId() {
+        return treatmentId;
     }
 
-    public void setTreatment_id(int treatment_id) {
-        this.treatment_id = treatment_id;
+    public void setTreatmentId(int treatmentId) {
+        this.treatmentId = treatmentId;
     }
 
     public String getName() {
@@ -35,6 +35,9 @@ public class Treatment {
     public void setFee(double fee) {
         this.fee = fee;
     }
+
+    
+    
     
     
 }

@@ -3,57 +3,56 @@ package emedy.model;
 import java.util.Date;
 
 public class Employee {
-    int employee_id;
-    String first_name;
-    String last_name;
+    int employeeId;
+    String firstName;
+    String lastName;
     String nic;
     Date dob;
-    char Gender;
+    char gender;
     String address;
     String phone;
     String mobile;
-    Date start_date;
-    int designation_id;
+    Date startDate;
+    int designationId;
 
     
     
-    public Employee(String first_name, String last_name, String nic, Date dob, char Gender, String address, String phone, String mobile, Date start_date, int designation_id) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Employee(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, Date startDate, int designationId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.nic = nic;
         this.dob = dob;
-        this.Gender = Gender;
+        this.gender = gender;
         this.address = address;
         this.phone = phone;
         this.mobile = mobile;
-        this.start_date = start_date;
-        this.designation_id = designation_id;
+        this.startDate = startDate;
+        this.designationId = designationId;
     }
     
 
-    
-    public int getEmployee_id() {
-        return employee_id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getNic() {
@@ -73,11 +72,11 @@ public class Employee {
     }
 
     public char getGender() {
-        return Gender;
+        return gender;
     }
 
-    public void setGender(char Gender) {
-        this.Gender = Gender;
+    public void setGender(char gender) {
+        this.gender = gender;
     }
 
     public String getAddress() {
@@ -104,21 +103,25 @@ public class Employee {
         this.mobile = mobile;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public int getDesignation_id() {
-        return designation_id;
+    public int getDesignationId() {
+        return designationId;
     }
 
-    public void setDesignation_id(int designation_id) {
-        this.designation_id = designation_id;
+    public void setDesignationId(int designationId) {
+        this.designationId = designationId;
     }
+
     
+    
+    
+
     
 }

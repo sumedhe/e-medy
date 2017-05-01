@@ -1,23 +1,21 @@
 package emedy.model;
 
 public class Branch {
-    int branch_id;
+    int branchId;
     String name;
-    
 
     
     public Branch(String name) {
         this.name = name;
     }
     
-    
 
-    public int getBranch_id() {
-        return branch_id;
+    public int getBranchId() {
+        return branchId;
     }
 
-    public void setBranch_id(int branch_id) {
-        this.branch_id = branch_id;
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
     }
 
     public String getName() {
@@ -27,5 +25,8 @@ public class Branch {
     public void setName(String name) {
         this.name = name;
     }
+    
+
+    
     
 }

@@ -1,23 +1,23 @@
 package emedy.model;
 
 public class Ward {
-    int ward_id;
+    int wardId;
     String name;
-    int max_patients;
+    int maxPatients;
 
     
-    public Ward(String name, int max_patients) {
+    public Ward(String name, int maxPatients) {
         this.name = name;
-        this.max_patients = max_patients;
+        this.maxPatients = maxPatients;
     }
+
     
-
-    public int getWard_id() {
-        return ward_id;
+    public int getWardId() {
+        return wardId;
     }
 
-    public void setWard_id(int ward_id) {
-        this.ward_id = ward_id;
+    public void setWardId(int wardId) {
+        this.wardId = wardId;
     }
 
     public String getName() {
@@ -28,13 +28,15 @@ public class Ward {
         this.name = name;
     }
 
-    public int getMax_patients() {
-        return max_patients;
+    public int getMaxPatients() {
+        return maxPatients;
     }
 
-    public void setMax_patients(int max_patients) {
-        this.max_patients = max_patients;
+    public void setMaxPatients(int maxPatients) {
+        this.maxPatients = maxPatients;
     }
+
+    
     
     
     
