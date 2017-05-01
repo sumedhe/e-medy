@@ -14,12 +14,12 @@ public class DB {
     static Statement stmt = null;
     
     
-    private static void openConnection() throws DBException{
+    public static void open() throws DBException{
         for (int i = 0; i<3; i++) {
-
+            DB.close(); // Close existing connections if opened
             try{
                 Class.forName("com.mysql.jdbc.Driver");
-                String s = String.format("jdbc:mysql://localhost/test?user=%s&password=%s", Prefs.getUser(), Prefs.getPass());
+                String s = String.format("jdbc:mysql://localhost/emedy?user=%s&password=%s", Prefs.getUser(), Prefs.getPass());
                 conn = DriverManager.getConnection(s);
                 stmt = conn.createStatement();
                 Global.Log("Connection opened!");
@@ -38,7 +38,7 @@ public class DB {
                 
     }
     
-    private static void closeConnection(){
+    public static void close(){
         try{
             if (conn != null){
                 conn.close();
@@ -48,36 +48,32 @@ public class DB {
             Global.Log("Error in closing connection");
         }
     }
-   
     
-    private static ResultSet execute(String qry, boolean gets) throws Exception{
-        try{
-            openConnection();
-            if (gets){
-                stmt.executeUpdate(qry);
-                return null;
-            } else {
-                return stmt.executeQuery(qry);
-            }
-        } catch (DBException ex){
-            JOptionPane.showMessageDialog(Global.getHome(), ex.getMessage(), "Database Error", JOptionPane.WARNING_MESSAGE);
-            throw ex;
-        } catch (SQLException ex){
-            throw new DBException("ERROR: " + ex.getMessage());
-        } finally {
-            closeConnection();
+    private static void checkConnection() throws DBException{
+        if (conn == null){
+            throw new DBException(("Connection is closed!"));
         }
     }
     
-    
-    
-    
-    public static ResultSet executeUpdate(String qry) throws Exception{
-        return execute(qry, true);
+    public static int execUpdate(String qry) throws Exception{
+        try{
+            checkConnection();
+            return stmt.executeUpdate(qry);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Global.getHome(), ex.getMessage(), "Database Error", JOptionPane.WARNING_MESSAGE);
+            throw new DBException(ex.getMessage());
+        }
     }
     
-    public static void executeQuery(String qry) throws Exception{
-        execute(qry, false);
+    public static ResultSet execQuery(String qry) throws Exception{
+        try{
+            checkConnection();
+            return stmt.executeQuery(qry);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Global.getHome(), ex.getMessage(), "Database Error", JOptionPane.WARNING_MESSAGE);
+            throw new DBException(ex.getMessage());
+        }
     }
+   
     
 }

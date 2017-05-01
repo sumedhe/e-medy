@@ -1,8 +1,14 @@
 package emedy;
 
 
+import emedy.data.AdmissionData;
 import emedy.data.DB;
+import emedy.data.WardData;
+import emedy.model.Admission;
+import emedy.model.Ward;
 import emedy.ui.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
         
@@ -27,11 +33,20 @@ public class EMedy {
         Global.setHome(home);
         home.setVisible(true);
         
-//        try {
-//            DB.executeUpdate("INSERT INTO mytable(name) values('sumedhe3')");
-//        } catch (Exception ex) {
-//            
-//        }
+//        DB.openConnection();
+        try {
+//            DB.open();
+//            DB.execQuery("SELECT * FROM mytable;");
+//            DB.execUpdate("INSERT INTO mytable(name) values('sumedhe4')");
+//            DB.close();
+
+            Ward w = new Ward("main", 100);
+            WardData.save(w);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(EMedy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
 }
