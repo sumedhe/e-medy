@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package emedy;
-/**
- *
- * @author sumedhe
- */
+
+
 import emedy.data.DB;
 import emedy.ui.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
         
@@ -37,12 +27,11 @@ public class EMedy {
         Global.setHome(home);
         home.setVisible(true);
         
-
-        try {
-            DB.executeQuery("");
-        } catch (Exception ex) {
-            System.out.println("xxxxxxxxxxxxxx");
-        }
+//        try {
+//            DB.executeUpdate("INSERT INTO mytable(name) values('sumedhe3')");
+//        } catch (Exception ex) {
+//            
+//        }
     }
     
 }

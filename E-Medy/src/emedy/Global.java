@@ -13,4 +13,9 @@ public class Global {
         Global.home = home;
     }
     
+    
+    public static void Log(String message){
+        System.out.println(message);
+    }
+    
 }
