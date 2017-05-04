@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class WardData {
-    public static void add(Ward ward) throws DBException{
-        try{
+
+    public static void add(Ward ward) throws DBException {
+        try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("INSERT INTO ward(name, max_patients) values(?, ?)");
             sqry.setString(1, ward.getName());
@@ -22,13 +20,13 @@ public class WardData {
         } catch (DBException | SQLException ex) {
             throw new DBException("Error: " + ex.getMessage());
         } finally {
-            DB.close();            
+            DB.close();
         }
-        
+
     }
-    
+
     public static void update(Ward ward) throws DBException {
-        try{
+        try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("UPDATE ward SET name = ?, max_patients = ? WHERE ward_id = ?");
             sqry.setString(1, ward.getName());
@@ -38,46 +36,45 @@ public class WardData {
         } catch (DBException | SQLException ex) {
             throw new DBException("Error: " + ex.getMessage());
         } finally {
-            DB.close();            
+            DB.close();
         }
     }
-    
-    public static int delete(int wardId) throws DBException{
-        try{
+
+    public static int delete(int wardId) throws DBException {
+        try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("DELETE FROM ward WHERE ward_id = ?");
             sqry.setInt(1, wardId);
             return sqry.executeUpdate();
-        } catch (SQLException | DBException ex){
+        } catch (SQLException | DBException ex) {
             throw new DBException("Error: " + ex.getMessage());
         } finally {
             DB.close();
         }
     }
-    
-    
-    public static Ward findById(int id) throws DBException{
-        try{
+
+    public static Ward findById(int id) throws DBException {
+        try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("SELECT * FROM ward WHERE ward_id = ?");
             sqry.setInt(1, id);
             ResultSet rs = sqry.executeQuery();
             rs.next();
             return toWard(rs);
-        }  catch (SQLException | DBException ex){
+        } catch (SQLException | DBException ex) {
             throw new DBException("Error: " + ex.getMessage());
         } finally {
             DB.close();
         }
-    } 
-    
-    public static List<Ward> getList() throws DBException{
+    }
+
+    public static List<Ward> getList() throws DBException {
         List<Ward> wards = new ArrayList<>();
-        try{
+        try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("SELECT * FROM ward");
             ResultSet rs = sqry.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 wards.add(toWard(rs));
             }
         } catch (SQLException | DBException ex) {
@@ -87,10 +84,8 @@ public class WardData {
         }
         return wards;
     }
-    
-   
-    
-    private static Ward toWard(ResultSet rs) throws SQLException{
+
+    private static Ward toWard(ResultSet rs) throws SQLException {
         Ward w = new Ward();
         w.setWardId(rs.getInt("ward_id"));
         w.setName(rs.getString("name"));

@@ -1,15 +1,15 @@
 package emedy.model;
 
-public class Blood_Group {
+public class BloodGroup {
     int bloodGroupId;
     String name;
 
-    public Blood_Group() {
+    public BloodGroup() {
         
     }
 
     
-    public Blood_Group(String name) {
+    public BloodGroup(String name) {
         this.name = name;
     }
 
