@@ -6,6 +6,10 @@ public class Designation {
     double wage;
 
     
+    public Designation(){
+        
+    }
+    
     public Designation(String name, double wage) {
         this.name = name;
         this.wage = wage;

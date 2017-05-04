@@ -4,6 +4,10 @@ public class Blood_Group {
     int bloodGroupId;
     String name;
 
+    public Blood_Group() {
+        
+    }
+
     
     public Blood_Group(String name) {
         this.name = name;

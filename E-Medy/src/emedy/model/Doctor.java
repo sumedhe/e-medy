@@ -7,6 +7,10 @@ public class Doctor extends Employee {
     int branchId;
 
     
+    public Doctor(){
+        super();
+    }
+    
     public Doctor(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, Date startDate, int designationId, int branchId) {
         super(firstName, lastName, nic, dob, gender, address, phone, mobile, startDate, designationId);
         this.branchId = branchId;

@@ -17,6 +17,9 @@ public class Patient {
     Date registeredOn;
     
 
+    public Patient(){
+        
+    }
     
     public Patient(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, int consultantId, int bloodGroup, Date registeredOn) {
         this.firstName = firstName;

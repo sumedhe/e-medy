@@ -12,6 +12,9 @@ public class Admission {
     double payment;
 
     
+    public Admission(){
+        
+    }
     
     public Admission(int ward_id, int patient_id, String recommended_by, int confirmed_doctor_id, String custodian_name, String custodian_nic, String custodian_phone, double payment) {
         this.wardId = ward_id;

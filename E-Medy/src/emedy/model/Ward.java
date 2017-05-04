@@ -6,6 +6,10 @@ public class Ward {
     int maxPatients;
 
     
+    public Ward(){
+        
+    }
+    
     public Ward(String name, int maxPatients) {
         this.name = name;
         this.maxPatients = maxPatients;

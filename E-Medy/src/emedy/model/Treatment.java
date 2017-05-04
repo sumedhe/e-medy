@@ -6,6 +6,10 @@ public class Treatment {
     double fee;
 
     
+    public Treatment(){
+        
+    }
+    
     public Treatment(String name, double fee) {
         this.name = name;
         this.fee = fee;

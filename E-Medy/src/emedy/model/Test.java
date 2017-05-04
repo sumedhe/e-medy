@@ -6,6 +6,10 @@ public class Test {
     double fee;
 
     
+    public Test(){
+        
+    }
+    
     public Test(String name, double fee) {
         this.name = name;
         this.fee = fee;

@@ -16,6 +16,9 @@ public class Employee {
     int designationId;
 
     
+    public Employee(){
+        
+    }
     
     public Employee(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, Date startDate, int designationId) {
         this.firstName = firstName;
