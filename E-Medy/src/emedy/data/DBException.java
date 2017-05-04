@@ -6,7 +6,7 @@ public class DBException extends Exception {
     
     public DBException(String message) {
         super(message);
-        Global.Log("Error: " + message);
+        Global.log("Error: " + message);
     }
     
 }
