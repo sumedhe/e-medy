@@ -32,17 +32,22 @@ public class EMedy {
         Home home = new Home();
         Global.setHome(home);
         home.setVisible(true);
-        
-//        DB.openConnection();
-        try {
-//            DB.open();
-//            DB.execQuery("SELECT * FROM mytable;");
-//            DB.execUpdate("INSERT INTO mytable(name) values('sumedhe4')");
-//            DB.close();
 
-            Ward w = new Ward("main", 100);
-            WardData.save(w);
+        try {
+
+
+            Ward w = WardData.findById(5);
+            w.setName("Sum");
+            WardData.update(w);
             
+//            Ward w = new Ward("main3", 100);
+//            WardData.add(w);
+//            Global.log(String.valueOf(w.getWardId()));
+            
+//            for (Ward w: WardData.getList()){
+//                Global.log(w.getName());
+//            }
+//            
         } catch (Exception ex) {
             Logger.getLogger(EMedy.class.getName()).log(Level.SEVERE, null, ex);
         }
