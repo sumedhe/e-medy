@@ -24,11 +24,11 @@ public class BloodGroupData {
 
     }
 
-    public static void update(BloodGroup bloodgroup) throws DBException {
+    public static void update(BloodGroup bloodGroup) throws DBException {
         try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("UPDATE blood_group SET name = ? WHERE blood_group_id = ?");
-            sqry.setString(1, bloodgroup.getName());
+            sqry.setString(1, bloodGroup.getName());
             sqry.executeUpdate();
         } catch (DBException | SQLException ex) {
             throw new DBException("Error: " + ex.getMessage());
