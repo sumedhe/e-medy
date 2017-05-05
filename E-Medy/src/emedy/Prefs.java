@@ -6,7 +6,7 @@ public class Prefs {
     static Preferences prefs;
     
     public static void load(){
-        prefs = Preferences.userNodeForPackage(EMedy.class);
+        prefs = Preferences.userNodeForPackage(App.class);
     }
     
     public static void setUser(String username){

@@ -1,23 +1,23 @@
 package emedy.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public final class Home extends javax.swing.JFrame {
 
     public Home() {
         initComponents();
 
         // Insert panels
-        addPanel(new DashboardPanel(), "Dashboard");
-        addPanel(new PatientPanel(), "Patient");
-        addPanel(new AdmissionPanel(), "Admission");
-        addPanel(new DoctorPanel(), "Doctor");
-        addPanel(new EmployeePanel(), "Employee");
-        addPanel(new WardPanel(), "Ward");
+//        addPanel(new DashboardPanel(), "Dashboard");
+//        addPanel(new PatientPanel(), "Patient");
+//        addPanel(new AdmissionPanel(), "Admission");
+//        addPanel(new DoctorPanel(), "Doctor");
+//        addPanel(new EmployeePanel(), "Employee");
+//        addPanel(new WardPanel(), "Ward");
     }
     
     public void addPanel(JPanel panel, String title){
@@ -28,13 +28,12 @@ public final class Home extends javax.swing.JFrame {
     }
     
     public void showSetup(){
-        Setup s = new Setup(this, true);
-        s.setVisible(true);
+//        Setup s = new Setup(this, true);
+//        s.setVisible(true);
     }
 
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
@@ -73,7 +72,7 @@ public final class Home extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -107,11 +106,11 @@ public final class Home extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTabbedPane pane;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
