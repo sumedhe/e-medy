@@ -13,7 +13,7 @@ public class Patient {
     String phone;
     String mobile;
     int consultantId;
-    int bloodGroup;
+    int bloodGroupId;
     Date registeredOn;
     
 
@@ -31,7 +31,7 @@ public class Patient {
         this.phone = phone;
         this.mobile = mobile;
         this.consultantId = consultantId;
-        this.bloodGroup = bloodGroup;
+        this.bloodGroupId = bloodGroup;
         this.registeredOn = registeredOn;
     }
     
@@ -117,12 +117,12 @@ public class Patient {
         this.consultantId = consultantId;
     }
 
-    public int getBloodGroup() {
-        return bloodGroup;
+    public int getBloodGroupId() {
+        return bloodGroupId;
     }
 
-    public void setBloodGroup(int bloodGroup) {
-        this.bloodGroup = bloodGroup;
+    public void setBloodGroupId(int bloodGroup) {
+        this.bloodGroupId = bloodGroup;
     }
 
     public Date getRegisteredOn() {
