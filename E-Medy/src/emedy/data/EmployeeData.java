@@ -104,7 +104,7 @@ public class EmployeeData {
         return employees;
     }
 
-    private static Employee toEmployee(ResultSet rs) throws SQLException {
+    public static Employee toEmployee(ResultSet rs) throws SQLException {
         Employee e = new Employee();
         e.setEmployeeId(rs.getInt("employee_id"));
         e.setFirstName(rs.getString("first_name"));
