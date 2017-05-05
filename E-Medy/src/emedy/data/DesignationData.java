@@ -86,10 +86,10 @@ public class DesignationData {
     }
 
     private static Designation toDesignation(ResultSet rs) throws SQLException {
-        Designation w = new Designation();
-        w.setDesignationId(rs.getInt("designation_id"));
-        w.setName(rs.getString("name"));
-        w.setWage(rs.getInt("wage"));
-        return w;
+        Designation d = new Designation();
+        d.setDesignationId(rs.getInt("designation_id"));
+        d.setName(rs.getString("name"));
+        d.setWage(rs.getInt("wage"));
+        return d;
     }
 }
