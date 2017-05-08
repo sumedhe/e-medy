@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300" prefWidth="400" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sumedhe.emedy.controller.MainController">
+   <children>
+      <Button fx:id="testButton" layoutX="130.0" layoutY="102.0" mnemonicParsing="false" onAction="#testButton" text="Button" />
+   </children>
+</AnchorPane>
