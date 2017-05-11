@@ -18,7 +18,8 @@ public class MainController {
 	
 	public void initialize(){
 		
-			dashboardButton.setOnAction(e -> { showPanel("DASHBOARD"); } );
+			dashboardButton.setOnAction(e -> { showPanel("DASHBOARD"); });
+			patientButton.setOnAction(e -> { showPanel("PATIENT"); });
 	
 	}
 	
@@ -31,7 +32,13 @@ public class MainController {
 			try {
 				desktopPane.getChildren().add(FXMLLoader.load(getClass().getResource("/com/sumedhe/emedy/view/DashboardView.fxml")));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case "PATIENT":
+			try {
+				desktopPane.getChildren().add(FXMLLoader.load(getClass().getResource("/com/sumedhe/emedy/view/PatientView.fxml")));
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			break;
