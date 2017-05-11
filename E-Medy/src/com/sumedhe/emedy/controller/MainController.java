@@ -1,23 +1,40 @@
 package com.sumedhe.emedy.controller;
 
+import java.io.IOException;
 
-
-import com.sumedhe.emedy.data.WardData;
-import com.sumedhe.emedy.model.Ward;
-import com.sumedhe.emedy.service.DBException;
-
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 
 public class MainController {
 	
-	public void testButton(ActionEvent event){
-
+	@FXML
+	Pane desktopPane;
+	
+	@FXML
+	Button dashboardButton, patientButton;
+	
+	
+	public void initialize(){
 		
-		try {
-			WardData.add(new Ward("ward 01" , 200));
-		} catch (DBException e1) {
-			System.out.println("ssss" + e1.getMessage());
-			e1.printStackTrace();
+			dashboardButton.setOnAction(e -> { showPanel("DASHBOARD"); } );
+	
+	}
+	
+	public void showPanel(String panelName){
+		
+		desktopPane.getChildren().clear();
+		
+		switch (panelName){
+		case "DASHBOARD":
+			try {
+				desktopPane.getChildren().add(FXMLLoader.load(getClass().getResource("/com/sumedhe/emedy/view/DashboardView.fxml")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 

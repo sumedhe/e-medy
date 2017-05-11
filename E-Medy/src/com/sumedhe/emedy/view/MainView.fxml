@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="300" prefWidth="400" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sumedhe.emedy.controller.MainController">
-   <children>
-      <Button fx:id="testButton" layoutX="130.0" layoutY="102.0" mnemonicParsing="false" onAction="#testButton" text="Button" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sumedhe.emedy.controller.MainController">
+   <center>
+      <Pane fx:id="desktopPane" prefHeight="529.0" prefWidth="606.0" style="-fx-background-color: #F0F1F8;" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <HBox prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: #979DD3;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="65.0" prefWidth="227.0" style="-fx-background-color: #979DD3;" />
+            <Pane fx:id="topBar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #7782C8;" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="535.0" prefWidth="228.0" style="-fx-background-color: #363C62;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" text="Dashboard" />
+            <Button fx:id="patientButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" text="Patient" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
