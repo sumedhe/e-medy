@@ -1,21 +1,25 @@
 package com.sumedhe.emedy;
 	
+import com.sumedhe.emedy.controller.MainController;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/sumedhe/emedy/view/MainView.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
+			MainController mainController = new MainController();
+			
+			primaryStage.setScene(new Scene(mainController));
+			primaryStage.getScene().getStylesheets().add("/com/sumedhe/emedy/application.css");
+			primaryStage.setTitle("Custom Control");
+			primaryStage.setWidth(300);
+			primaryStage.setHeight(200);
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

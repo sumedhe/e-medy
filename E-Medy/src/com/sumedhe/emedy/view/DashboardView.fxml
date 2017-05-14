@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml"> 
+   <center>
+      <Label prefHeight="111.0" prefWidth="114.0" text="DASHBOARD" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <CheckBox mnemonicParsing="false" text="CheckBox" BorderPane.alignment="CENTER" />
+   </top>
+</fx:root>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.sumedhe.emedy.controller.DashboardController">>
-
-</BorderPane>

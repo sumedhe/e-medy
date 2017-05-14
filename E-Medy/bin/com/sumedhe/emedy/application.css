@@ -1,1 +1,17 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.menu-button{
+        -fx-background-color: #363C62;
+        -fx-text-fill: #7983CA;
+        -fx-font-family: Roboto;
+        -fx-font-size: 16;
+        -fx-font-style: Regular;
+        -fx-text-alignment: left;
+        -fx-padding: 1;
+        }
+
+.menu-button-selected{
+        -fx-background-color: #414875;
+        -fx-text-fill: #ffffff;
+        -fx-font-style: Bold;
+        -fx-text-alignment: left;
+        -fx-padding: 1;
+}

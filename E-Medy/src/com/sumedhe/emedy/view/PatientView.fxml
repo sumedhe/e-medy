@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.BorderPane?>
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sumedhe.emedy.controller.PatientController">>
-	<!-- TODO Add Nodes -->
-</BorderPane>
-
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml"> 
+   <center>
+      <Label text="PATIENT" BorderPane.alignment="CENTER" />
+   </center>
+</fx:root>

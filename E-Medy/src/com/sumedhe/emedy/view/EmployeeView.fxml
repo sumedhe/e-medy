@@ -5,6 +5,6 @@
 
 <fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml"> 
    <center>
-      <Label text="PATIENT" BorderPane.alignment="CENTER" />
+      <Label text="EMPLOYEE" BorderPane.alignment="CENTER" />
    </center>
 </fx:root>

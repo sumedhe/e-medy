@@ -6,24 +6,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sumedhe.emedy.controller.MainController">
+<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"> 
    <center>
-      <Pane fx:id="desktopPane" prefHeight="529.0" prefWidth="606.0" style="-fx-background-color: #F0F1F8;" BorderPane.alignment="CENTER" />
+      <Pane fx:id="desktopPane" prefHeight="529.0" prefWidth="606.0" style="-fx-background-color: #F0F1F8;" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <HBox prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: #979DD3;" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="65.0" prefWidth="227.0" style="-fx-background-color: #979DD3;" />
-            <Pane fx:id="topBar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #7782C8;" HBox.hgrow="ALWAYS" />
+            <Pane fx:id="topBar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #7782C8;" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="535.0" prefWidth="228.0" style="-fx-background-color: #363C62;" BorderPane.alignment="CENTER">
+      <VBox fx:id="buttonBox" prefHeight="535.0" prefWidth="228.0" style="-fx-background-color: #363C62;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" text="Dashboard" />
-            <Button fx:id="patientButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" text="Patient" />
+            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" styleClass="menu-button" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Dashboard" textFill="#f5f5f5" />
+            <Button fx:id="patientButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" styleClass="menu-button" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Patient" textFill="#f5f5f5" />
+            <Button fx:id="admissionButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" styleClass="menu-button" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Admission" textFill="#f5f5f5" />
+            <Button fx:id="employeeButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" styleClass="menu-button" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Employee" textFill="#f5f5f5" />
+            <Button fx:id="miscButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" styleClass="menu-button" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Misc" textFill="#f5f5f5" />
          </children>
       </VBox>
    </left>
-</BorderPane>
+</fx:root>
