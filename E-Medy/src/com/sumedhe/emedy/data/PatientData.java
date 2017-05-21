@@ -13,6 +13,15 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class PatientData {
+	
+	public static void save(Patient patient) throws DBException{
+		if (patient.getPatientId() == 0) {
+			add(patient);
+		} else {
+			update(patient);
+		}
+	}
+	
     public static void add(Patient patient) throws DBException {
         try {
             DB.open();

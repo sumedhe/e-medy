@@ -13,6 +13,14 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class DoctorData {
+	
+	public static void save(Doctor doctor) throws DBException{
+		if (doctor.getDoctorId() == 0){
+			add(doctor);
+		} else {
+			update(doctor);
+		}
+	}
 
     public static void add(Doctor doctor) throws DBException {
     	Employee e = (Employee)doctor;

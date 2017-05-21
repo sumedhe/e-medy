@@ -1,17 +1,31 @@
 .menu-button{
         -fx-background-color: #363C62;
         -fx-text-fill: #7983CA;
-        -fx-font-family: Roboto;
-        -fx-font-size: 16;
-        -fx-font-style: Regular;
+        -fx-font-family: "Roboto";
+        -fx-font-size: 16.0;
+        -fx-font-style: regular;
         -fx-text-alignment: left;
-        -fx-padding: 1;
+        -fx-padding: 1.0;
         }
 
 .menu-button-selected{
         -fx-background-color: #414875;
-        -fx-text-fill: #ffffff;
+        -fx-text-fill: #FFFFFF;
         -fx-font-style: Bold;
         -fx-text-alignment: left;
-        -fx-padding: 1;
+        -fx-padding: 1.0;
+}
+
+.desktop-pane {
+	-fx-background-color: #F0F1F8;
+}
+
+.desktop-pane-top-bar{
+	    -fx-background-color: #FFFFFF;
+}
+
+.edit-view-label {
+	    -fx-font-family: "Roboto";
+	    -fx-font-size: 14.0;
+	    -fx-font-style: regular;
 }

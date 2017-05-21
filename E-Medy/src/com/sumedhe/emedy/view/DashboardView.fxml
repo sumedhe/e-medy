@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml"> 
-   <center>
-      <Label prefHeight="111.0" prefWidth="114.0" text="DASHBOARD" textAlignment="CENTER" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
-      <CheckBox mnemonicParsing="false" text="CheckBox" BorderPane.alignment="CENTER" />
-   </top>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"> 
+   <children>
+      <Label text="DASHBOARD"/>
+   </children>
 </fx:root>
-

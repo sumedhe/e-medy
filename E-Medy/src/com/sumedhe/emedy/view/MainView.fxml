@@ -2,26 +2,19 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"> 
-   <center>
-      <Pane fx:id="desktopPane" prefHeight="529.0" prefWidth="606.0" style="-fx-background-color: #F0F1F8;" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
-      <HBox prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: #979DD3;" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="65.0" prefWidth="227.0" style="-fx-background-color: #979DD3;" />
-            <Pane fx:id="topBar" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #7782C8;" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-   </top>
-   <left>
-      <VBox fx:id="buttonBox" prefHeight="535.0" prefWidth="228.0" style="-fx-background-color: #363C62;" BorderPane.alignment="CENTER">
+<fx:root prefHeight="543.0" prefWidth="768.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="52.0" prefWidth="222.0" style="-fx-background-color: #979DD3;" />
+      <Pane fx:id="topBar" prefHeight="52.0" prefWidth="219.0" style="-fx-background-color: #979DD3;" styleClass="#7782C8" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <HBox layoutX="219.0" layoutY="-9.0" prefHeight="52.0" prefWidth="549.0" style="-fx-background-color: #7782C8;" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox fx:id="buttonBox" layoutY="52.0" prefHeight="491.0" prefWidth="219.0" style="-fx-background-color: #363C62;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="52.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Dashboard" textFill="#f5f5f5">
                <font>
@@ -68,5 +61,6 @@
             </Button>
          </children>
       </VBox>
-   </left>
+      <AnchorPane fx:id="desktopPane" layoutX="219.0" layoutY="52.0" prefHeight="491.0" prefWidth="549.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="219.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0" BorderPane.alignment="CENTER" />
+   </children>
 </fx:root>

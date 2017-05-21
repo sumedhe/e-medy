@@ -12,6 +12,15 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class DesignationData {
+	
+	public static void save(Designation designation) throws DBException{
+		if (designation.getDesignationId() == 0){
+			add(designation);
+		} else {
+			update(designation);
+		}
+	}
+	
     public static void add(Designation designation) throws DBException {
         try {
             DB.open();

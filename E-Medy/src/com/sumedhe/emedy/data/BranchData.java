@@ -11,6 +11,14 @@ import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class BranchData {
+	
+	public static void save(Branch branch) throws DBException{
+		if (branch.getBranchId() == 0){
+			add(branch);
+		} else {
+			update(branch);
+		}
+	}
 
     public static void add(Branch branch) throws DBException {
         try {

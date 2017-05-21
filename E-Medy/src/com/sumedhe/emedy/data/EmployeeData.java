@@ -13,6 +13,15 @@ import com.sumedhe.emedy.service.DBException;
 
 public class EmployeeData {
 
+	public static void save(Employee employee) throws DBException{
+		if (employee.getEmployeeId() == 0){
+			add(employee);
+		} else {
+			update(employee);
+		}
+	}
+
+	
     public static void add(Employee employee) throws DBException {
         try {
             DB.open();

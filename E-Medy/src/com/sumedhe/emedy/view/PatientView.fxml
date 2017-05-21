@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.BorderPane" xmlns:fx="http://javafx.com/fxml"> 
-   <center>
-      <Label text="PATIENT" BorderPane.alignment="CENTER" />
-   </center>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root prefHeight="519.0" prefWidth="763.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+      <AnchorPane layoutX="1.0" layoutY="-1.0" prefHeight="35.0" prefWidth="763.0" styleClass="desktop-pane-top-bar" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TableView fx:id="table" layoutX="5.0" layoutY="39.0" prefHeight="468.0" prefWidth="742.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="39.0" />
+         </children>
 </fx:root>

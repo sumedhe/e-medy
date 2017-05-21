@@ -4,34 +4,29 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sumedhe.emedy.Global;
-import com.sun.prism.paint.Color;
-
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class MainController extends BorderPane implements IController {
+public class MainController extends AnchorPane implements IController {
 
-	String url = "/com/sumedhe/emedy/view/MainView.fxml";
 	Map<String, Object> panelList = new HashMap<String, Object>();
 
 	@FXML
-	Pane desktopPane;
+	AnchorPane desktopPane;
 
 	@FXML
-	Button dashboardButton, admissionButton, patientButton, employeeButton;
-	
+	Button dashboardButton, admissionButton, patientButton, employeeButton, miscButton;
+
 	@FXML
 	VBox buttonBox;
 
 	public MainController() {
+		String url = "/com/sumedhe/emedy/view/MainView.fxml";
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -49,18 +44,16 @@ public class MainController extends BorderPane implements IController {
 		panelList.put("Admission", new AdmissionController());
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
-
-		setHandlers();
+		panelList.put("Misc", new PatientEditController());
+		
+		configure();
 	}
 
 	@Override
-	public void setHandlers() {
+	public void configure() {
 		dashboardButton.setOnAction(e -> {
 			showPanel("Dashboard");
-			//dashboardButton.getStyleClass().remove("menu-button");
-//			dashboardButton.getStyleClass().add("menu-button-selected");
 			selectButton(dashboardButton);
-			
 		});
 		admissionButton.setOnAction(e -> {
 			showPanel("Admission");
@@ -74,22 +67,31 @@ public class MainController extends BorderPane implements IController {
 			showPanel("Employee");
 			selectButton(employeeButton);
 		});
+		miscButton.setOnAction(e -> {
+			showPanel("Misc");
+			selectButton(miscButton);
+		});
 	}
 
 	public void showPanel(String panelName) {
 		desktopPane.getChildren().clear();
-		desktopPane.getChildren().add((Node) panelList.get(panelName));
+		Node panel = (Node) panelList.get(panelName);
+		AnchorPane.setTopAnchor(panel, 0.00);
+		AnchorPane.setRightAnchor(panel, 0.00);
+		AnchorPane.setBottomAnchor(panel, 0.00);
+		AnchorPane.setLeftAnchor(panel, 0.00);
+		desktopPane.getChildren().add(panel);
 	}
-	
-	public void selectButton(Button button){
+
+	public void selectButton(Button button) {
 		ObservableList<Node> children2 = buttonBox.getChildren();
 		for (int i = 0; i < children2.size(); i++) {
 			Node obj = children2.get(i);
-			if (obj instanceof Button){
+			if (obj instanceof Button) {
 				obj.getStyleClass().remove("menu-button-selected");
 			}
 		}
-		
+
 		button.getStyleClass().add("menu-button-selected");
 	}
 

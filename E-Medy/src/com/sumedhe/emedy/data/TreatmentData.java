@@ -12,6 +12,15 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class TreatmentData {
+	
+	public static void save(Treatment treatment) throws DBException{
+		if (treatment.getTreatmentId() == 0){
+			add(treatment);
+		} else {
+			update(treatment);
+		}
+	}
+
 
     public static void add(Treatment treatment) throws DBException {
         try {

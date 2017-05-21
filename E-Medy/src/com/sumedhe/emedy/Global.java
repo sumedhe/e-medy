@@ -1,6 +1,6 @@
 package com.sumedhe.emedy;
 
-
+import java.text.SimpleDateFormat;
 
 public class Global {
 
@@ -8,4 +8,11 @@ public class Global {
         System.out.println(message);
     }
     
+    public static SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+    
 }
+
+//public enum Gender{
+//	1 : Male,
+//	2 : Female
+//}

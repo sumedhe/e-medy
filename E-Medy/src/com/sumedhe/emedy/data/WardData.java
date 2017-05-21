@@ -13,6 +13,15 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class WardData {
+	
+	public static void save(Ward ward) throws DBException{
+		if (ward.getWardId() == 0){
+			add(ward);
+		} else {
+			update(ward);
+		}
+	}
+
 
     public static void add(Ward ward) throws DBException {
         try {

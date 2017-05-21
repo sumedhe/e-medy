@@ -3,13 +3,12 @@ package com.sumedhe.emedy.controller;
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 
-public class DashboardController extends BorderPane implements IController{
-	
-	String url = "/com/sumedhe/emedy/view/DashboardView.fxml";
+public class DashboardController extends AnchorPane implements IController{
 	
 	public DashboardController(){
+		String url = "/com/sumedhe/emedy/view/DashboardView.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -27,7 +26,7 @@ public class DashboardController extends BorderPane implements IController{
 	}
 
 	@Override
-	public void setHandlers() {
+	public void configure() {
 		// TODO Auto-generated method stub
 	}
 	

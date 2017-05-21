@@ -12,6 +12,14 @@ import com.sumedhe.emedy.service.DBException;
 
 
 public class AdmissionData {
+	
+	public static void save(Admission admission) throws DBException{
+		if (admission.getAdmissionId() == 0){
+			add(admission);
+		} else {
+			update(admission);
+		}
+	}
 
     public static void add(Admission admission) throws DBException {
         try {

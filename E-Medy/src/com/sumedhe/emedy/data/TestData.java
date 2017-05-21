@@ -13,6 +13,15 @@ import com.sumedhe.emedy.service.DBException;
 
 public class TestData {
 
+	public static void save(Test test) throws DBException{
+		if (test.getTestId() == 0){
+			add(test);
+		} else {
+			update(test);
+		}
+	}
+
+	
     public static void add(Test test) throws DBException {
         try {
             DB.open();

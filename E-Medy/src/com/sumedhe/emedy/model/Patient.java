@@ -1,6 +1,11 @@
 package com.sumedhe.emedy.model;
 
+import java.text.ParseException;
 import java.util.Date;
+
+import com.sumedhe.emedy.Global;
+import com.sumedhe.emedy.data.BloodGroupData;
+import com.sumedhe.emedy.service.DBException;
 
 public class Patient {
     int patientId;
@@ -18,7 +23,26 @@ public class Patient {
     
 
     public Patient(){
-        
+        this.firstName = "";
+        this.lastName = "";
+        this.nic = "";
+        try {
+			this.dob = Global.fmt.parse("2015-01-01");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        this.gender = 'M';
+        this.address = "";
+        this.phone = "";
+        this.mobile = "";
+        this.consultantId = 0;
+        this.bloodGroupId = 0;
+        try {
+			this.registeredOn = Global.fmt.parse("2015-01-01");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public Patient(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, int consultantId, int bloodGroup, Date registeredOn) {
@@ -134,7 +158,14 @@ public class Patient {
     }
     
     
+    // Extra Getters
+    public String getName(){
+    	return this.firstName + " " + this.getLastName();
+    }
     
+    public String getBloodGroupName() throws DBException{
+    	return BloodGroupData.findById(this.bloodGroupId).getName();
+    }
     
 
    

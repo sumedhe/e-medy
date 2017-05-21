@@ -2,8 +2,8 @@ package com.sumedhe.emedy.controller;
 
 public interface IController {
 	
-	public void initialize();
+	void initialize();
 	
-	public void setHandlers();
+	void configure();
 
 }
