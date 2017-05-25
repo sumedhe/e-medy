@@ -1,19 +1,19 @@
 package com.sumedhe.emedy;
 	
-import com.sumedhe.emedy.controller.MainController;
+import com.sumedhe.emedy.home.HomeController;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
 		try {
-			MainController mainController = new MainController();
+			HomeController homeController = new HomeController();
 			
-			primaryStage.setScene(new Scene(mainController));
+			primaryStage.setScene(new Scene(homeController));
 			primaryStage.getScene().getStylesheets().add("/com/sumedhe/emedy/application.css");
 			primaryStage.setTitle("Custom Control");
 			primaryStage.setWidth(300);

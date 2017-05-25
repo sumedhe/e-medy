@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.sumedhe.emedy.Global;
 import com.sumedhe.emedy.Prefs;
+import com.sumedhe.emedy.common.Global;
 
 
 public class DB {

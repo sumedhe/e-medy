@@ -1,0 +1,107 @@
+package com.sumedhe.emedy.home;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.sumedhe.emedy.admission.AdmissionController;
+import com.sumedhe.emedy.common.Global;
+import com.sumedhe.emedy.common.IController;
+import com.sumedhe.emedy.dashboard.DashboardController;
+import com.sumedhe.emedy.employee.EmployeeController;
+import com.sumedhe.emedy.patient.Patient;
+import com.sumedhe.emedy.patient.PatientController;
+import com.sumedhe.emedy.patient.PatientEditController;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+public class HomeController extends AnchorPane implements IController {
+
+	Map<String, Object> panelList = new HashMap<String, Object>();
+
+	@FXML
+	AnchorPane workPane;
+
+	@FXML
+	Button dashboardButton, admissionButton, patientButton, employeeButton, miscButton;
+
+	@FXML
+	VBox buttonBox;
+
+	public HomeController() {
+		String url = "/com/sumedhe/emedy/home/HomeView.fxml";
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+		fxmlLoader.setRoot(this);
+		fxmlLoader.setController(this);
+
+		try {
+			fxmlLoader.load();
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	@Override
+	public void initialize() {
+		Global.setHome(this);
+		panelList.put("Dashboard", new DashboardController());
+		panelList.put("Admission", new AdmissionController());
+		panelList.put("Patient", new PatientController());
+		panelList.put("Employee", new EmployeeController());
+		panelList.put("Misc", new PatientEditController(new Patient()));
+		
+		setHandlers();
+	}
+
+	@Override
+	public void setHandlers() {
+		dashboardButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Dashboard"));
+			selectButton(dashboardButton);
+		});
+		admissionButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Admission"));
+			selectButton(admissionButton);
+		});
+		patientButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Patient"));
+			selectButton(patientButton);
+		});
+		employeeButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Employee"));
+			selectButton(employeeButton);
+		});
+		miscButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Misc"));
+			selectButton(miscButton);
+		});
+	}
+	
+	public void setWorkPanel(Node panel){
+		workPane.getChildren().clear();
+		AnchorPane.setTopAnchor(panel, 0.00);
+		AnchorPane.setRightAnchor(panel, 0.00);
+		AnchorPane.setBottomAnchor(panel, 0.00);
+		AnchorPane.setLeftAnchor(panel, 0.00);
+		workPane.getChildren().add(panel);
+	}
+
+	public void selectButton(Button button) {
+		ObservableList<Node> children2 = buttonBox.getChildren();
+		for (int i = 0; i < children2.size(); i++) {
+			Node obj = children2.get(i);
+			if (obj instanceof Button) {
+				obj.getStyleClass().remove("menu-button-selected");
+			}
+		}
+
+		button.getStyleClass().add("menu-button-selected");
+	}
+
+}
