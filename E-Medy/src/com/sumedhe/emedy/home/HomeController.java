@@ -3,6 +3,7 @@ package com.sumedhe.emedy.home;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 import com.sumedhe.emedy.admission.AdmissionController;
 import com.sumedhe.emedy.common.Global;
@@ -34,10 +35,11 @@ public class HomeController extends AnchorPane implements IController {
 
 	@FXML
 	VBox buttonBox;
-	
+
 	@FXML
-	Button closeButton;
-	
+	Button closeButton, testBtn;
+
+	static Timer timer = new Timer();
 
 	public HomeController() {
 		String url = "/com/sumedhe/emedy/home/HomeView.fxml";
@@ -60,11 +62,11 @@ public class HomeController extends AnchorPane implements IController {
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
 		panelList.put("Misc", new PatientEditController(new Patient(), null));
-		
+
 		setHandlers();
-		
+
 		// **** TMP ****
-		setWorkPanel((Node) panelList.get("Patient")); 
+		setWorkPanel((Node) panelList.get("Patient"));
 	}
 
 	@Override
@@ -93,9 +95,14 @@ public class HomeController extends AnchorPane implements IController {
 			Platform.exit();
 			System.exit(0);
 		});
+
+		// test
+		testBtn.setOnAction(e -> {
+			test();
+		});
 	}
-	
-	public void setWorkPanel(Node panel){
+
+	public void setWorkPanel(Node panel) {
 		workPane.getChildren().clear();
 		AnchorPane.setTopAnchor(panel, 0.00);
 		AnchorPane.setRightAnchor(panel, 0.00);
@@ -114,6 +121,39 @@ public class HomeController extends AnchorPane implements IController {
 		}
 
 		button.getStyleClass().add("menu-button-selected");
+	}
+
+	// !!! test !!!
+
+	public void test() {
+
+		Global.log(String.format("sdfsa %s%%", "123"));
+		
+		
+//		timer.cancel();
+//		timer.purge();
+//		timer = new Timer();
+//		timer.schedule(new TimerTask() {
+//			@Override
+//			public void run() {
+//				Global.log("ss");
+//			}
+//		}, 200);
+//		
+		
+		
+		
+		//		Global.log(Long.toString(searchTask.scheduledExecutionTime()));
+//		if (searchTask != null & searchTask.scheduledExecutionTime() > 0) {
+//			searchTask.cancel();
+//		}
+//		searchTask = new TimerTask() {
+//			@Override
+//			public void run() {
+//				System.out.println("sss");
+//			}
+//		};
+//		timer.schedule(searchTask, 2000);
 	}
 
 }

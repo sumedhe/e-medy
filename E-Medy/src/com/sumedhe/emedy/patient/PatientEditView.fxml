@@ -38,7 +38,6 @@
             <ComboBox fx:id="bloodGroupInput" layoutX="198.0" layoutY="344.0" prefHeight="25.0" prefWidth="129.0" promptText="Blood Group" />
             <Label layoutX="53.0" layoutY="384.0" prefHeight="18.0" prefWidth="78.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Consultant" />
             <ComboBox fx:id="consultantInput" layoutX="198.0" layoutY="381.0" prefHeight="25.0" prefWidth="208.0" promptText="Consultant" />
-            <Button fx:id="testButton" layoutX="519.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="test" />
             <Label layoutX="53.0" layoutY="419.0" prefHeight="18.0" prefWidth="95.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Registered On" />
             <DatePicker fx:id="registeredOnInput" layoutX="198.0" layoutY="416.0" prefHeight="25.0" prefWidth="208.0" promptText="Registered On" />
          </children></AnchorPane>

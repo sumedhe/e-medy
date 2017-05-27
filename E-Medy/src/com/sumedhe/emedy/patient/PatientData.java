@@ -87,11 +87,16 @@ public class PatientData {
 		}
 	}
 
-	public static List<Patient> getList() throws DBException {
+	public static List<Patient> getList(String keyword) throws DBException {
 		List<Patient> patients = new ArrayList<>();
+		String qry = "SELECT * FROM patient";
+		if (!keyword.equals("")){
+			qry += String.format(" WHERE first_name LIKE '%s%%' OR last_name LIKE '%s%%' OR nic LIKE '%s%%'", keyword, keyword, keyword);
+		}
+		
 		try {
 			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM patient");
+			PreparedStatement sqry = DB.newQuery(qry);			
 			ResultSet rs = sqry.executeQuery();
 			while (rs.next()) {
 				patients.add(toPatient(rs));

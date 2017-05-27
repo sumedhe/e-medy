@@ -5,6 +5,7 @@ import com.sumedhe.emedy.home.HomeController;
 public class Global {
 	
 	static HomeController home;
+	static int searchInterval = 200;
 	
 	public static HomeController getHome() {
 		return home;
@@ -17,7 +18,11 @@ public class Global {
     public static void log(String message){
         System.out.println(message);
     }
-
+    
+    
+    public static int getSearchInterval() {
+		return searchInterval;
+	}
     
 }
 

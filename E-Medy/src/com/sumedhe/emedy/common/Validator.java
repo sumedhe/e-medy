@@ -43,7 +43,6 @@ public class Validator {
 	
 	// Check for errors
 	void checkForEmpty(TextField t) {
-		Global.log("Checking for empty");
 		setError(t, t.getText().equals(""));
 	}
 	
@@ -60,7 +59,6 @@ public class Validator {
 	}
 	
 	<T> void checkForNull(ComboBox<T> c) {
-		Global.log("Checking for null");
 		setError(c, c.getValue() == null);
 	}
 

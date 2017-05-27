@@ -2,6 +2,8 @@ package com.sumedhe.emedy.patient;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.ITable;
@@ -17,7 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 public class PatientController extends AnchorPane implements  ITable {
@@ -28,9 +32,16 @@ public class PatientController extends AnchorPane implements  ITable {
 	@FXML
 	Button newButton, deleteButton, editButton;
 	
-    
+	@FXML
+	TextField searchInput;
+	
+	ObservableList<Patient> tableData = FXCollections.observableArrayList();
+	
+	static Timer timer = new Timer();
+	
+    // Constructor
 	public PatientController() {
-		String url = "/com/sumedhe/emedy/patient/PatientView.fxml";
+		String url = "/com/sumedhe/emedy/common/TableView.fxml";
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -42,6 +53,7 @@ public class PatientController extends AnchorPane implements  ITable {
 		}
 	}
 
+	// Initialization
 	@Override
 	public void initialize() {
 		setHandlers();
@@ -49,6 +61,7 @@ public class PatientController extends AnchorPane implements  ITable {
 		loadData();
 	}
 
+	// Set handlers for the the UI components
 	@Override
 	public void setHandlers() {
 		newButton.setOnAction(e -> {
@@ -79,9 +92,27 @@ public class PatientController extends AnchorPane implements  ITable {
 				Global.getHome().setWorkPanel(new PatientEditController(getSelected(), this));
 			}
 		});
-
+		searchInput.textProperty().addListener(e -> {
+			timer.cancel();
+			timer.purge();
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					table.setVisible(false);
+					loadData();
+					table.setVisible(true);
+				}
+			}, Global.getSearchInterval());
+		});
+		searchInput.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.ENTER){
+				loadData();
+			}
+		});
 	}
 
+	// Configure the table, Create columns and set data collection
 	@Override
 	public void configTable() {		
 		String[][] colNames = {{"Name", "name"}, {"NIC", "nic"},
@@ -93,29 +124,32 @@ public class PatientController extends AnchorPane implements  ITable {
 			col.setCellValueFactory(new PropertyValueFactory<>(colName[1]));
 			table.getColumns().add(col);			
 		}
-		
-		ObservableList<Patient> data = FXCollections.observableArrayList();
-		table.setItems(data);
+
+		table.setItems(tableData);
 	}
 
+	// Load data to the table by a search string
 	@Override
 	public void loadData() {
 		int sel = getSelected() == null ? -1 : getSelected().getPatientId();
-		table.getItems().clear();
+		tableData.removeAll(tableData);
 		try {
-			for (Patient p : PatientData.getList()){
-				table.getItems().add(p);
+			for (Patient p : PatientData.getList(searchInput.getText())){
+				tableData.add(p);
 			}
 		} catch (DBException e) {
 			Global.log(e.getMessage());
 		}
+
 		if (sel > 0) { setSelected(sel); }
 	}
 	
+	// Get the selected object of the table
 	public Patient getSelected(){
 		return table.getSelectionModel().getSelectedItem();
 	}
 	
+	// Select a row by it's ID
 	public void setSelected(int patientId){
 		table.getItems().forEach(p -> {
 			if (p.getPatientId() == patientId){
@@ -123,9 +157,6 @@ public class PatientController extends AnchorPane implements  ITable {
 			}
 		});
 	}
-	
-
-	
 	
 
 }
