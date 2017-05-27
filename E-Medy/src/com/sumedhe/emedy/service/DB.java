@@ -15,6 +15,7 @@ public class DB {
 
     static Connection conn = null;
     static Statement stmt = null;
+    static PreparedStatement pstmt = null;
 
     public static void open() throws DBException {
         for (int i = 0; i < 3; i++) {
@@ -42,7 +43,7 @@ public class DB {
 
     public static PreparedStatement newQuery(String qry) throws DBException {
         try {
-            PreparedStatement pstmt = conn.prepareStatement(qry);
+            pstmt = conn.prepareStatement(qry);
             return pstmt;
         } catch (SQLException ex) {
             throw new DBException("Error in connection");

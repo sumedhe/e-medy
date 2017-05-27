@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Gender;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
@@ -30,7 +32,7 @@ public class PatientData {
 			sqry.setString(2, patient.getLastName());
 			sqry.setString(3, patient.getNic());
 			sqry.setDate(4, (Date) patient.getDob());
-			sqry.setString(5, String.valueOf(patient.getGender()));
+			sqry.setString(5, patient.getGender() == Gender.Male ? "M" : "F");
 			sqry.setString(6, patient.getAddress());
 			sqry.setString(7, patient.getPhone());
 			sqry.setString(8, patient.getMobile());
@@ -40,6 +42,7 @@ public class PatientData {
 			if (!isNew) {
 				sqry.setInt(12, patient.getPatientId());
 			}
+			Global.log(sqry.toString());
 
 			sqry.executeUpdate();
 			if (isNew) {
@@ -60,6 +63,7 @@ public class PatientData {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM patient WHERE patient_id = ?");
 			sqry.setInt(1, patientId);
+			Global.log(sqry.toString());
 			return sqry.executeUpdate();
 		} catch (SQLException | DBException ex) {
 			throw new DBException("Error: " + ex.getMessage());
@@ -107,7 +111,7 @@ public class PatientData {
 		p.setLastName(rs.getString("last_name"));
 		p.setNic(rs.getString("nic"));
 		p.setDob(rs.getDate("dob"));
-		p.setGender(rs.getString("gender").charAt(0));
+		p.setGender(rs.getString("gender").charAt(0) == 'M' ? Gender.Male : Gender.Female);
 		p.setAddress(rs.getString("address"));
 		p.setPhone(rs.getString("phone"));
 		p.setMobile(rs.getString("mobile"));

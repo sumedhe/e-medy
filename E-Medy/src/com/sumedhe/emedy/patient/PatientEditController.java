@@ -2,6 +2,8 @@ package com.sumedhe.emedy.patient;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.sumedhe.emedy.admission.Admission;
 import com.sumedhe.emedy.admission.AdmissionData;
@@ -9,10 +11,13 @@ import com.sumedhe.emedy.admission.AdmissionTest;
 import com.sumedhe.emedy.admission.AdmissionTestData;
 import com.sumedhe.emedy.admission.AdmissionTreatment;
 import com.sumedhe.emedy.admission.AdmissionTreatmentData;
+import com.sumedhe.emedy.common.ComboBoxFilterListener;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
 import com.sumedhe.emedy.common.Tool;
+import com.sumedhe.emedy.common.Validator;
+import com.sumedhe.emedy.common.ValidatorEvent;
 import com.sumedhe.emedy.employee.Doctor;
 import com.sumedhe.emedy.employee.DoctorData;
 import com.sumedhe.emedy.employee.Employee;
@@ -35,6 +40,7 @@ import com.sumedhe.emedy.service.DBException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -55,23 +61,31 @@ public class PatientEditController extends AnchorPane implements IController {
 
 	@FXML
 	ComboBox<Gender> genderInput;
-	
+
 	@FXML
 	ComboBox<BloodGroup> bloodGroupInput;
-	
+
 	@FXML
 	ComboBox<Doctor> consultantInput;
-	
-	
 
 	@FXML
-	Button saveButton, backButton, testButton;
+	Button backButton, saveButton, saveAndNewButton, testButton;
 
-	Patient patient;
+	Node prev;
+	Patient patient;;
+	Timer timer = new Timer();
+	TimerTask searchTask = new TimerTask() {
+		@Override
+		public void run() {
+			System.out.println("sss");
+		}
+	};;
+	Validator validator = new Validator();
 
-	public PatientEditController(Patient patient) {
+	public PatientEditController(Patient patient, Node prev) {
+		this.prev = prev;
 		this.patient = patient;
-		
+
 		String url = "/com/sumedhe/emedy/patient/PatientEditView.fxml";
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 		fxmlLoader.setRoot(this);
@@ -86,12 +100,16 @@ public class PatientEditController extends AnchorPane implements IController {
 
 	@Override
 	public void initialize() {
-		saveButton.setOnAction(e -> {
-			save();
-		});
-		testButton.setOnAction(e -> {
-			test();
-		});
+		genderInput.getItems().addAll(Gender.Male, Gender.Female);
+
+		try {
+			bloodGroupInput.getItems().addAll(BloodGroupData.getList());
+			consultantInput.getItems().addAll(DoctorData.getList());
+		} catch (DBException e) {
+			Global.log(e.getMessage());
+		}
+		
+		new ComboBoxFilterListener<Doctor>(consultantInput);
 
 		setHandlers();
 		setPatient(patient);
@@ -99,14 +117,37 @@ public class PatientEditController extends AnchorPane implements IController {
 
 	@Override
 	public void setHandlers() {
-		genderInput.getItems().addAll(Gender.Male, Gender.Female);
+		backButton.setOnAction(e -> {
+			Global.getHome().setWorkPanel(this.prev);
+		});
+		saveButton.setOnAction(e -> {
+			if (validator.checkValidity(new ValidatorEvent(this))) {
+				save();
+				PatientController pc = (PatientController) this.prev;
+				pc.loadData();
+				Global.getHome().setWorkPanel(pc);
+			}
+		});
+		saveAndNewButton.setOnAction(e -> {
+			if (validator.checkValidity(new ValidatorEvent(this))) {
+				save();
+				setPatient(new Patient());
+			}
+		});
 		
-		try {
-			bloodGroupInput.getItems().addAll(BloodGroupData.getList());
-			consultantInput.getItems().addAll(DoctorData.getList());
-		} catch (DBException e) {
-			Global.log(e.getMessage());
-		}
+		// Validation Checking
+		validator.addToCheckEmpty(firstNameInput);		
+		validator.addToCheckEmpty(lastNameInput);
+		validator.addToCheckNic(nicInput);
+		validator.addToCheckNull(genderInput);
+		validator.addToCheckPhone(phoneInput);
+		validator.addToCheckPhone(mobileInput);
+		validator.addToCheckNull(bloodGroupInput);
+		validator.addToCheckNull(consultantInput);
+
+		testButton.setOnAction(e -> {
+			test();
+		});
 
 	}
 
@@ -116,7 +157,7 @@ public class PatientEditController extends AnchorPane implements IController {
 		this.lastNameInput.setText(patient.getLastName());
 		this.nicInput.setText(patient.getNic());
 		this.dobInput.setValue(patient.getDob().toLocalDate());
-		this.genderInput.setValue(patient.getGender() == 'M' ? Gender.Male : Gender.Female);
+		this.genderInput.setValue(patient.getGender());
 		this.addressInput.setText(patient.getAddress());
 		this.phoneInput.setText(patient.getPhone());
 		this.mobileInput.setText(patient.getMobile());
@@ -125,37 +166,48 @@ public class PatientEditController extends AnchorPane implements IController {
 		this.registeredOnInput.setValue(patient.getRegisteredOn().toLocalDate());
 	}
 
-	public void save() {
-		 patient.setFirstName(this.firstNameInput.getText());
-		 patient.setLastName(this.lastNameInput.getText());
-		 patient.setNic(this.nicInput.getText());
-		 patient.setDob(Date.valueOf(this.dobInput.getValue().toString()));
-		 patient.setGender(this.genderInput.getValue() == Gender.Male ? 'M' : 'F');
-		 patient.setAddress(this.addressInput.getText());
-		 patient.setPhone(this.phoneInput.getText());
-		 patient.setMobile(this.mobileInput.getText());
-		 patient.setBloodGroupId(this.bloodGroupInput.getValue().getBloodGroupId());
-		 patient.setConsultantId(this.consultantInput.getValue().getDoctorId());
 
+	public void save() {
 		try {
+			patient.setFirstName(this.firstNameInput.getText());
+			patient.setLastName(this.lastNameInput.getText());
+			patient.setNic(this.nicInput.getText());
+			patient.setDob(Date.valueOf(this.dobInput.getValue().toString()));
+			patient.setGender(this.genderInput.getValue());
+			patient.setAddress(this.addressInput.getText());
+			patient.setPhone(this.phoneInput.getText());
+			patient.setMobile(this.mobileInput.getText());
+			patient.setBloodGroupId(this.bloodGroupInput.getValue().getBloodGroupId());
+			patient.setConsultantId(this.consultantInput.getValue().getDoctorId());
+			patient.setRegisteredOn(Date.valueOf(this.registeredOnInput.getValue()));
+
 			PatientData.save(patient);
 		} catch (DBException e) {
+			Global.log(e.getMessage());
+		} catch (Exception e) {
 			Global.log(e.getMessage());
 		}
 	}
 
+
 	public void test() {
-//		try {
-//
-//			testbootstrap();
-//			
-//
-//		} catch (DBException e) {
-//			e.printStackTrace();
-//		}
+		validator.checkValidity(new ValidatorEvent(this));
+
+//		Pattern p = Pattern.compile("[^0-9+ ]");
+//		Global.log(p.matcher("12300 45+").find()? "T" : "F");
 		
-		System.out.println((java.time.LocalDate.now()));
-		
+		// Global.log(Long.toString(searchTask.scheduledExecutionTime()));
+		// if (searchTask != null & searchTask.scheduledExecutionTime() > 0){
+		// searchTask.cancel();
+		// }
+		// searchTask = new TimerTask() {
+		// @Override
+		// public void run() {
+		// System.out.println("sss");
+		// }
+		// };
+		// timer.schedule(searchTask, 2000);
+
 	}
 
 	public void testbootstrap() throws DBException {
@@ -186,8 +238,8 @@ public class PatientEditController extends AnchorPane implements IController {
 				"0772055141", "070...", Date.valueOf("2015-01-01"), 1, 1);
 		DoctorData.save(doc);
 
-		Patient p = new Patient("Abc", "Def", "9411..", Date.valueOf("2015-01-01"), 'M', "Colombo", "078..", "07500", 1,
-				1, Date.valueOf("2016-02-05"));
+		Patient p = new Patient("Abc", "Def", "9411..", Date.valueOf("2015-01-01"), Gender.Male, "Colombo", "078..",
+				"07500", 1, 1, Date.valueOf("2016-02-05"));
 		PatientData.save(p);
 
 		Admission ad = new Admission(1, 1, "Dr.Sume", 1, "Moth", "112233445V", "0775522", Date.valueOf("2017-01-01"),

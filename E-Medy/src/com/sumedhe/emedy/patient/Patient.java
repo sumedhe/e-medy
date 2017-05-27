@@ -2,13 +2,15 @@ package com.sumedhe.emedy.patient;
 
 import java.sql.Date;
 
+import com.sumedhe.emedy.common.Gender;
+
 public class Patient {
     int patientId;
     String firstName;
     String lastName;
     String nic;
     Date dob;
-    char gender;
+    Gender gender;
     String address;
     String phone;
     String mobile;
@@ -22,7 +24,7 @@ public class Patient {
         this.lastName = "";
         this.nic = "";
         this.dob = Date.valueOf("2000-01-01");
-        this.gender = 'M';
+        this.gender = Gender.Male;
         this.address = "";
         this.phone = "";
         this.mobile = "";
@@ -31,7 +33,7 @@ public class Patient {
         this.registeredOn = Date.valueOf(java.time.LocalDate.now());
     }
     
-    public Patient(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, int bloodGroup, int consultantId, Date registeredOn) {
+    public Patient(String firstName, String lastName, String nic, Date dob, Gender gender, String address, String phone, String mobile, int bloodGroup, int consultantId, Date registeredOn) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nic = nic;
@@ -87,11 +89,11 @@ public class Patient {
         this.dob = dob;
     }
 
-    public char getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

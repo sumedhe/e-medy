@@ -13,6 +13,7 @@ import com.sumedhe.emedy.patient.Patient;
 import com.sumedhe.emedy.patient.PatientController;
 import com.sumedhe.emedy.patient.PatientEditController;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,10 @@ public class HomeController extends AnchorPane implements IController {
 
 	@FXML
 	VBox buttonBox;
+	
+	@FXML
+	Button closeButton;
+	
 
 	public HomeController() {
 		String url = "/com/sumedhe/emedy/home/HomeView.fxml";
@@ -54,9 +59,12 @@ public class HomeController extends AnchorPane implements IController {
 		panelList.put("Admission", new AdmissionController());
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
-		panelList.put("Misc", new PatientEditController(new Patient()));
+		panelList.put("Misc", new PatientEditController(new Patient(), null));
 		
 		setHandlers();
+		
+		// **** TMP ****
+		setWorkPanel((Node) panelList.get("Patient")); 
 	}
 
 	@Override
@@ -81,6 +89,10 @@ public class HomeController extends AnchorPane implements IController {
 			setWorkPanel((Node) panelList.get("Misc"));
 			selectButton(miscButton);
 		});
+		closeButton.setOnAction(e -> {
+			Platform.exit();
+			System.exit(0);
+		});
 	}
 	
 	public void setWorkPanel(Node panel){
@@ -93,9 +105,9 @@ public class HomeController extends AnchorPane implements IController {
 	}
 
 	public void selectButton(Button button) {
-		ObservableList<Node> children2 = buttonBox.getChildren();
-		for (int i = 0; i < children2.size(); i++) {
-			Node obj = children2.get(i);
+		ObservableList<Node> buttons = buttonBox.getChildren();
+		for (int i = 0; i < buttons.size(); i++) {
+			Node obj = buttons.get(i);
 			if (obj instanceof Button) {
 				obj.getStyleClass().remove("menu-button-selected");
 			}

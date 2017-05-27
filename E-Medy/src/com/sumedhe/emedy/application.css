@@ -1,17 +1,16 @@
 .menu-button{
+        -fx-font-family: "Roboto regualr";
+        -fx-font-size: 16.0;
         -fx-background-color: #363C62;
         -fx-text-fill: #7983CA;
-        -fx-font-family: "Roboto";
-        -fx-font-size: 16.0;
-        -fx-font-style: regular;
         -fx-text-alignment: left;
         -fx-padding: 1.0;
         }
 
 .menu-button-selected{
+ 		-fx-font-family: "Roboto bold";
         -fx-background-color: #414875;
         -fx-text-fill: #FFFFFF;
-        -fx-font-style: Bold;
         -fx-text-alignment: left;
         -fx-padding: 1.0;
 }
@@ -25,7 +24,18 @@
 }
 
 .edit-view-label {
-	    -fx-font-family: "Roboto";
+	    -fx-font-family: "Roboto regular";
 	    -fx-font-size: 14.0;
-	    -fx-font-style: regular;
 }
+
+.input-error {
+	-fx-border-color: red;
+ 	-fx-focus-color: red ;
+}
+
+.tooltip {
+    -fx-background-color: #ef6c00;
+   	-fx-font-family: "Roboto mono Bold";
+}
+
+

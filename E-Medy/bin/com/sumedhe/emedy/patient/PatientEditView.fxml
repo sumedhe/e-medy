@@ -14,11 +14,12 @@
          <children>
             <Button fx:id="saveButton" layoutX="689.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Save" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <Button fx:id="backButton" layoutX="6.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <Button fx:id="saveAndNewButton" layoutX="586.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Save &amp; New" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="5.0" />
          </children></AnchorPane>
 		<AnchorPane layoutY="38.0" prefHeight="481.0" prefWidth="763.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
          <children>
             <Label layoutX="53.0" layoutY="32.0" prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="First Name" />
-            <TextField fx:id="firstNameInput" layoutX="198.0" layoutY="29.0" prefHeight="25.0" prefWidth="208.0" promptText="First Name" />
+            <TextField fx:id="firstNameInput" layoutX="198.0" layoutY="29.0" prefHeight="25.0" prefWidth="208.0" promptText="First Name" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" />
             <Label layoutX="53.0" layoutY="67.0" prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Last Name" />
             <TextField fx:id="lastNameInput" layoutX="198.0" layoutY="64.0" prefHeight="25.0" prefWidth="208.0" promptText="Last Name" />
             <Label layoutX="53.0" layoutY="102.0" prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="NIC" />
