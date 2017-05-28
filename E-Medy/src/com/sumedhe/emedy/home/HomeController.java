@@ -2,6 +2,7 @@ package com.sumedhe.emedy.home;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
@@ -10,9 +11,12 @@ import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
 import com.sumedhe.emedy.dashboard.DashboardController;
 import com.sumedhe.emedy.employee.EmployeeController;
+import com.sumedhe.emedy.misc.Designation;
+import com.sumedhe.emedy.misc.DesignationData;
 import com.sumedhe.emedy.patient.Patient;
 import com.sumedhe.emedy.patient.PatientController;
 import com.sumedhe.emedy.patient.PatientEditController;
+import com.sumedhe.emedy.service.DBException;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -127,33 +131,52 @@ public class HomeController extends AnchorPane implements IController {
 
 	public void test() {
 
-		Global.log(String.format("sdfsa %s%%", "123"));
+//		Map<Integer, Ward> list = new HashMap<Integer, Ward>();
+//		list.put(1, new Ward("ward 1", 100));
+//		list.put(2, new Ward("ward 2", 200));
+//		Ward w = list.get(1);
+//		Global.log(w.toString());
+//		list.put(1, new Ward("ward 1 new", 1000));
+//		Global.log(w.toString());
 		
-		
-//		timer.cancel();
-//		timer.purge();
-//		timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			@Override
-//			public void run() {
-//				Global.log("ss");
-//			}
-//		}, 200);
-//		
-		
-		
-		
-		//		Global.log(Long.toString(searchTask.scheduledExecutionTime()));
-//		if (searchTask != null & searchTask.scheduledExecutionTime() > 0) {
-//			searchTask.cancel();
+//		List<Ward> al = list.values().stream().filter(e -> e.getName().contains("ard 1")).collect(Collectors.toList());
+//		for (Ward w:al){
+//			Global.log(w.getName());
 //		}
-//		searchTask = new TimerTask() {
-//			@Override
-//			public void run() {
-//				System.out.println("sss");
-//			}
-//		};
-//		timer.schedule(searchTask, 2000);
+		
+		
+				try {
+//			Global.log("aa");
+					Global.log("--");
+			Global.log("!!" + DesignationData.getById(1).getName());
+			Global.log("!!" + DesignationData.getById(1).getName());
+			Global.log("--");
+			List<Designation> list = DesignationData.getList();
+			for (Designation d : list){
+				Global.log(d.toString());
+//				d.setName(d.getName() + " 1");
+//				DesignationData.save(d);
+			}
+//			Global.log("eee");
+//			Global.log(DesignationData.getById(1).toString());
+//			
+		} catch (DBException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+//		Global.log(String.format("sdfsa %s%%", "123"));
+		
+//		Map<Integer, String> cache = new HashMap<Integer, String>();
+//		cache.put(1, "One");
+//		cache.put(2, "Two");
+//		cache.put(2, "New Two");
+//		
+//		Global.log(cache.get(4));
+//		Global.log(Integer.toString(cache.keySet().size()));
+	
+		
 	}
 
 }

@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class Validator {
 	boolean isValid;
-	private EventListenerList listenerList = new EventListenerList();
+	EventListenerList listenerList = new EventListenerList();
 	Pattern phonePattern = Pattern.compile("[^0-9+ -]");
 	Pattern nicPattern = Pattern.compile("[^0-9V]");
 

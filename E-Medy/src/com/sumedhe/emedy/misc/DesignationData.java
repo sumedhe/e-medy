@@ -3,13 +3,36 @@ package com.sumedhe.emedy.misc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class DesignationData {
+
+	public static Cache<Designation> cache = new Cache<Designation>();
+	
+	
+	private static void updateCache() throws DBException{
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM designation");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				Designation d = toDesignation(rs);
+				cache.put(d.getDesignationId(), d);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			throw new DBException("Error: " + ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
 
 	public static void save(Designation designation) throws DBException {
 		boolean isNew = designation.getDesignationId() == 0;
@@ -34,6 +57,9 @@ public class DesignationData {
 				designation.setDesignationId(DB.execGetInt("SELECT MAX(designation_id) from designation"));
 			}
 
+			cache.put(designation.getDesignationId(), designation); // Add to
+																	// cache
+
 		} catch (DBException | SQLException ex) {
 			throw new DBException("Error: " + ex.getMessage());
 		} finally {
@@ -41,13 +67,13 @@ public class DesignationData {
 		}
 	}
 
-
-	public static int delete(int designationId) throws DBException {
+	public static void delete(int designationId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM designation WHERE designation_id = ?");
 			sqry.setInt(1, designationId);
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(designationId); // Remove from cache
 		} catch (SQLException | DBException ex) {
 			throw new DBException("Error: " + ex.getMessage());
 		} finally {
@@ -55,36 +81,31 @@ public class DesignationData {
 		}
 	}
 
-	public static Designation findById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM designation WHERE designation_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toDesignation(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static Designation getById(int id) throws DBException {
+		Designation d = cache.get(id);
+		if (d == null) {
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM designation WHERE designation_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				d = toDesignation(rs);
+				cache.put(d.getDesignationId(), d);
+			} catch (SQLException | DBException ex) {
+				throw new DBException("Error: " + ex.getMessage());
+			} finally {
+				DB.close();
+			}
 		}
+		return d;
 	}
 
 	public static List<Designation> getList() throws DBException {
-		List<Designation> designations = new ArrayList<>();
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM designation");
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				designations.add(toDesignation(rs));
-			}
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+		if (cache.isEmpty()){
+			updateCache();
 		}
-		return designations;
+		return cache.getItemList();
 	}
 
 	private static Designation toDesignation(ResultSet rs) throws SQLException {
@@ -94,4 +115,6 @@ public class DesignationData {
 		d.setWage(rs.getInt("wage"));
 		return d;
 	}
+
+	
 }

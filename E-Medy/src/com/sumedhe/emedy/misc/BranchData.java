@@ -52,7 +52,7 @@ public class BranchData {
 		}
 	}
 
-	public static Branch findById(int id) throws DBException {
+	public static Branch getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM branch WHERE branch_id = ?");

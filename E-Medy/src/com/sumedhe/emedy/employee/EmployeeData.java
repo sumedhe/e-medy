@@ -60,7 +60,7 @@ public class EmployeeData {
         }
     }
 
-    public static Employee findById(int id) throws DBException {
+    public static Employee getById(int id) throws DBException {
         try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("SELECT * FROM employee WHERE employee_id = ?");

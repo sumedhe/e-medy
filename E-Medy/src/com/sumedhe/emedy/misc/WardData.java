@@ -55,7 +55,7 @@ public class WardData {
 		}
 	}
 
-	public static Ward findById(int id) throws DBException {
+	public static Ward getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM ward WHERE ward_id = ?");

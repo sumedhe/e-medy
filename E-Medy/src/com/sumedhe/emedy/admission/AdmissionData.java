@@ -65,7 +65,7 @@ public class AdmissionData {
 		}
 	}
 
-	public static Admission findById(int id) throws DBException {
+	public static Admission getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission WHERE admission_id = ?");

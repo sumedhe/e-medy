@@ -55,7 +55,7 @@ public class TestData {
 		}
 	}
 
-	public static Test findById(int id) throws DBException {
+	public static Test getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM test WHERE test_id = ?");

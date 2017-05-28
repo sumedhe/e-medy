@@ -56,7 +56,7 @@ public class DoctorData {
         }
     }
 
-    public static Doctor findById(int id) throws DBException {
+    public static Doctor getById(int id) throws DBException {
         try {
             DB.open();
             PreparedStatement sqry = DB.newQuery("SELECT * FROM doctor INNER JOIN employee ON doctor.employee_id = employee.employee_id WHERE doctor_id = ?");

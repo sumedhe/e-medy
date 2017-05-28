@@ -1,20 +1,18 @@
 package com.sumedhe.emedy.patient;
 
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.ITable;
+import com.sumedhe.emedy.common.Tool;
 import com.sumedhe.emedy.service.DBException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
@@ -68,19 +66,16 @@ public class PatientController extends AnchorPane implements  ITable {
 			Global.getHome().setWorkPanel(new PatientEditController(new Patient(), this));
 		});
 		deleteButton.setOnAction(e -> {
-			Alert a = new Alert(AlertType.CONFIRMATION, null, ButtonType.YES, ButtonType.NO);
-			a.setTitle("Delete");
-			a.setHeaderText("Do you want to delete " + getSelected().getName() + "?");
-			Optional<ButtonType> result = a.showAndWait();
-			if (result.get() == ButtonType.YES) {
+			ButtonType result = Tool.showConfirmation(String.format("Do you want to delete %s?", getSelected()), "Delete");
+			if (result == ButtonType.YES) {
 				try {
 					PatientData.delete(getSelected().getPatientId());
 				} catch (DBException e1) {
-					Global.log(e1.getMessage());
+					Tool.showError(String.format("Cannot delete %s!", getSelected()), "Delete");
+					Global.logError(e1.getMessage());
 				}
 				loadData();
 			}
-			
 		});
 		editButton.setOnAction(e -> {
 			if (getSelected() != null){

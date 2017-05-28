@@ -150,7 +150,10 @@ public class Patient {
     	return this.firstName + " " + this.getLastName();
     }
    
-    
+	@Override
+	public String toString() {
+		return this.firstName + " " + this.lastName;
+	}
 
    
 }

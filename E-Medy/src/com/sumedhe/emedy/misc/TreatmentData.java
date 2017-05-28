@@ -55,7 +55,7 @@ public class TreatmentData {
 		}
 	}
 
-	public static Treatment findById(int id) throws DBException {
+	public static Treatment getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM treatment WHERE treatment_id = ?");

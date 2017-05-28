@@ -51,7 +51,7 @@ public class BloodGroupData {
 		}
 	}
 
-	public static BloodGroup findById(int id) throws DBException {
+	public static BloodGroup getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM blood_group WHERE blood_group_id = ?");

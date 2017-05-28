@@ -72,7 +72,7 @@ public class PatientData {
 		}
 	}
 
-	public static Patient findById(int id) throws DBException {
+	public static Patient getById(int id) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM patient WHERE patient_id = ?");

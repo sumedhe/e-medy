@@ -4,7 +4,6 @@ public class Designation {
     int designationId;
     String name;
     double wage;
-
     
     public Designation(){
         

@@ -122,10 +122,15 @@ public class Employee {
         this.designationId = designationId;
     }
 
+    // Extra Getters
+    public String getName(){
+    	return this.firstName + " " + this.getLastName();
+    }
     
-    
-    
-
+	@Override
+	public String toString() {
+		return this.firstName + " " + this.lastName;
+	}
     
 }
 

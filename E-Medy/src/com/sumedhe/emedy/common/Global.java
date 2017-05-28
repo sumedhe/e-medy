@@ -19,6 +19,10 @@ public class Global {
         System.out.println(message);
     }
     
+    public static void logError(String message){
+    	System.out.println("[ERROR] " + message);
+    }
+    
     
     public static int getSearchInterval() {
 		return searchInterval;
