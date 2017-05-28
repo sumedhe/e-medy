@@ -46,7 +46,7 @@ public class DB {
             pstmt = conn.prepareStatement(qry);
             return pstmt;
         } catch (SQLException ex) {
-            throw new DBException("Error in connection");
+            throw new DBException("Error in connection : " + ex.getMessage() + qry);
         }
 
     }

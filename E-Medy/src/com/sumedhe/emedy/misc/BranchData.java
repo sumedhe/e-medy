@@ -3,14 +3,37 @@ package com.sumedhe.emedy.misc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class BranchData {
+	
+	static Cache<Branch> cache = new Cache<>();
 
+	
+	public static void updateCache() {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM branch");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				Branch b = toBranch(rs);
+				cache.put(b.getBranchId(), b);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
+	
 	public static void save(Branch branch) throws DBException {
 		boolean isNew = branch.getBranchId() == 0;
 		try {
@@ -32,56 +55,55 @@ public class BranchData {
 			if (isNew) {
 				branch.setBranchId(DB.execGetInt("SELECT MAX(branch_id) from branch"));
 			}
+			
+			cache.put(branch.getBranchId(), branch);
+			
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static int delete(int branchId) throws DBException {
+	public static void delete(int branchId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM branch WHERE branch_id = ?");
 			sqry.setInt(1, branchId);
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(branchId); // Remove from cache
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static Branch getById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM branch WHERE branch_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toBranch(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static Branch getById(int id){
+		Branch b = cache.get(id);
+		if (b == null){
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM branch WHERE branch_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				b = toBranch(rs);
+				cache.put(b.getBranchId(), b);
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
+			}			
 		}
+		return b;
 	}
 
-	public static List<Branch> getList() throws DBException {
-		List<Branch> branches = new ArrayList<>();
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM ward");
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				branches.add(toBranch(rs));
-			}
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static List<Branch> getList()  {
+		if (cache.isEmpty()){
+			updateCache();
 		}
-		return branches;
+		return cache.getItemList();
 	}
 
 	private static Branch toBranch(ResultSet rs) throws SQLException {
@@ -90,4 +112,9 @@ public class BranchData {
 		b.setName(rs.getString("name"));
 		return b;
 	}
+	
+	public static Cache<Branch> getCache(){
+		return cache;
+	}
+
 }

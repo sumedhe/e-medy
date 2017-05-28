@@ -12,10 +12,10 @@ import com.sumedhe.emedy.service.DBException;
 
 public class DesignationData {
 
-	public static Cache<Designation> cache = new Cache<Designation>();
+	static Cache<Designation> cache = new Cache<>();
 	
 	
-	private static void updateCache() throws DBException{
+	public static void updateCache()  {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM designation");
@@ -27,7 +27,6 @@ public class DesignationData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			throw new DBException("Error: " + ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -61,7 +60,7 @@ public class DesignationData {
 																	// cache
 
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
@@ -75,13 +74,13 @@ public class DesignationData {
 			sqry.executeUpdate();
 			cache.remove(designationId); // Remove from cache
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static Designation getById(int id) throws DBException {
+	public static Designation getById(int id){
 		Designation d = cache.get(id);
 		if (d == null) {
 			try {
@@ -93,7 +92,7 @@ public class DesignationData {
 				d = toDesignation(rs);
 				cache.put(d.getDesignationId(), d);
 			} catch (SQLException | DBException ex) {
-				throw new DBException("Error: " + ex.getMessage());
+				Global.logError(ex.getMessage());
 			} finally {
 				DB.close();
 			}
@@ -101,7 +100,7 @@ public class DesignationData {
 		return d;
 	}
 
-	public static List<Designation> getList() throws DBException {
+	public static List<Designation> getList() {
 		if (cache.isEmpty()){
 			updateCache();
 		}
@@ -116,5 +115,8 @@ public class DesignationData {
 		return d;
 	}
 
+	public static Cache<Designation> getCache(){
+		return cache;
+	}
 	
 }

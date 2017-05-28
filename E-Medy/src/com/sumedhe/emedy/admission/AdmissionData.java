@@ -3,14 +3,37 @@ package com.sumedhe.emedy.admission;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class AdmissionData {
+	
+	static Cache<Admission> cache = new Cache<>();
+	
 
+	public static void updateCache() {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				Admission d = toAdmission(rs);
+				cache.put(d.getAdmissionId(), d);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
+	
 	public static void save(Admission admission) throws DBException {
 		boolean isNew = admission.getAdmissionId() == 0;
 
@@ -42,9 +65,11 @@ public class AdmissionData {
 			if (isNew) {
 				admission.setWardId(DB.execGetInt("SELECT MAX(admission_id) from admission"));
 			}
+			
+			cache.put(admission.getAdmissionId(), admission);
 
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
@@ -52,49 +77,45 @@ public class AdmissionData {
 	}
 
 
-	public static int delete(int admissionId) throws DBException {
+	public static void delete(int admissionId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM admission WHERE admission_id = ?");
 			sqry.setInt(1, admissionId);
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(admissionId);
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static Admission getById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission WHERE admission_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toAdmission(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static Admission getById(int id){
+		Admission a = cache.get(id);
+		if (a == null){
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM admission WHERE admission_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				a = toAdmission(rs);
+				cache.put(a.getAdmissionId(), a);
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
+			}			
 		}
+		return a;
 	}
 
-	public static List<Admission> getList() throws DBException {
-		List<Admission> admissions = new ArrayList<>();
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission");
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				admissions.add(toAdmission(rs));
-			}
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static List<Admission> getList()  {
+		if (cache.isEmpty()){
+			updateCache();
 		}
-		return admissions;
+		return cache.getItemList();
 	}
 
 	
@@ -113,4 +134,8 @@ public class AdmissionData {
 		return a;
 	}
 
+
+	public static Cache<Admission> getCache(){
+		return cache;
+	}
 }

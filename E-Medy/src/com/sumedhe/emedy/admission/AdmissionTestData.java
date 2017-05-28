@@ -3,12 +3,37 @@ package com.sumedhe.emedy.admission;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class AdmissionTestData {
+	
+	static Cache<AdmissionTest> cache = new Cache<>();
+	
     
+	public static void updateCache() {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission_test");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				AdmissionTest d = toAdmissionTest(rs);
+				cache.put(d.getAdmissionTestId(), d);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
+	
 	public static void save(AdmissionTest admissionTest) throws DBException{
 		boolean isNew = admissionTest.getAdmissionTestId() == 0;
 
@@ -34,41 +59,56 @@ public class AdmissionTestData {
 			if (isNew) {
 				admissionTest.setAdmissionTestId(DB.execGetInt("SELECT MAX(admission_test_id) from admission_test"));
 			}
+			
+			cache.put(admissionTest.getAdmissionTestId(), admissionTest);
 
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 
 	}
 	
-	public static int delete(int admissionTestId) throws DBException {
+	public static void delete(int admissionTestId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM admission_test WHERE admission_test_id = ?");
 			sqry.setInt(1, admissionTestId);
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(admissionTestId);
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 	
-	public static AdmissionTest getListByAdmissionId(int admissionId) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM admission_test WHERE admission_id = ?");
-			sqry.setInt(1, admissionId);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toAdmissionTest(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static AdmissionTest getById(int admissionTestId) throws DBException {
+		AdmissionTest t = cache.get(admissionTestId);
+		if (t == null){
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM admission_test WHERE admission_test_id = ?");
+				sqry.setInt(1, admissionTestId);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				t = toAdmissionTest(rs);
+				cache.put(t.getAdmissionTestId(), t);				
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
+			}			
 		}
+		return t;
+	}
+	
+	public static List<AdmissionTest> getList()  {
+		if (cache.isEmpty()){
+			updateCache();
+		}
+		return cache.getItemList();
 	}
 	
 	
@@ -80,4 +120,9 @@ public class AdmissionTestData {
     	at.setResult(rs.getString("result"));
     	return at;
     }
+
+
+	public static Cache<AdmissionTest> getCache(){
+		return cache;
+	}
 }

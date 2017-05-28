@@ -4,15 +4,37 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.sumedhe.emedy.common.Cache;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class PatientData {
+
+	public static Cache<Patient> cache = new Cache<>();
+
+	public static void updateCache()  {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM patient");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				Patient d = toPatient(rs);
+				cache.put(d.getPatientId(), d);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
 
 	public static void save(Patient patient) throws DBException {
 		boolean isNew = patient.getPatientId() == 0;
@@ -49,64 +71,65 @@ public class PatientData {
 				patient.setPatientId(DB.execGetInt("SELECT MAX(patient_id) from patient"));
 			}
 
+			cache.put(patient.getPatientId(), patient);
+
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 
 	}
 
-
-	public static int delete(int patientId) throws DBException {
+	public static void delete(int patientId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM patient WHERE patient_id = ?");
 			sqry.setInt(1, patientId);
 			Global.log(sqry.toString());
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(patientId);
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static Patient getById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM patient WHERE patient_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toPatient(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
-		}
-	}
-
-	public static List<Patient> getList(String keyword) throws DBException {
-		List<Patient> patients = new ArrayList<>();
-		String qry = "SELECT * FROM patient";
-		if (!keyword.equals("")){
-			qry += String.format(" WHERE first_name LIKE '%s%%' OR last_name LIKE '%s%%' OR nic LIKE '%s%%'", keyword, keyword, keyword);
-		}
-		
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery(qry);			
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				patients.add(toPatient(rs));
+	public static Patient getById(int id){
+		Patient p = cache.get(id);
+		if (p == null) {
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM patient WHERE patient_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				p = toPatient(rs);
+				cache.put(p.getPatientId(), p);
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
 			}
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
 		}
-		return patients;
+		return p;
+	}
+
+	public static List<Patient> getList()  {
+		if (cache.isEmpty()) {
+			updateCache();
+		}
+		return cache.getItemList();
+	}
+
+	public static List<Patient> getBySearch(String keyword) throws DBException {
+		if (cache.isEmpty()) {
+			updateCache();
+		}
+		return cache.getStream().filter(
+				x -> String.format(" %s %s", x.getName(), x.getNic()).toLowerCase().contains(keyword.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	private static Patient toPatient(ResultSet rs) throws SQLException {
@@ -124,5 +147,9 @@ public class PatientData {
 		p.setConsultantId(rs.getInt("consultant_id"));
 		p.setRegisteredOn(rs.getDate("registered_on"));
 		return p;
+	}
+	
+	public static Cache<Patient> getCache(){
+		return cache;
 	}
 }

@@ -3,13 +3,36 @@ package com.sumedhe.emedy.misc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class TreatmentData {
+	
+	static Cache<Treatment> cache = new Cache<>();
+	
+	
+	public static void updateCache() {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM treatment");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				Treatment d = toTreatment(rs);
+				cache.put(d.getTreatmentId(), d);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
 
 	public static void save(Treatment treatment) throws DBException {
 		boolean isNew = treatment.getTreatmentId() == 0;
@@ -33,58 +56,57 @@ public class TreatmentData {
 			if (isNew) {
 				treatment.setTreatmentId(DB.execGetInt("SELECT MAX(treatment_id) from treatment"));
 			}
+			
+			cache.put(treatment.getTreatmentId(), treatment);
 
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
 
-	public static int delete(int treatmentId) throws DBException {
+	public static void delete(int treatmentId) throws DBException {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("DELETE FROM treatment WHERE treatment_id = ?");
 			sqry.setInt(1, treatmentId);
-			return sqry.executeUpdate();
+			sqry.executeUpdate();
+			cache.remove(treatmentId);
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static Treatment getById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM treatment WHERE treatment_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toTreatment(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
-		}
-	}
-
-	public static List<Treatment> getList() throws DBException {
-		List<Treatment> treatments = new ArrayList<>();
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM treatment");
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				treatments.add(toTreatment(rs));
+	public static Treatment getById(int id){
+		Treatment t = cache.get(id);
+		if (t == null){
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM treatment WHERE treatment_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				t = toTreatment(rs);
+				cache.put(t.getTreatmentId(), t);
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
 			}
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+			
 		}
-		return treatments;
+		return t;
+	}
+
+	public static List<Treatment> getList()  {
+		if (cache.isEmpty()){
+			updateCache();
+		}
+		return cache.getItemList();
 	}
 
 	private static Treatment toTreatment(ResultSet rs) throws SQLException {
@@ -93,5 +115,9 @@ public class TreatmentData {
 		w.setName(rs.getString("name"));
 		w.setFee(rs.getDouble("fee"));
 		return w;
+	}
+
+	public static Cache<Treatment> getCache(){
+		return cache;
 	}
 }

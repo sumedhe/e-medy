@@ -2,6 +2,9 @@ package com.sumedhe.emedy.employee;
 
 import java.sql.Date;
 
+import com.sumedhe.emedy.misc.Designation;
+import com.sumedhe.emedy.misc.DesignationData;
+
 public class Employee {
     int employeeId;
     String firstName;
@@ -125,6 +128,10 @@ public class Employee {
     // Extra Getters
     public String getName(){
     	return this.firstName + " " + this.getLastName();
+    }
+    
+    public Designation getDesignation(){
+    	return DesignationData.getById(this.designationId);
     }
     
 	@Override

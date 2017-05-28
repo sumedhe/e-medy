@@ -3,14 +3,35 @@ package com.sumedhe.emedy.misc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class BloodGroupData {
 
+	static Cache<BloodGroup> cache = new Cache<>();
+
+	public static void updateCache() {
+		try {
+			DB.open();
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM blood_group");
+			ResultSet rs = sqry.executeQuery();
+			cache.clear();
+			while (rs.next()) {
+				BloodGroup bg = toBloodGroup(rs);
+				cache.put(bg.getBloodGroupId(), bg);
+			}
+		} catch (SQLException | DBException ex) {
+			Global.logError(ex.getMessage());
+		} finally {
+			DB.close();
+			cache.refreshAll();
+		}
+	}
+	
 	public static void save(BloodGroup bg) throws DBException {
 		boolean isNew = bg.getBloodGroupId() == 0;
 		try {
@@ -29,8 +50,11 @@ public class BloodGroupData {
 			sqry.executeUpdate();
 			if (isNew) { bg.setBloodGroupId(DB.execGetInt("SELECT MAX(blood_group_id) from blood_group")); }
 			
+			cache.put(bg.getBloodGroupId(), bg); // Add to
+			// cache
+
 		} catch (DBException | SQLException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
@@ -43,45 +67,39 @@ public class BloodGroupData {
 			PreparedStatement sqry = DB.newQuery("DELETE FROM blood_group WHERE blood_group_id = ?");
 			sqry.setInt(1, bloodGroupId);
 			sqry.executeUpdate();
-			getList();
+			cache.remove(bloodGroupId);
 		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
+			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 		}
 	}
 
-	public static BloodGroup getById(int id) throws DBException {
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM blood_group WHERE blood_group_id = ?");
-			sqry.setInt(1, id);
-			ResultSet rs = sqry.executeQuery();
-			rs.next();
-			return toBloodGroup(rs);
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static BloodGroup getById(int id){
+		BloodGroup bg  = cache.get(id);
+		if (bg == null){
+			try {
+				DB.open();
+				PreparedStatement sqry = DB.newQuery("SELECT * FROM blood_group WHERE blood_group_id = ?");
+				sqry.setInt(1, id);
+				ResultSet rs = sqry.executeQuery();
+				rs.next();
+				bg = toBloodGroup(rs);
+				cache.put(bg.getBloodGroupId(), bg);
+			} catch (SQLException | DBException ex) {
+				Global.logError(ex.getMessage());
+			} finally {
+				DB.close();
+			}			
 		}
+		return bg;
 	}
 
-	public static List<BloodGroup> getList() throws DBException {
-		List<BloodGroup> bloodGroups = new ArrayList<>();
-		try {
-			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM blood_group");
-			ResultSet rs = sqry.executeQuery();
-			while (rs.next()) {
-				bloodGroups.add(toBloodGroup(rs));
-			}
-			return bloodGroups;
-			
-		} catch (SQLException | DBException ex) {
-			throw new DBException("Error: " + ex.getMessage());
-		} finally {
-			DB.close();
+	public static List<BloodGroup> getList()  {
+		if (cache.isEmpty()){
+			updateCache();
 		}
+		return cache.getItemList();
 	}
 
 
@@ -90,6 +108,10 @@ public class BloodGroupData {
 		bg.setBloodGroupId(rs.getInt("blood_group_id"));
 		bg.setName(rs.getString("name"));
 		return bg;
+	}
+	
+	public static Cache<BloodGroup> getCache(){
+		return cache;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.sumedhe.emedy.employee;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -127,17 +128,21 @@ public class EmployeeController  extends AnchorPane implements ITable{
 	// Load data to the table by a search string
 	@Override
 	public void loadData() {
-//		int sel = getSelected() == null ? -1 : getSelected().getEmployeeId();
-//		tableData.removeAll(tableData);
-//		try {
-//			for (Employee p : EmployeeData.getList(searchInput.getText())){
-//				tableData.add(p);
-//			}
-//		} catch (DBException e) {
-//			Global.log(e.getMessage());
-//		}
-//
-//		if (sel > 0) { setSelected(sel); }
+		int sel = getSelected() == null ? -1 : getSelected().getEmployeeId();
+		try {
+			List<Employee> list = searchInput.getText().equals("") ? EmployeeData.getList()
+					: EmployeeData.getBySearch(searchInput.getText());			
+			tableData.removeAll(tableData);
+			for (Employee i : list) {
+				tableData.add(i);
+			}
+		} catch (DBException e) {
+			Global.log(e.getMessage());
+		}
+
+		if (sel > 0) {
+			setSelected(sel);
+		}
 	}
 	
 	// Get the selected object of the table
