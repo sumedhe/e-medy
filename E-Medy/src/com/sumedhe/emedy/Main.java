@@ -1,6 +1,12 @@
 package com.sumedhe.emedy;
 	
+import java.util.EventObject;
+
+import com.sumedhe.emedy.common.CacheEventListener;
+import com.sumedhe.emedy.employee.DoctorData;
+import com.sumedhe.emedy.employee.EmployeeData;
 import com.sumedhe.emedy.home.HomeController;
+import com.sumedhe.emedy.misc.DesignationData;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -50,7 +56,15 @@ public class Main extends Application {
 	private static void configure(){
 		
 		Prefs.load();
+		DesignationData.updateCache();
 		
+		
+		EmployeeData.getCache().addCacheEventListener(new CacheEventListener() {
+			@Override
+			public void updated(EventObject e) {
+				DoctorData.updateCache();
+			}
+		});
 		
 	
 	}

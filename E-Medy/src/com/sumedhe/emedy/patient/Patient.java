@@ -3,6 +3,10 @@ package com.sumedhe.emedy.patient;
 import java.sql.Date;
 
 import com.sumedhe.emedy.common.Gender;
+import com.sumedhe.emedy.employee.Doctor;
+import com.sumedhe.emedy.employee.DoctorData;
+import com.sumedhe.emedy.misc.BloodGroup;
+import com.sumedhe.emedy.misc.BloodGroupData;
 
 public class Patient {
     int patientId;
@@ -24,7 +28,7 @@ public class Patient {
         this.lastName = "";
         this.nic = "";
         this.dob = Date.valueOf("2000-01-01");
-        this.gender = Gender.Male;
+        this.gender = null;
         this.address = "";
         this.phone = "";
         this.mobile = "";
@@ -148,6 +152,14 @@ public class Patient {
     // Extra Getters
     public String getName(){
     	return this.firstName + " " + this.getLastName();
+    }
+    
+    public BloodGroup getBloodGroup(){
+    	return BloodGroupData.getById(bloodGroupId);
+    }
+    
+    public Doctor getConsultant(){
+    	return DoctorData.getById(consultantId);
     }
    
 	@Override

@@ -52,11 +52,11 @@ public class test {
 		Designation d = new Designation("Nurse", 3500.00);
 		DesignationData.save(d);
 
-		Employee em = new Employee("fname", "lname", "9311..", Date.valueOf("2015-01-01"), 'M', "No 100, Rohana",
+		Employee em = new Employee("fname", "lname", "9311..", Date.valueOf("2015-01-01"), Gender.Male, "No 100, Rohana",
 				"0772055141", "070...", Date.valueOf("2015-01-01"), 1);
 		EmployeeData.save(em);
 
-		Doctor doc = new Doctor("fname", "lname", "9311..", Date.valueOf("2015-01-01"), 'M', "No 100, Rohana",
+		Doctor doc = new Doctor("fname", "lname", "9311..", Date.valueOf("2015-01-01"), Gender.Male, "No 100, Rohana",
 				"0772055141", "070...", Date.valueOf("2015-01-01"), 1, 1);
 		DoctorData.save(doc);
 

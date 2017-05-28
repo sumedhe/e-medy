@@ -64,7 +64,7 @@ public class EmployeeController  extends AnchorPane implements ITable{
 	@Override
 	public void setHandlers() {
 		newButton.setOnAction(e -> {
-
+			Global.getHome().setWorkPanel(new EmployeeEditController(new Employee(), this));	
 		});
 		deleteButton.setOnAction(e -> {
 			ButtonType result = Tool.showConfirmation(String.format("Do you want to delete %s?", getSelected()), "Delete");
@@ -79,14 +79,14 @@ public class EmployeeController  extends AnchorPane implements ITable{
 			}
 		});
 		editButton.setOnAction(e -> {
-//			if (getSelected() != null){
-//				Global.getHome().setWorkPanel(new EmployeeEditController(getSelected(), this));				
-//			}
+			if (getSelected() != null){
+				Global.getHome().setWorkPanel(new EmployeeEditController(getSelected(), this));				
+			}
 		});
 		table.setOnMouseClicked(e -> {
-//			if (e.getClickCount() == 2){
-//				Global.getHome().setWorkPanel(new EmployeeEditController(getSelected(), this));
-//			}
+			if (e.getClickCount() == 2){
+				Global.getHome().setWorkPanel(new EmployeeEditController(getSelected(), this));
+			}
 		});
 		searchInput.textProperty().addListener(e -> {
 			timer.cancel();

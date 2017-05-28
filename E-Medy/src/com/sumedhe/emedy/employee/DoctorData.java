@@ -14,11 +14,10 @@ public class DoctorData {
 
 	static Cache<Doctor> cache = new Cache<>();
 	
-	
 	public static void updateCache() {
 		try {
 			DB.open();
-			PreparedStatement sqry = DB.newQuery("SELECT * FROM doctor INNER JOIN employee ON doctor.employee_id = employee.employee_id");
+			PreparedStatement sqry = DB.newQuery("SELECT * FROM doctor");
 			ResultSet rs = sqry.executeQuery();
 			cache.clear();
 			while (rs.next()) {
@@ -37,8 +36,7 @@ public class DoctorData {
 	public static void save(Doctor doctor) throws DBException{
         boolean isNew = doctor.getDoctorId() == 0;
 		try {
-			Employee e = (Employee)doctor;
-        	EmployeeData.save(e);
+        	EmployeeData.save(doctor.toEmployee());
 
         	DB.open();
             PreparedStatement sqry;
@@ -50,7 +48,7 @@ public class DoctorData {
             }
             
             sqry.setInt(1, doctor.getBranchId());
-            sqry.setInt(2, e.getEmployeeId());
+            sqry.setInt(2, doctor.toEmployee().getEmployeeId());
             if (!isNew) { sqry.setInt(3, doctor.getDoctorId()); }
 
             sqry.executeUpdate();
@@ -72,7 +70,7 @@ public class DoctorData {
             PreparedStatement sqry = DB.newQuery("DELETE FROM doctor WHERE doctor_id = ?");
             sqry.setInt(1, doctorId);
             sqry.executeUpdate();
-            EmployeeData.delete(doctorId);
+            EmployeeData.delete(DoctorData.getById(doctorId).toEmployee().getEmployeeId());
             cache.remove(doctorId);
         } catch (SQLException | DBException ex) {
             Global.logError(ex.getMessage());
@@ -86,7 +84,7 @@ public class DoctorData {
     	if (d == null){
     		try {
     			DB.open();
-    			PreparedStatement sqry = DB.newQuery("SELECT * FROM doctor INNER JOIN employee ON doctor.employee_id = employee.employee_id WHERE doctor_id = ?");
+    			PreparedStatement sqry = DB.newQuery("SELECT * FROM doctor WHERE doctor_id = ?");
     			sqry.setInt(1, id);
     			ResultSet rs = sqry.executeQuery();
     			rs.next();
@@ -107,12 +105,18 @@ public class DoctorData {
 		}
 		return cache.getItemList();
     }
+    
+    public static Doctor getByEmployeeId(int employeeId){
+    	if (cache.isEmpty()){
+    		updateCache();
+    	}
+    	return cache.getStream().filter(x -> x.toEmployee().getEmployeeId() == employeeId).findFirst().get();
+    }
 
     private static Doctor toDoctor(ResultSet rs) throws SQLException {
-        Doctor d = new Doctor(EmployeeData.toEmployee(rs));
+        Doctor d = new Doctor(EmployeeData.getById(rs.getInt("employee_id")));
         d.setDoctorId(rs.getInt("doctor_id"));
         d.setBranchId(rs.getInt("branch_id"));
-        d.setEmployeeId(rs.getInt("employee_id"));
         return d;
     }
 

@@ -52,8 +52,8 @@
                   <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Start Date" GridPane.rowIndex="5" />
                   <ComboBox fx:id="designationInput" prefHeight="25.0" prefWidth="231.0" promptText="Designation" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label prefHeight="18.0" prefWidth="78.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Designation" GridPane.rowIndex="6" />
-                  <Label fx:id="branchLabel" layoutX="10.0" layoutY="292.0" prefHeight="18.0" prefWidth="120.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Specialized in" GridPane.rowIndex="7" />
-                  <ComboBox fx:id="branchInput" layoutX="133.0" layoutY="289.0" prefHeight="25.0" prefWidth="231.0" promptText="Specialized in" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="branchLabel" layoutX="10.0" layoutY="292.0" prefHeight="18.0" prefWidth="120.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Specialized in" visible="false" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="branchInput" layoutX="133.0" layoutY="289.0" prefHeight="25.0" prefWidth="231.0" promptText="Specialized in" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <GridPane layoutX="483.0" layoutY="29.0" prefHeight="175.0" prefWidth="308.0">

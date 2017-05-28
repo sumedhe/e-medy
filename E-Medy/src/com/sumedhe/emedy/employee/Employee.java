@@ -2,6 +2,7 @@ package com.sumedhe.emedy.employee;
 
 import java.sql.Date;
 
+import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.misc.Designation;
 import com.sumedhe.emedy.misc.DesignationData;
 
@@ -11,7 +12,7 @@ public class Employee {
     String lastName;
     String nic;
     Date dob;
-    char gender;
+    Gender gender;
     String address;
     String phone;
     String mobile;
@@ -20,10 +21,19 @@ public class Employee {
 
     
     public Employee(){
-        
+        this.firstName = "";
+        this.lastName = "";
+        this.nic = "";
+        this.dob = Date.valueOf("2000-01-01");;
+        this.gender = null;
+        this.address = "";
+        this.phone = "";
+        this.mobile = "";
+        this.startDate = Date.valueOf("2000-01-01");;
+        this.designationId = 0;
     }
     
-    public Employee(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, Date startDate, int designationId) {
+    public Employee(String firstName, String lastName, String nic, Date dob, Gender gender, String address, String phone, String mobile, Date startDate, int designationId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nic = nic;
@@ -77,11 +87,11 @@ public class Employee {
         this.dob = dob;
     }
 
-    public char getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

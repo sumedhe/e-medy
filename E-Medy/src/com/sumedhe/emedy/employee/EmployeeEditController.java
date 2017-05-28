@@ -2,14 +2,17 @@ package com.sumedhe.emedy.employee;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.EventObject;
 
+import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.common.ComboBoxFilterListener;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
-import com.sumedhe.emedy.common.Tool;
 import com.sumedhe.emedy.common.Validator;
 import com.sumedhe.emedy.common.ValidatorEvent;
+import com.sumedhe.emedy.misc.Branch;
+import com.sumedhe.emedy.misc.BranchData;
 import com.sumedhe.emedy.misc.Designation;
 import com.sumedhe.emedy.misc.DesignationData;
 import com.sumedhe.emedy.service.DBException;
@@ -20,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -40,9 +44,15 @@ public class EmployeeEditController extends AnchorPane implements IController {
 
 	@FXML
 	ComboBox<Designation> designationInput;
+	
+	@FXML
+	ComboBox<Branch> branchInput;
 
 	@FXML
 	Button backButton, saveButton, saveAndNewButton;
+	
+	@FXML
+	Label branchLabel;
 
 	Node prev;
 	Employee employee;
@@ -71,8 +81,10 @@ public class EmployeeEditController extends AnchorPane implements IController {
 
 		genderInput.getItems().addAll(Gender.Male, Gender.Female);
 		designationInput.getItems().addAll(DesignationData.getList());
+		branchInput.getItems().addAll(BranchData.getList());
 		new ComboBoxFilterListener<Gender>(genderInput);
 		new ComboBoxFilterListener<Designation>(designationInput);
+		new ComboBoxFilterListener<Branch>(branchInput);
 
 		setHandlers();
 		setEmployee(employee);
@@ -81,6 +93,24 @@ public class EmployeeEditController extends AnchorPane implements IController {
 	// Set handlers for the the UI components
 	@Override
 	public void setHandlers() {
+		branchLabel.visibleProperty().bind(branchInput.visibleProperty());
+		DesignationData.getCache().addCacheEventListener(new CacheEventListener() {			
+			@Override
+			public void updated(EventObject e) {
+				designationInput.getItems().clear();
+				designationInput.getItems().addAll(DesignationData.getList());
+			}
+		});
+		BranchData.getCache().addCacheEventListener(new CacheEventListener() {
+			@Override
+			public void updated(EventObject e) {
+				branchInput.getItems().clear();
+				branchInput.getItems().addAll(BranchData.getList());
+			}
+		});
+		designationInput.setOnAction(e -> {
+			branchInput.setVisible(designationInput.getValue().isDoctor());
+		});
 		backButton.setOnAction(e -> {
 			Global.getHome().setWorkPanel(this.prev);
 		});
@@ -106,8 +136,7 @@ public class EmployeeEditController extends AnchorPane implements IController {
 		validator.addToCheckNull(genderInput);
 		validator.addToCheckPhone(phoneInput);
 		validator.addToCheckPhone(mobileInput);
-		validator.addToCheckNull(bloodGroupInput);
-		validator.addToCheckNull(consultantInput);
+		validator.addToCheckNull(designationInput);
 
 	}
 
@@ -122,9 +151,14 @@ public class EmployeeEditController extends AnchorPane implements IController {
 		this.addressInput.setText(employee.getAddress());
 		this.phoneInput.setText(employee.getPhone());
 		this.mobileInput.setText(employee.getMobile());
-		this.bloodGroupInput.setValue(Tool.getBloodGroupFrom(bloodGroupInput.getItems(), employee.getBloodGroupId()));
-		this.consultantInput.setValue(Tool.getDoctorFrom(consultantInput.getItems(), employee.getConsultantId()));
-		this.registeredOnInput.setValue(employee.getRegisteredOn().toLocalDate());
+		this.startDateInput.setValue(employee.getStartDate().toLocalDate());
+		this.designationInput.setValue(employee.getDesignation());
+		if (employee.getDesignation() != null && employee.getDesignation().isDoctor()){
+			branchInput.setValue(DoctorData.getByEmployeeId(employee.getEmployeeId()).getBranch());
+			branchInput.setVisible(true);
+		} else {
+			branchInput.setVisible(false);
+		}
 	}
 
 	// Create a object from the form and save it
@@ -138,11 +172,16 @@ public class EmployeeEditController extends AnchorPane implements IController {
 			employee.setAddress(this.addressInput.getText());
 			employee.setPhone(this.phoneInput.getText());
 			employee.setMobile(this.mobileInput.getText());
-			employee.setBloodGroupId(this.bloodGroupInput.getValue().getBloodGroupId());
-			employee.setConsultantId(this.consultantInput.getValue().getDoctorId());
-			employee.setRegisteredOn(Date.valueOf(this.registeredOnInput.getValue()));
+			employee.setStartDate(Date.valueOf(this.startDateInput.getValue().toString()));
+			employee.setDesignationId(this.designationInput.getValue().getDesignationId());
 
-			EmployeeData.save(employee);
+			if (this.designationInput.getValue().isDoctor()){
+				Doctor d = new Doctor(employee, this.branchInput.getValue().getBranchId());
+				DoctorData.save(d);
+			} else {				
+				EmployeeData.save(employee);
+			}
+			
 		} catch (DBException e) {
 			Global.log(e.getMessage());
 		} catch (Exception e) {

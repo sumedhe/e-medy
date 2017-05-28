@@ -39,6 +39,12 @@ public class Designation {
     public void setWage(double wage) {
         this.wage = wage;
     }
+    
+    
+    // Extra
+    public boolean isDoctor(){
+    	return this.name.equals("Doctor");
+    }
 
 	@Override
 	public String toString() {

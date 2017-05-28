@@ -2,12 +2,13 @@ package com.sumedhe.emedy.patient;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.EventObject;
 
+import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.common.ComboBoxFilterListener;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
-import com.sumedhe.emedy.common.Tool;
 import com.sumedhe.emedy.common.Validator;
 import com.sumedhe.emedy.common.ValidatorEvent;
 import com.sumedhe.emedy.employee.Doctor;
@@ -87,6 +88,13 @@ public class PatientEditController extends AnchorPane implements IController {
 	// Set handlers for the the UI components
 	@Override
 	public void setHandlers() {
+		DoctorData.getCache().addCacheEventListener(new CacheEventListener() {			
+			@Override
+			public void updated(EventObject e) {
+				consultantInput.getItems().clear();
+				consultantInput.getItems().addAll(DoctorData.getList());
+			}
+		});
 		backButton.setOnAction(e -> {
 			Global.getHome().setWorkPanel(this.prev);
 		});
@@ -128,8 +136,8 @@ public class PatientEditController extends AnchorPane implements IController {
 		this.addressInput.setText(patient.getAddress());
 		this.phoneInput.setText(patient.getPhone());
 		this.mobileInput.setText(patient.getMobile());
-		this.bloodGroupInput.setValue(Tool.getBloodGroupFrom(bloodGroupInput.getItems(), patient.getBloodGroupId()));
-		this.consultantInput.setValue(Tool.getDoctorFrom(consultantInput.getItems(), patient.getConsultantId()));
+		this.bloodGroupInput.setValue(patient.getBloodGroup());
+		this.consultantInput.setValue(patient.getConsultant());
 		this.registeredOnInput.setValue(patient.getRegisteredOn().toLocalDate());
 	}
 

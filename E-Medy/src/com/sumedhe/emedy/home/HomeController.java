@@ -2,7 +2,6 @@ package com.sumedhe.emedy.home;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
@@ -11,12 +10,9 @@ import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
 import com.sumedhe.emedy.dashboard.DashboardController;
 import com.sumedhe.emedy.employee.EmployeeController;
-import com.sumedhe.emedy.misc.Designation;
-import com.sumedhe.emedy.misc.DesignationData;
 import com.sumedhe.emedy.patient.Patient;
 import com.sumedhe.emedy.patient.PatientController;
 import com.sumedhe.emedy.patient.PatientEditController;
-import com.sumedhe.emedy.service.DBException;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -130,6 +126,15 @@ public class HomeController extends AnchorPane implements IController {
 	// !!! test !!!
 
 	public void test() {
+//		Designation d = new Designation("Doctor", 250000);
+//		
+//		try {
+//			DesignationData.save(d);
+//		} catch (DBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 
 //		Map<Integer, Ward> list = new HashMap<Integer, Ward>();
 //		list.put(1, new Ward("ward 1", 100));
@@ -144,25 +149,22 @@ public class HomeController extends AnchorPane implements IController {
 //			Global.log(w.getName());
 //		}
 		
-		
-				try {
+
 //			Global.log("aa");
-					Global.log("--");
-			Global.log("!!" + DesignationData.getById(1).getName());
-			Global.log("!!" + DesignationData.getById(1).getName());
-			Global.log("--");
-			List<Designation> list = DesignationData.getList();
-			for (Designation d : list){
-				Global.log(d.toString());
-//				d.setName(d.getName() + " 1");
-//				DesignationData.save(d);
-			}
+//					Global.log("--");
+//			Global.log("!!" + DesignationData.getById(1).getName());
+//			Global.log("!!" + DesignationData.getById(1).getName());
+//			Global.log("--");
+//			List<Designation> list = DesignationData.getList();
+//			for (Designation d : list){
+//				Global.log(d.toString());
+////				d.setName(d.getName() + " 1");
+////				DesignationData.save(d);
+//			}
 //			Global.log("eee");
 //			Global.log(DesignationData.getById(1).toString());
 //			
-		} catch (DBException e) {
-			e.printStackTrace();
-		}
+
 		
 		
 		

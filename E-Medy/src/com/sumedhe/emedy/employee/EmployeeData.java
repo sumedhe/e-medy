@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.sumedhe.emedy.common.Cache;
+import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
@@ -15,7 +16,6 @@ import com.sumedhe.emedy.service.DBException;
 public class EmployeeData {
 	
 	static Cache<Employee> cache = new Cache<>();
-	
 	
 	public static void updateCache() {
 		try {
@@ -52,7 +52,7 @@ public class EmployeeData {
             sqry.setString(2, employee.getLastName());
             sqry.setString(3, employee.getNic());
             sqry.setDate(4, (Date)employee.getDob());
-            sqry.setString(5, String.valueOf(employee.getGender()));
+            sqry.setString(5, employee.getGender() == Gender.Male ? "M" : "F");
             sqry.setString(6,  employee.getAddress());
             sqry.setString(7, employee.getPhone());
             sqry.setString(8, employee.getMobile());
@@ -130,7 +130,7 @@ public class EmployeeData {
         e.setLastName(rs.getString("last_name"));
         e.setNic(rs.getString("nic"));
         e.setDob(rs.getDate("dob"));
-        e.setGender(rs.getString("gender").charAt(0));
+        e.setGender(rs.getString("gender").charAt(0) == 'M' ? Gender.Male : Gender.Female);
         e.setAddress(rs.getString("address"));
         e.setPhone(rs.getString("phone"));
         e.setMobile(rs.getString("mobile"));

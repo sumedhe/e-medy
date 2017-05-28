@@ -31,7 +31,6 @@ public class DB {
                 throw new DBException("JDBC Driver not found!");
             } catch (SQLException ex) {
                 Global.log("ERROR: " + ex.getMessage());
-//                Global.getHome().showSetup();
                 if (i == 2) {
                     throw new DBException("Access Denied!");
                 }
@@ -43,6 +42,7 @@ public class DB {
 
     public static PreparedStatement newQuery(String qry) throws DBException {
         try {
+        	Global.log("Creating... " + qry);
             pstmt = conn.prepareStatement(qry);
             return pstmt;
         } catch (SQLException ex) {

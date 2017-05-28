@@ -2,30 +2,30 @@ package com.sumedhe.emedy.employee;
 
 import java.sql.Date;
 
-public class Doctor extends Employee {
+import com.sumedhe.emedy.common.Gender;
+import com.sumedhe.emedy.misc.Branch;
+import com.sumedhe.emedy.misc.BranchData;
+
+public class Doctor {
     int doctorId;
     int branchId;
-
+    Employee employee;
     
     public Doctor(){
-        super();
+        employee = new Employee();
     }
     
     public Doctor(Employee employee){
-    	super.setFirstName(employee.getFirstName());
-    	super.setLastName(employee.getLastName());
-    	super.setNic(employee.getNic());
-    	super.setDob(employee.getDob());
-    	super.setGender(employee.getGender());
-    	super.setAddress(employee.getAddress());
-    	super.setPhone(employee.getPhone());
-    	super.setMobile(employee.getMobile());
-    	super.setStartDate(employee.getStartDate());
-    	super.setDesignationId(employee.getDesignationId());    	
+    	this.employee = employee;
     }
     
-    public Doctor(String firstName, String lastName, String nic, Date dob, char gender, String address, String phone, String mobile, Date startDate, int designationId, int branchId) {
-        super(firstName, lastName, nic, dob, gender, address, phone, mobile, startDate, designationId);
+    public Doctor(Employee employee, int branchId){
+    	this.employee = employee;
+    	this.branchId = branchId;
+    }
+    
+    public Doctor(String firstName, String lastName, String nic, Date dob, Gender gender, String address, String phone, String mobile, Date startDate, int designationId, int branchId) {
+    	this.employee = new Employee(firstName, lastName, nic, dob, gender, address, phone, mobile, startDate, designationId);
         this.branchId = branchId;
     }
     
@@ -45,10 +45,20 @@ public class Doctor extends Employee {
     public void setBranchId(int branchId) {
         this.branchId = branchId;
     }
+    
+    public Employee toEmployee(){
+    	return this.employee;
+    }
+    
+    
+    public Branch getBranch(){
+    	return BranchData.getById(branchId);
+    }
+    
 
 	@Override
 	public String toString() {
-		return this.firstName + " " + this.lastName;
+		return this.employee.firstName + " " + this.employee.lastName;
 	}
     
     
