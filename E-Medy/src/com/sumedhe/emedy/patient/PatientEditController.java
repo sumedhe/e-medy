@@ -9,6 +9,7 @@ import com.sumedhe.emedy.common.ComboBoxFilterListener;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
+import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.common.Validator;
 import com.sumedhe.emedy.common.ValidatorEvent;
 import com.sumedhe.emedy.employee.Doctor;
@@ -101,9 +102,6 @@ public class PatientEditController extends AnchorPane implements IController {
 		saveButton.setOnAction(e -> {
 			if (validator.checkValidity(new ValidatorEvent(this))) {
 				save();
-				PatientController pc = (PatientController) this.prev;
-				pc.loadData();
-				Global.getHome().setWorkPanel(pc);
 			}
 		});
 		saveAndNewButton.setOnAction(e -> {
@@ -157,6 +155,7 @@ public class PatientEditController extends AnchorPane implements IController {
 			patient.setRegisteredOn(Date.valueOf(this.registeredOnInput.getValue()));
 
 			PatientData.save(patient);
+			Global.showNotification("Saved...", NotificationType.Success);
 		} catch (DBException e) {
 			Global.log(e.getMessage());
 		} catch (Exception e) {

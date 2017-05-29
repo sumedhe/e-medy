@@ -27,7 +27,6 @@ public class TestData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -103,9 +102,7 @@ public class TestData {
 	}
 
 	public static List<Test> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
 	}
 

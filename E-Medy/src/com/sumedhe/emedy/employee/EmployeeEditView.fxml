@@ -5,8 +5,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -79,6 +81,18 @@
                   <TextField fx:id="mobileInput" prefHeight="25.0" prefWidth="208.0" promptText="Mobile" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
+            <TitledPane animated="false" layoutX="483.0" layoutY="212.0" prefHeight="185.0" prefWidth="308.0" text="Wards">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="wardList" layoutX="14.0" layoutY="14.0" prefHeight="104.0" prefWidth="284.0" />
+                        <Button fx:id="removeWardButton" layoutX="275.0" layoutY="123.0" mnemonicParsing="false" text="-" />
+                        <Button fx:id="addWardButton" layoutX="245.0" layoutY="123.0" mnemonicParsing="false" text="+" />
+                        <ComboBox fx:id="wardSelectInput" layoutX="14.0" layoutY="123.0" prefHeight="25.0" prefWidth="224.0" promptText="Select Ward" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
          </children></AnchorPane>
 	</children>
 </fx:root>

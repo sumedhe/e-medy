@@ -36,6 +36,9 @@ public class Validator {
 		for (ValidatorEventListener l : ls){
 			l.check(e);
 		}
+		if (!isValid){
+			Global.showNotification("Can't Save! Please check the fields...", NotificationType.Information);
+		}
 		return isValid;
 	}
 	

@@ -2,19 +2,24 @@ package com.sumedhe.emedy.employee;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.List;
 
 import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.common.ComboBoxFilterListener;
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
+import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.common.Validator;
 import com.sumedhe.emedy.common.ValidatorEvent;
 import com.sumedhe.emedy.misc.Branch;
 import com.sumedhe.emedy.misc.BranchData;
 import com.sumedhe.emedy.misc.Designation;
 import com.sumedhe.emedy.misc.DesignationData;
+import com.sumedhe.emedy.misc.Ward;
+import com.sumedhe.emedy.misc.WardData;
 import com.sumedhe.emedy.service.DBException;
 
 import javafx.fxml.FXML;
@@ -24,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -47,12 +53,20 @@ public class EmployeeEditController extends AnchorPane implements IController {
 	
 	@FXML
 	ComboBox<Branch> branchInput;
+	
+	@FXML
+	ComboBox<Ward> wardSelectInput;
 
 	@FXML
-	Button backButton, saveButton, saveAndNewButton;
+	Button backButton, saveButton, saveAndNewButton, addWardButton, removeWardButton;
 	
 	@FXML
 	Label branchLabel;
+	
+	@FXML
+	ListView<EmployeeWard> wardList;
+	
+	List<EmployeeWard> deletedEmployeeWards = new ArrayList<>();
 
 	Node prev;
 	Employee employee;
@@ -82,9 +96,11 @@ public class EmployeeEditController extends AnchorPane implements IController {
 		genderInput.getItems().addAll(Gender.Male, Gender.Female);
 		designationInput.getItems().addAll(DesignationData.getList());
 		branchInput.getItems().addAll(BranchData.getList());
+		wardSelectInput.getItems().addAll(WardData.getList());
 		new ComboBoxFilterListener<Gender>(genderInput);
 		new ComboBoxFilterListener<Designation>(designationInput);
 		new ComboBoxFilterListener<Branch>(branchInput);
+		new ComboBoxFilterListener<Ward>(wardSelectInput);
 
 		setHandlers();
 		setEmployee(employee);
@@ -117,9 +133,6 @@ public class EmployeeEditController extends AnchorPane implements IController {
 		saveButton.setOnAction(e -> {
 			if (validator.checkValidity(new ValidatorEvent(this))) {
 				save();
-				EmployeeController pc = (EmployeeController) this.prev;
-				pc.loadData();
-				Global.getHome().setWorkPanel(pc);
 			}
 		});
 		saveAndNewButton.setOnAction(e -> {
@@ -127,6 +140,23 @@ public class EmployeeEditController extends AnchorPane implements IController {
 				save();
 				setEmployee(new Employee());
 			}
+		});
+		addWardButton.setOnAction(e -> {
+			if (wardSelectInput.getValue() != null){
+				for (EmployeeWard w : wardList.getItems()){
+					if (w.getWardId() == wardSelectInput.getValue().getWardId()){
+						return;
+					}
+				}
+				wardList.getItems().add(new EmployeeWard(employee, wardSelectInput.getValue()));
+			}
+		});
+		removeWardButton.setOnAction(e -> {
+			EmployeeWard ew = wardList.getSelectionModel().getSelectedItem();
+			if (ew != null && ew.getEmployeeWardId() != 0){
+				deletedEmployeeWards.add(ew);
+			}
+			wardList.getItems().remove(ew);
 		});
 
 		// Set handlers for Validation Checking
@@ -159,6 +189,9 @@ public class EmployeeEditController extends AnchorPane implements IController {
 		} else {
 			branchInput.setVisible(false);
 		}
+		
+		wardList.getItems().clear();
+		wardList.getItems().addAll(EmployeeWardData.getListByEmployeeId(employee.getEmployeeId()));
 	}
 
 	// Create a object from the form and save it
@@ -182,6 +215,23 @@ public class EmployeeEditController extends AnchorPane implements IController {
 				EmployeeData.save(employee);
 			}
 			
+			// Update EmployeeWards
+			wardList.getItems().forEach(x -> {
+				try {
+					EmployeeWardData.save(x);
+				} catch (DBException e) {
+					Global.logError(e.getMessage());
+				}
+			});
+			deletedEmployeeWards.forEach(x -> {
+				try {
+					EmployeeWardData.delete(x.getEmployeeWardId());
+				} catch (DBException e) {
+					Global.logError(e.getMessage());
+				}
+			});
+			
+			Global.showNotification("Saved...", NotificationType.Success);
 		} catch (DBException e) {
 			Global.log(e.getMessage());
 		} catch (Exception e) {

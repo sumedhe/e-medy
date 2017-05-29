@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sumedhe.emedy.common.Cache;
 import com.sumedhe.emedy.common.Global;
@@ -27,7 +28,6 @@ public class EmployeeWardData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -36,7 +36,7 @@ public class EmployeeWardData {
 	
 	public static void save(EmployeeWard employeeWard) throws DBException{
 		boolean isNew = employeeWard.getEmployeeWardId() == 0;
-
+		
 		try {
 			DB.open();
 			PreparedStatement sqry;
@@ -65,6 +65,7 @@ public class EmployeeWardData {
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
+			cache.refreshAll();
 		}
 
 	}
@@ -104,22 +105,24 @@ public class EmployeeWardData {
 	}
 	
 	public static List<EmployeeWard> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
 		return cache.getItemList();
+	}
+	
+	public static List<EmployeeWard> getListByEmployeeId(int employeeId) {
+		return cache.getStream().filter(x -> x.getEmployeeId() == employeeId).collect(Collectors.toList());
 	}
 	
 	
 	public static EmployeeWard toEmployeeWard(ResultSet rs) throws SQLException {
     	EmployeeWard at = new EmployeeWard();
-    	at.setEmployeeWardId(rs.getInt("employeeWardId"));
-    	at.setEmployeeId(rs.getInt("employeeId"));
-    	at.setWardId(rs.getInt("wardId"));
+    	at.setEmployeeWardId(rs.getInt("employee_ward_id"));
+    	at.setEmployeeId(rs.getInt("employee_id"));
+    	at.setWardId(rs.getInt("ward_id"));
     	return at;
     }
 	
 	public static Cache<EmployeeWard> getCache(){
 		return cache;
 	}
+	
 }

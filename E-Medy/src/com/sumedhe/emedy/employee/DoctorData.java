@@ -26,7 +26,6 @@ public class DoctorData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -100,16 +99,11 @@ public class DoctorData {
     }
 
     public static List<Doctor> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
     }
     
     public static Doctor getByEmployeeId(int employeeId){
-    	if (cache.isEmpty()){
-    		updateCache();
-    	}
     	return cache.getStream().filter(x -> x.toEmployee().getEmployeeId() == employeeId).findFirst().get();
     }
 

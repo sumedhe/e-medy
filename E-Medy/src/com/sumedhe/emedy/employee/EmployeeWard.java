@@ -1,12 +1,20 @@
 package com.sumedhe.emedy.employee;
 
+import com.sumedhe.emedy.misc.Ward;
+import com.sumedhe.emedy.misc.WardData;
+
 public class EmployeeWard {
 	int employeeWardId;
 	int employeeId;
 	int wardId;
 	
 	public EmployeeWard() {
-		// TODO Auto-generated constructor stub
+		
+	}
+	
+	public EmployeeWard(Employee e, Ward w){
+		this.employeeId = e.getEmployeeId();
+		this.wardId = w.getWardId();
 	}
 	
 	public EmployeeWard(int employeeId, int wardId){
@@ -38,5 +46,32 @@ public class EmployeeWard {
 		this.wardId = wardId;
 	}
 
+	
+	// EXTRA
+	public Employee getEmployee(){
+		return EmployeeData.getById(employeeId);
+	}
+	
+//	public void setEmployee(Employee e){
+//		this.employeeId = e.getEmployeeId();
+//	}
+	
+	public Ward getWard(){
+		return WardData.getById(wardId);
+	}
+	
+//	public void setWard(Ward w){
+//		this.wardId = w.getWardId();
+//	}
+	
+	
+	public boolean equals(EmployeeWard ew){
+		return this.employeeId == ew.employeeId && this.wardId == ew.getWardId();
+	}
+	
+	@Override
+	public String toString(){
+		return this.getWard().toString();
+	}
 	
 }

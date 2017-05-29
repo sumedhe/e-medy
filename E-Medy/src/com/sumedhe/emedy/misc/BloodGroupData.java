@@ -57,6 +57,7 @@ public class BloodGroupData {
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
+cache.refreshAll();
 		}
 
 	}
@@ -96,9 +97,6 @@ public class BloodGroupData {
 	}
 
 	public static List<BloodGroup> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
 		return cache.getItemList();
 	}
 

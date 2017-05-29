@@ -29,7 +29,6 @@ public class EmployeeData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -108,9 +107,7 @@ public class EmployeeData {
     }
 
     public static List<Employee> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
     }
     

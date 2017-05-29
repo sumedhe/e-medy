@@ -11,10 +11,9 @@ import com.sumedhe.emedy.service.DB;
 import com.sumedhe.emedy.service.DBException;
 
 public class BranchData {
-	
+
 	static Cache<Branch> cache = new Cache<>();
 
-	
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -27,13 +26,12 @@ public class BranchData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
 		}
 	}
-	
+
 	public static void save(Branch branch) throws DBException {
 		boolean isNew = branch.getBranchId() == 0;
 		try {
@@ -55,9 +53,9 @@ public class BranchData {
 			if (isNew) {
 				branch.setBranchId(DB.execGetInt("SELECT MAX(branch_id) from branch"));
 			}
-			
+
 			cache.put(branch.getBranchId(), branch);
-			
+
 		} catch (DBException | SQLException ex) {
 			Global.logError(ex.getMessage());
 		} finally {
@@ -79,9 +77,9 @@ public class BranchData {
 		}
 	}
 
-	public static Branch getById(int id){
+	public static Branch getById(int id) {
 		Branch b = cache.get(id);
-		if (b == null){
+		if (b == null) {
 			try {
 				DB.open();
 				PreparedStatement sqry = DB.newQuery("SELECT * FROM branch WHERE branch_id = ?");
@@ -94,15 +92,13 @@ public class BranchData {
 				Global.logError(ex.getMessage());
 			} finally {
 				DB.close();
-			}			
+			}
 		}
 		return b;
 	}
 
-	public static List<Branch> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+	public static List<Branch> getList() {
+
 		return cache.getItemList();
 	}
 
@@ -112,8 +108,8 @@ public class BranchData {
 		b.setName(rs.getString("name"));
 		return b;
 	}
-	
-	public static Cache<Branch> getCache(){
+
+	public static Cache<Branch> getCache() {
 		return cache;
 	}
 

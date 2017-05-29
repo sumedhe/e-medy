@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.ITable;
+import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.common.Tool;
 import com.sumedhe.emedy.service.DBException;
 
@@ -80,8 +81,9 @@ public class PatientController extends AnchorPane implements ITable {
 			if (result == ButtonType.YES) {
 				try {
 					PatientData.delete(getSelected().getPatientId());
+					Global.showNotification("Deleted...", NotificationType.Information);
 				} catch (DBException e1) {
-					Tool.showError(String.format("Cannot delete %s!", getSelected()), "Delete");
+					Global.showNotification(String.format("Cannot delete %s!", getSelected()), NotificationType.Error);
 					Global.logError(e1.getMessage());
 				}
 				loadData();

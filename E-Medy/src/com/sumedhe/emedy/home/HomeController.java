@@ -8,6 +8,7 @@ import java.util.Timer;
 import com.sumedhe.emedy.admission.AdmissionController;
 import com.sumedhe.emedy.common.Global;
 import com.sumedhe.emedy.common.IController;
+import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.dashboard.DashboardController;
 import com.sumedhe.emedy.employee.EmployeeController;
 import com.sumedhe.emedy.patient.Patient;
@@ -20,7 +21,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class HomeController extends AnchorPane implements IController {
@@ -38,6 +41,12 @@ public class HomeController extends AnchorPane implements IController {
 
 	@FXML
 	Button closeButton, testBtn;
+	
+	@FXML
+	Pane notificationPane;
+	
+	@FXML
+	Label notificationLabel;
 
 	static Timer timer = new Timer();
 
@@ -123,9 +132,21 @@ public class HomeController extends AnchorPane implements IController {
 		button.getStyleClass().add("menu-button-selected");
 	}
 
+	// notification
+	public Pane getNotificationPane(){
+		return notificationPane;
+	}
+	
+	public Label getNotificationLabel(){
+		return notificationLabel;
+	}
+	
 	// !!! test !!!
 
 	public void test() {
+//		notificationPane.setVisible(false);
+		Global.showNotification("Deleted...", NotificationType.Error);
+//		Global.showNotification("Hello", NotificationType.Success);
 //		Designation d = new Designation("Doctor", 250000);
 //		
 //		try {

@@ -27,7 +27,6 @@ public class WardData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -63,6 +62,7 @@ public class WardData {
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
+cache.refreshAll();
 		}
 
 	}
@@ -103,9 +103,7 @@ public class WardData {
 	}
 
 	public static List<Ward> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
 	}
 

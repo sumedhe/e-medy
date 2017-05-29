@@ -38,4 +38,23 @@
    	-fx-font-family: "Roboto mono Bold";
 }
 
+.notification-success {
+	-fx-background-color: #00bb00;
+}
+
+.notification-information {
+	-fx-background-color: #ef6c00;	
+}
+
+.notification-error {
+	-fx-background-color: #d32f2f;	
+}
+
+.notification-label {
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 18.0;
+	-fx-text-fill: white;
+	-fx-text-alignment: center;
+}
+
 

@@ -27,7 +27,6 @@ public class AdmissionData {
 			}
 		} catch (SQLException | DBException ex) {
 			Global.logError(ex.getMessage());
-			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
 			cache.refreshAll();
@@ -112,9 +111,7 @@ public class AdmissionData {
 	}
 
 	public static List<Admission> getList()  {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
 	}
 

@@ -101,9 +101,7 @@ public class DesignationData {
 	}
 
 	public static List<Designation> getList() {
-		if (cache.isEmpty()){
-			updateCache();
-		}
+
 		return cache.getItemList();
 	}
 

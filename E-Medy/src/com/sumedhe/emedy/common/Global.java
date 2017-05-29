@@ -1,11 +1,18 @@
 package com.sumedhe.emedy.common;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.sumedhe.emedy.home.HomeController;
+
+import javafx.scene.layout.Pane;
 
 public class Global {
 	
 	static HomeController home;
 	static int searchInterval = 200;
+	static int notificationInterval = 2000;
+	static Timer timer = new Timer();
 	
 	public static HomeController getHome() {
 		return home;
@@ -28,9 +35,30 @@ public class Global {
 		return searchInterval;
 	}
     
+    
+   
+    
+    public static void showNotification(String message, NotificationType type){
+    	getHome().getNotificationLabel().setText(message);
+    	Pane pane = getHome().getNotificationPane();
+    	if (type == NotificationType.Success){
+    		pane.getStyleClass().add("notification-success");
+    	} else if (type == NotificationType.Information) {
+    		pane.getStyleClass().add("notification-information");
+    	} else if (type == NotificationType.Error) {
+    		pane.getStyleClass().add("notification-error");
+    	}
+    	pane.setVisible(true);
+    	timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				pane.setVisible(false);
+				pane.getStyleClass().clear();
+			}
+		}, notificationInterval);
+    }
+    
+    
+    
 }
-
-//public enum Gender{
-//	1 : Male,
-//	2 : Female
-//}

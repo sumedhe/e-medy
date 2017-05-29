@@ -20,7 +20,6 @@ public class Cache<V> {
 	
 	public void put(int key, V item){
 		cache.put(key, item);
-		refreshAll();
 	}
 	
 	public V get(int key){

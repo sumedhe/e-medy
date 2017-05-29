@@ -17,7 +17,7 @@ public class PatientData {
 
 	public static Cache<Patient> cache = new Cache<>();
 
-	public static void updateCache()  {
+	public static void updateCache() {
 		try {
 			DB.open();
 			PreparedStatement sqry = DB.newQuery("SELECT * FROM patient");
@@ -28,7 +28,6 @@ public class PatientData {
 				cache.put(d.getPatientId(), d);
 			}
 		} catch (SQLException | DBException ex) {
-			Global.logError(ex.getMessage());
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
@@ -77,6 +76,7 @@ public class PatientData {
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
+			cache.refreshAll();
 		}
 
 	}
@@ -96,7 +96,7 @@ public class PatientData {
 		}
 	}
 
-	public static Patient getById(int id){
+	public static Patient getById(int id) {
 		Patient p = cache.get(id);
 		if (p == null) {
 			try {
@@ -116,17 +116,11 @@ public class PatientData {
 		return p;
 	}
 
-	public static List<Patient> getList()  {
-		if (cache.isEmpty()) {
-			updateCache();
-		}
+	public static List<Patient> getList() {
 		return cache.getItemList();
 	}
 
 	public static List<Patient> getBySearch(String keyword) throws DBException {
-		if (cache.isEmpty()) {
-			updateCache();
-		}
 		return cache.getStream().filter(
 				x -> String.format(" %s %s", x.getName(), x.getNic()).toLowerCase().contains(keyword.toLowerCase()))
 				.collect(Collectors.toList());
@@ -148,8 +142,8 @@ public class PatientData {
 		p.setRegisteredOn(rs.getDate("registered_on"));
 		return p;
 	}
-	
-	public static Cache<Patient> getCache(){
+
+	public static Cache<Patient> getCache() {
 		return cache;
 	}
 }
