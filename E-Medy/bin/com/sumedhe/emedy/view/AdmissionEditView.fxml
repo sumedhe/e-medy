@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root prefHeight="519.0" prefWidth="871.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+      <AnchorPane layoutX="11.0" layoutY="9.0" prefHeight="35.0" prefWidth="763.0" styleClass="desktop-pane-top-bar" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="saveButton" layoutX="689.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Save" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <Button fx:id="backButton" layoutX="6.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <Button fx:id="saveAndNewButton" layoutX="586.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Save &amp; New" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="5.0" />
+         </children></AnchorPane>
+		<AnchorPane layoutY="38.0" prefHeight="481.0" prefWidth="763.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+         <children>
+            <GridPane layoutX="49.0" layoutY="31.0" prefHeight="371.0" prefWidth="374.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="139.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="235.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="71.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Patient" />
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Recommended By" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets top="7.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Confirmed By" GridPane.rowIndex="2" />
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Ward" GridPane.rowIndex="3" />
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Admitted On" GridPane.rowIndex="4" />
+                  <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Discharged On" GridPane.rowIndex="6" />
+                  <Label prefHeight="18.0" prefWidth="174.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Admission State" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="patientInput" prefHeight="25.0" prefWidth="208.0" promptText="Patient" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="confirmedByInput" prefHeight="25.0" prefWidth="205.0" promptText="Doctor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="wardInput" prefHeight="25.0" prefWidth="206.0" promptText="Ward" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="admittedOnInput" prefHeight="25.0" prefWidth="208.0" promptText="Admitted On" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="dischargedOnInput" prefHeight="25.0" prefWidth="208.0" promptText="Discharged On" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="admissionStateInput" prefHeight="25.0" prefWidth="203.0" promptText="State" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextArea fx:id="recommendedByInput" prefHeight="63.0" prefWidth="208.0" promptText="Doctor Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <TitledPane animated="false" layoutX="510.0" layoutY="41.0" prefHeight="188.0" prefWidth="335.0" text="Custodian Info">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="333.0">
+                     <children>
+                        <GridPane layoutX="25.0" layoutY="14.0" prefHeight="123.0" prefWidth="286.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="95.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="217.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Full Name" />
+                              <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="NIC" GridPane.rowIndex="1" />
+                              <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Phone" GridPane.rowIndex="2" />
+                              <TextField fx:id="custodianNicInput" prefHeight="25.0" prefWidth="208.0" promptText="NIC" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="custodianPhoneInput" prefHeight="25.0" prefWidth="208.0" promptText="Phone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="custodianNameInput" prefHeight="25.0" prefWidth="208.0" promptText="Full Name" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children></AnchorPane>
+	</children>
+</fx:root>

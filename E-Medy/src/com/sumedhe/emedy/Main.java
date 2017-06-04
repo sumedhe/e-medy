@@ -2,19 +2,20 @@ package com.sumedhe.emedy;
 	
 import java.util.EventObject;
 
-import com.sumedhe.emedy.admission.AdmissionData;
 import com.sumedhe.emedy.common.CacheEventListener;
-import com.sumedhe.emedy.employee.DoctorData;
-import com.sumedhe.emedy.employee.EmployeeData;
-import com.sumedhe.emedy.employee.EmployeeWardData;
-import com.sumedhe.emedy.home.HomeController;
-import com.sumedhe.emedy.misc.BloodGroupData;
-import com.sumedhe.emedy.misc.BranchData;
-import com.sumedhe.emedy.misc.DesignationData;
-import com.sumedhe.emedy.misc.TestData;
-import com.sumedhe.emedy.misc.TreatmentData;
-import com.sumedhe.emedy.misc.WardData;
-import com.sumedhe.emedy.patient.PatientData;
+import com.sumedhe.emedy.config.Prefs;
+import com.sumedhe.emedy.controller.HomeController;
+import com.sumedhe.emedy.data.AdmissionData;
+import com.sumedhe.emedy.data.BloodGroupData;
+import com.sumedhe.emedy.data.BranchData;
+import com.sumedhe.emedy.data.DesignationData;
+import com.sumedhe.emedy.data.DoctorData;
+import com.sumedhe.emedy.data.EmployeeData;
+import com.sumedhe.emedy.data.EmployeeWardData;
+import com.sumedhe.emedy.data.PatientData;
+import com.sumedhe.emedy.data.TestData;
+import com.sumedhe.emedy.data.TreatmentData;
+import com.sumedhe.emedy.data.WardData;
 
 import javafx.application.Application;
 import javafx.application.Platform;
