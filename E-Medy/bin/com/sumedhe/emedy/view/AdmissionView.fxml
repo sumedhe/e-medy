@@ -12,8 +12,9 @@
             <Button fx:id="editButton" layoutX="693.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Edit" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="5.0" />
             <Button fx:id="deleteButton" layoutX="618.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Delete" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="5.0" />
             <Button fx:id="newButton" layoutX="549.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="New" AnchorPane.rightAnchor="152.0" AnchorPane.topAnchor="5.0" />
-            <TextField fx:id="searchInput" layoutX="10.0" layoutY="5.0" prefHeight="25.0" prefWidth="440.0" promptText="Search" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="5.0" />
+            <TextField fx:id="searchInput" layoutX="10.0" layoutY="5.0" prefHeight="25.0" prefWidth="345.0" promptText="Search" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="5.0" />
             <Button fx:id="dischargeButton" layoutX="456.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Discharge" AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="5.0" />
+            <Button fx:id="treatmentButton" layoutX="364.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Treatments" AnchorPane.rightAnchor="314.0" AnchorPane.topAnchor="5.0" />
          </children></AnchorPane>
             <TableView fx:id="table" layoutX="5.0" layoutY="39.0" prefHeight="468.0" prefWidth="742.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="39.0">
          <columnResizePolicy>

@@ -21,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 public class WardEditController extends AnchorPane implements Controllable {
 
 	@FXML
-	TextField wardNameInput, maxPatientsInput;
+	TextField wardNameInput, wardNoInput, maxPatientsInput;
 
 	@FXML
 	Button backButton, saveButton, saveAndNewButton;
@@ -74,6 +74,9 @@ public class WardEditController extends AnchorPane implements Controllable {
 
 		// Set handlers for Validation Checking
 		validator.addToCheckEmpty(wardNameInput);
+		validator.addToCheckEmpty(wardNoInput);
+		validator.addToCheckNumeric(wardNoInput);
+		validator.addToCheckEmpty(maxPatientsInput);
 		validator.addToCheckNumeric(maxPatientsInput);
 	}
 
@@ -81,15 +84,24 @@ public class WardEditController extends AnchorPane implements Controllable {
 	public void setWard(Ward ward) {
 		this.ward = ward;
 		this.wardNameInput.setText(ward.getName());
+		this.wardNoInput.setText(Integer.toString(ward.getWardNo()));
 		this.maxPatientsInput.setText(Integer.toString(ward.getMaxPatients()));
 	}
 
 	// Create a object from the form and save it
 	public void save() {
+		
 		try {
 			ward.setName(this.wardNameInput.getText());
+			ward.setWardNo(Integer.parseInt(this.wardNoInput.getText()));
 			ward.setMaxPatients(Integer.parseInt(this.maxPatientsInput.getText()));
 
+			Ward tmp = WardData.getByWardNo(Integer.parseInt(this.wardNoInput.getText()));
+			if (tmp != null && tmp.getWardId() != ward.getWardId()){
+				Global.showNotification("Ward no already exists!", NotificationType.Error);
+				return;
+			}
+			
 			WardData.save(ward);
 			Global.showNotification("Saved...", NotificationType.Success);
 		} catch (DBException e) {

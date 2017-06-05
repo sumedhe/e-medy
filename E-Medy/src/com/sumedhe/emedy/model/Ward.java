@@ -6,6 +6,7 @@ import com.sumedhe.emedy.data.EmployeeWardData;
 public class Ward {
 	int wardId;
 	String name;
+	int wardNo;
 	int maxPatients;
 
 	public Ward() {
@@ -31,6 +32,14 @@ public class Ward {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getWardNo() {
+		return wardNo;
+	}
+	
+	public void setWardNo(int wardNo) {
+		this.wardNo = wardNo;
 	}
 
 	public int getMaxPatients() {

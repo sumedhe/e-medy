@@ -6,6 +6,8 @@ import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.config.Prefs;
 import com.sumedhe.emedy.controller.HomeController;
 import com.sumedhe.emedy.data.AdmissionData;
+import com.sumedhe.emedy.data.AdmissionTestData;
+import com.sumedhe.emedy.data.AdmissionTreatmentData;
 import com.sumedhe.emedy.data.BloodGroupData;
 import com.sumedhe.emedy.data.BranchData;
 import com.sumedhe.emedy.data.DesignationData;
@@ -76,6 +78,8 @@ public class Main extends Application {
 		DoctorData.updateCache();
 		AdmissionData.updateCache();
 		EmployeeWardData.updateCache();
+		AdmissionTreatmentData.updateCache();
+		AdmissionTestData.updateCache();
 		
 		
 		EmployeeData.getCache().addCacheEventListener(new CacheEventListener() {

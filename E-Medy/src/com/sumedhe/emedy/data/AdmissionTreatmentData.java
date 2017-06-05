@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sumedhe.emedy.config.Global;
 import com.sumedhe.emedy.model.AdmissionTreatment;
@@ -44,14 +45,15 @@ public class AdmissionTreatmentData {
 			PreparedStatement sqry;
 			if (isNew) {
 				sqry = DB.newQuery(
-						"INSERT INTO admission_treatment(admission_id, treatment_id) values (?, ?)");
+						"INSERT INTO admission_treatment(admission_id, treatment_id, note) values (?, ?, ?)");
 			} else {
 				sqry = DB.newQuery(
-						"UPDATE admission_treatment SET admission_id = ?, treatment_id = ? WHERE admission_treatment_id = ?");
+						"UPDATE admission_treatment SET admission_id = ?, treatment_id = ?, note = ? WHERE admission_treatment_id = ?");
 			}
 
 			sqry.setInt(1, admissionTreatment.getAdmissionId());
 			sqry.setInt(2, admissionTreatment.getTreatmentId());
+			sqry.setString(3, admissionTreatment.getNote());
 			if (!isNew) {
 				sqry.setInt(4, admissionTreatment.getAdmissionId());
 			}
@@ -109,16 +111,20 @@ public class AdmissionTreatmentData {
 	}
 	
 	public static List<AdmissionTreatment> getList()  {
-
 		return cache.getItemList();
+	}
+	
+	public static List<AdmissionTreatment> getByAdmissionId(int admissionId) {
+		return cache.getStream().filter(x -> x.getAdmissionId() == admissionId).collect(Collectors.toList());
 	}
 	
 	
 	public static AdmissionTreatment toAdmissionTreatment(ResultSet rs) throws SQLException {
     	AdmissionTreatment at = new AdmissionTreatment();
-    	at.setAdmissionTreatmentId(rs.getInt("admissionTreatmentId"));
-    	at.setAdmissionId(rs.getInt("admissionId"));
-    	at.setTreatmentId(rs.getInt("treatmentId"));
+    	at.setAdmissionTreatmentId(rs.getInt("admission_treatment_id"));
+    	at.setAdmissionId(rs.getInt("admission_id"));
+    	at.setTreatmentId(rs.getInt("treatment_id"));
+    	at.setNote(rs.getString("note"));
     	return at;
     }
 

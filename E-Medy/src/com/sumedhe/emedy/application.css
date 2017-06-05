@@ -57,4 +57,10 @@
 	-fx-text-alignment: center;
 }
 
+.payment-label {
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 20.0;
+	-fx-text-fill: blue;
+}
+
 

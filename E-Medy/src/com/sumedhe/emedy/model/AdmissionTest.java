@@ -1,5 +1,7 @@
 package com.sumedhe.emedy.model;
 
+import com.sumedhe.emedy.data.TestData;
+
 public class AdmissionTest {
 	int admissionTestId;
 	int admissionId;
@@ -7,7 +9,7 @@ public class AdmissionTest {
 	String result;
 	
 	public AdmissionTest() {
-		// TODO Auto-generated constructor stub
+		this.result = "";
 	}
 	
 	public AdmissionTest(int admissionId, int testId, String result){
@@ -48,5 +50,17 @@ public class AdmissionTest {
 		this.result = result;
 	}
 
+	// EXTRA //
+	public Test getTest(){
+		return TestData.getById(testId);
+	}
+	
+	public String getTestName(){
+		return testId != 0 ? getTest().getName() : "(New Test)";
+	}
+	
+	public Double getFee(){
+		return testId != 0 ? getTest().getFee() : 0.00;
+	}
 	
 }

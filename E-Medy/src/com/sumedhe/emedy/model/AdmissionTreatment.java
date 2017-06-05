@@ -1,18 +1,17 @@
 package com.sumedhe.emedy.model;
 
+import com.sumedhe.emedy.data.TreatmentData;
+
 public class AdmissionTreatment {
 	int admissionTreatmentId;
 	int admissionId;
 	int treatmentId;
+	String note;
 	
 	public AdmissionTreatment() {
-		// TODO Auto-generated constructor stub
+		this.note = "";
 	}
 	
-	public AdmissionTreatment(int admissionId, int treatmentId){
-		this.admissionId = admissionId;
-		this.treatmentId = treatmentId;
-	}
 	
 	public int getAdmissionTreatmentId() {
 		return admissionTreatmentId;
@@ -38,6 +37,26 @@ public class AdmissionTreatment {
 		this.treatmentId = treatmentId;
 	}
 	
-
+	public String getNote() {
+		return note;
+	}
+	
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
+	// EXTRA //
+	public Treatment getTreatment(){
+		return TreatmentData.getById(treatmentId);
+	}
+	
+	public String getTreatmentName(){
+		return treatmentId != 0 ? getTreatment().getName() : "(New Treatment)";
+	}
+	
+	public Double getFee(){
+		return treatmentId != 0 ? getTreatment().getFee() : 0.00;
+	}
+	
 	
 }

@@ -13,10 +13,9 @@ import com.sumedhe.emedy.service.DBException;
 import com.sumedhe.emedy.tool.Cache;
 
 public class WardData {
-	
+
 	static Cache<Ward> cache = new Cache<>();
 
-	
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -35,7 +34,7 @@ public class WardData {
 			DB.close();
 		}
 	}
-	
+
 	public static void save(Ward ward) throws DBException {
 		boolean isNew = ward.getWardId() == 0;
 		try {
@@ -43,29 +42,30 @@ public class WardData {
 			PreparedStatement sqry;
 
 			if (isNew) {
-				sqry = DB.newQuery("INSERT INTO ward(name, max_patients) values(?, ?)");
+				sqry = DB.newQuery("INSERT INTO ward(name, ward_no, max_patients) values(?, ?, ?)");
 			} else {
-				sqry = DB.newQuery("UPDATE ward SET name = ?, max_patients = ? WHERE ward_id = ?");
+				sqry = DB.newQuery("UPDATE ward SET name = ?, ward_no = ?, max_patients = ? WHERE ward_id = ?");
 			}
 
 			sqry.setString(1, ward.getName());
 			sqry.setInt(2, ward.getMaxPatients());
+			sqry.setInt(3, ward.getWardNo());
 			if (!isNew) {
-				sqry.setInt(3, ward.getWardId());
+				sqry.setInt(4, ward.getWardId());
 			}
 
 			sqry.executeUpdate();
 			if (isNew) {
 				ward.setWardId(DB.execGetInt("SELECT MAX(ward_id) from ward"));
 			}
-			
+
 			cache.put(ward.getWardId(), ward);
-			
+
 		} catch (DBException | SQLException ex) {
 			Global.logError(ex.getMessage());
 		} finally {
 			DB.close();
-cache.refreshAll();
+			cache.refreshAll();
 		}
 
 	}
@@ -89,7 +89,7 @@ cache.refreshAll();
 			return null;
 		}
 		Ward w = cache.get(id);
-		if (w == null){
+		if (w == null) {
 			try {
 				DB.open();
 				PreparedStatement sqry = DB.newQuery("SELECT * FROM ward WHERE ward_id = ?");
@@ -103,30 +103,39 @@ cache.refreshAll();
 			} finally {
 				DB.close();
 			}
-			
+
 		}
 		return w;
 	}
+	
 
-	public static List<Ward> getList()  {
+	public static List<Ward> getList() {
 		return cache.getItemList();
 	}
-	
+
 	public static List<Ward> getBySearch(String keyword) throws DBException {
-		return cache.getStream().filter(
-				x -> x.getName().toLowerCase().contains(keyword.toLowerCase()))
+		return cache.getStream()
+				.filter(x -> String.format("%s %s", x.getName().toLowerCase(), Integer.toString(x.getWardNo()))
+						.contains(keyword.toLowerCase()))
 				.collect(Collectors.toList());
 	}
+	
+	public static Ward getByWardNo(int wardNo){
+		List<Ward> list = cache.getStream().filter(x -> x.getWardNo() == wardNo).collect(Collectors.toList());
+		return list.size() != 0 ? list.get(0) : null;
+	}
+	
 
 	private static Ward toWard(ResultSet rs) throws SQLException {
 		Ward w = new Ward();
 		w.setWardId(rs.getInt("ward_id"));
 		w.setName(rs.getString("name"));
+		w.setWardNo(rs.getInt("ward_no"));
 		w.setMaxPatients(rs.getInt("max_patients"));
 		return w;
 	}
 
-	public static Cache<Ward> getCache(){
+	public static Cache<Ward> getCache() {
 		return cache;
 	}
 }

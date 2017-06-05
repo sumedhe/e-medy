@@ -139,7 +139,7 @@ public class WardController extends AnchorPane implements Tabular {
 	// Configure the table, Create columns and set data collection
 	@Override
 	public void configTable() {
-		String[][] colNames = { { "Name", "name" }, { "Max. patients", "maxPatients" }, { "No of Patients", "patientCount" },
+		String[][] colNames = { { "Name", "name" }, { "Ward No", "wardNo" }, { "Max. patients", "maxPatients" }, { "No of Patients", "patientCount" },
 				{ "No of Employees", "employeeCount" }};
 
 		for (String[] colName : colNames) {

@@ -50,7 +50,7 @@ public class Validator {
 	
 	// Check for errors
 	void checkForEmpty(TextField t) {
-		setError(t, t.getText().equals(""));
+		setError(t, t.getText() == null || t.getText().equals(""));
 	}
 	
 	void checkForEmpty(TextArea t){
@@ -67,6 +67,10 @@ public class Validator {
 	
 	void checkForNic(TextField t){
 		setError(t, nicPattern.matcher(t.getText()).find() || !t.getText().contains("V"));
+	}
+	
+	void checkForExistingId(TextField t){
+		
 	}
 	
 	<T> void checkForNull(ComboBox<T> c) {
@@ -158,6 +162,7 @@ public class Validator {
 			}
 		});
 	}
+	
 	
 	public <T> void addToCheckNull(ComboBox<T> c) {
 		c.focusedProperty().addListener(e -> {

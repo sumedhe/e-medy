@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import com.sumedhe.emedy.common.Gender;
 import com.sumedhe.emedy.data.AdmissionTestData;
-import com.sumedhe.emedy.data.AdmissionTreatmentData;
 import com.sumedhe.emedy.data.BloodGroupData;
 import com.sumedhe.emedy.data.BranchData;
 import com.sumedhe.emedy.data.DesignationData;
@@ -16,7 +15,6 @@ import com.sumedhe.emedy.data.TestData;
 import com.sumedhe.emedy.data.TreatmentData;
 import com.sumedhe.emedy.data.WardData;
 import com.sumedhe.emedy.model.AdmissionTest;
-import com.sumedhe.emedy.model.AdmissionTreatment;
 import com.sumedhe.emedy.model.BloodGroup;
 import com.sumedhe.emedy.model.Branch;
 import com.sumedhe.emedy.model.Designation;
@@ -72,8 +70,8 @@ public class testBootstrap {
 		Treatment tr = new Treatment("Treatment 01", 150.00);
 		TreatmentData.save(tr);
 
-		AdmissionTreatment at = new AdmissionTreatment(1, 1);
-		AdmissionTreatmentData.save(at);
+//		AdmissionTreatment at = new AdmissionTreatment(1, 1);
+//		AdmissionTreatmentData.save(at);
 
 		EmployeeWard ew = new EmployeeWard(1, 1);
 		EmployeeWardData.save(ew);

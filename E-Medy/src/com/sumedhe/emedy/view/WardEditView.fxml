@@ -19,24 +19,27 @@
          </children></AnchorPane>
 		<AnchorPane layoutY="38.0" prefHeight="481.0" prefWidth="763.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
          <children>
-            <TitledPane animated="false" collapsible="false" layoutX="39.0" layoutY="32.0" prefHeight="136.0" prefWidth="350.0" text="Ward Info">
+            <TitledPane animated="false" collapsible="false" layoutX="39.0" layoutY="32.0" prefHeight="172.0" prefWidth="350.0" text="Ward Info">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="126.0" prefWidth="322.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="348.0">
                      <children>
-                        <GridPane layoutX="22.0" layoutY="8.0" prefHeight="79.0" prefWidth="295.0">
+                        <GridPane layoutX="22.0" layoutY="8.0" prefHeight="108.0" prefWidth="295.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="104.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.0" minWidth="10.0" prefWidth="191.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Ward Name" />
-                              <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Max Patients" GridPane.rowIndex="1" />
+                              <Label prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Max Patients" GridPane.rowIndex="2" />
                               <TextField fx:id="wardNameInput" prefHeight="25.0" prefWidth="208.0" promptText="Ward Name" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" GridPane.columnIndex="1" />
-                              <TextField fx:id="maxPatientsInput" prefHeight="25.0" prefWidth="135.0" promptText="Max Patients" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="maxPatientsInput" prefHeight="25.0" prefWidth="135.0" promptText="Max Patients" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label layoutX="10.0" layoutY="91.0" prefHeight="18.0" styleClass="edit-view-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Ward No." GridPane.rowIndex="1" />
+                              <TextField fx:id="wardNoInput" layoutX="114.0" layoutY="16.0" prefHeight="25.0" prefWidth="105.0" promptText="Ward No" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

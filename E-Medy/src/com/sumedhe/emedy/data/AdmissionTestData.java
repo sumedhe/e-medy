@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sumedhe.emedy.config.Global;
 import com.sumedhe.emedy.model.AdmissionTest;
@@ -109,16 +110,19 @@ public class AdmissionTestData {
 	}
 	
 	public static List<AdmissionTest> getList()  {
-
 		return cache.getItemList();
+	}
+	
+	public static List<AdmissionTest> getByAdmissionId(int admissionId) {
+		return cache.getStream().filter(x -> x.getAdmissionId() == admissionId).collect(Collectors.toList());
 	}
 	
 	
 	public static AdmissionTest toAdmissionTest(ResultSet rs) throws SQLException {
     	AdmissionTest at = new AdmissionTest();
-    	at.setAdmissionTestId(rs.getInt("admissionTestId"));
-    	at.setAdmissionId(rs.getInt("admissionId"));
-    	at.setTestId(rs.getInt("testId"));
+    	at.setAdmissionTestId(rs.getInt("admission_test_id"));
+    	at.setAdmissionId(rs.getInt("admission_id"));
+    	at.setTestId(rs.getInt("test_id"));
     	at.setResult(rs.getString("result"));
     	return at;
     }

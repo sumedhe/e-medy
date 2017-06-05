@@ -36,7 +36,7 @@ public class AdmissionController extends AnchorPane implements Tabular {
 	TableView<Admission> table;
 
 	@FXML
-	Button newButton, deleteButton, editButton, dischargeButton;
+	Button newButton, deleteButton, editButton, dischargeButton, treatmentButton;
 
 	@FXML
 	TextField searchInput;
@@ -135,6 +135,11 @@ public class AdmissionController extends AnchorPane implements Tabular {
 						Global.logError(e1.getMessage());
 					}
 				}
+			}
+		});
+		treatmentButton.setOnAction(e -> {
+			if (getSelected() != null){
+				Global.getHome().setWorkPanel(new AdmissionTreatmentController(getSelected(), this));				
 			}
 		});
 	}
