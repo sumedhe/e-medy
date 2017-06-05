@@ -27,7 +27,7 @@ public class HomeController extends AnchorPane implements Controllable {
 	AnchorPane workPane;
 
 	@FXML
-	Button dashboardButton, admissionButton, patientButton, employeeButton, miscButton;
+	Button dashboardButton, admissionButton, patientButton, employeeButton, wardButton, miscButton;
 
 	@FXML
 	VBox buttonBox;
@@ -63,6 +63,7 @@ public class HomeController extends AnchorPane implements Controllable {
 		panelList.put("Admission", new AdmissionController());
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
+		panelList.put("Ward", new EmployeeController());
 		panelList.put("Misc", new MiscController());
 
 		setHandlers();
@@ -88,6 +89,10 @@ public class HomeController extends AnchorPane implements Controllable {
 		employeeButton.setOnAction(e -> {
 			setWorkPanel((Node) panelList.get("Employee"));
 			selectButton(employeeButton);
+		});
+		wardButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Ward"));
+			selectButton(wardButton);
 		});
 		miscButton.setOnAction(e -> {
 			setWorkPanel((Node) panelList.get("Misc"));

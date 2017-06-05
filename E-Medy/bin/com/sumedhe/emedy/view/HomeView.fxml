@@ -54,6 +54,15 @@
                   <String fx:value="menu-button" />
                </styleClass>
             </Button>
+            <Button fx:id="wardButton" layoutX="10.0" layoutY="218.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Ward" textFill="#f5f5f5">
+               <font>
+                  <Font name="Roboto" size="19.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="menu-button" />
+                  <String fx:value="menu-button" />
+               </styleClass>
+            </Button>
             <Button fx:id="miscButton" mnemonicParsing="false" prefHeight="52.0" prefWidth="228.0" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Misc" textFill="#f5f5f5">
                <font>
                   <Font name="Roboto" size="19.0" />
