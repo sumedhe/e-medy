@@ -81,7 +81,7 @@
                   <TextField fx:id="mobileInput" prefHeight="25.0" prefWidth="208.0" promptText="Mobile" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
-            <TitledPane animated="false" layoutX="483.0" layoutY="212.0" prefHeight="185.0" prefWidth="308.0" text="Wards">
+            <TitledPane animated="false" collapsible="false" layoutX="483.0" layoutY="212.0" prefHeight="185.0" prefWidth="308.0" text="Wards">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

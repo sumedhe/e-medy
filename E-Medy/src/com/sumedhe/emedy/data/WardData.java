@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.sumedhe.emedy.config.Global;
 import com.sumedhe.emedy.model.Ward;
@@ -108,8 +109,13 @@ cache.refreshAll();
 	}
 
 	public static List<Ward> getList()  {
-
 		return cache.getItemList();
+	}
+	
+	public static List<Ward> getBySearch(String keyword) throws DBException {
+		return cache.getStream().filter(
+				x -> x.getName().toLowerCase().contains(keyword.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	private static Ward toWard(ResultSet rs) throws SQLException {

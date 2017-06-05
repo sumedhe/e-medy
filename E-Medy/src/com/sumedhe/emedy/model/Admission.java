@@ -134,7 +134,7 @@ public class Admission {
 		return DoctorData.getById(confirmedDoctorId);
 	}
 	
-	public String getDischarged(){
-		return this.isDischarged ? "Yes" : "No";
+	public String getState(){
+		return this.isDischarged ? "Discharged (" + getDischargedOn().toString() + ")" : "In ward (" + getWard().getName() + ")";
 	}
 }

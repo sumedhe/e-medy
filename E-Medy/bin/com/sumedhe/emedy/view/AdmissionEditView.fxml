@@ -58,7 +58,7 @@
                   <TextArea fx:id="recommendedByInput" prefHeight="63.0" prefWidth="208.0" promptText="Doctor Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <TitledPane animated="false" layoutX="510.0" layoutY="41.0" prefHeight="188.0" prefWidth="335.0" text="Custodian Info">
+            <TitledPane animated="false" collapsible="false" layoutX="510.0" layoutY="41.0" prefHeight="188.0" prefWidth="335.0" text="Custodian Info">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="333.0">
                      <children>

@@ -63,7 +63,7 @@ public class HomeController extends AnchorPane implements Controllable {
 		panelList.put("Admission", new AdmissionController());
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
-		panelList.put("Ward", new EmployeeController());
+		panelList.put("Ward", new WardController());
 		panelList.put("Misc", new MiscController());
 
 		setHandlers();
