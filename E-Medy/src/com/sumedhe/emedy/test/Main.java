@@ -1,11 +1,7 @@
 package com.sumedhe.emedy.test;
 
-import java.sql.Date;
-
 import com.sumedhe.emedy.config.Prefs;
-import com.sumedhe.emedy.data.AttendanceData;
-import com.sumedhe.emedy.model.Attendance;
-import com.sumedhe.emedy.service.DBException;
+import com.sumedhe.emedy.model.Doctor;
 
 public class Main{
 	public static void main(String[] args){
@@ -30,16 +26,18 @@ public class Main{
 //		DoctorData.getList().forEach(x -> Global.log(x.getEmployee().toString()));
 
 
-		AttendanceData.updateCache();
-		Attendance a = new Attendance();
-		a.setDate(Date.valueOf("2010-02-10"));
-		a.setEmployeeId(1);
-		try {
-			AttendanceData.save(a);
-		} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		AttendanceData.updateCache();
+//		Attendance a = new Attendance();
+//		a.setDate(Date.valueOf("2010-02-10"));
+//		a.setEmployeeId(1);
+//		try {
+//			AttendanceData.save(a);
+//		} catch (DBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 		
+		Doctor d = new Doctor();
 	}
 }

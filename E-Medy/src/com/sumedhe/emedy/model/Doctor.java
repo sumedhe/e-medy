@@ -13,7 +13,7 @@ public class Doctor {
     Employee employee;
     
     public Doctor(){
-        
+//        this.employee = new Employee();
     }
     
     public Doctor(Employee employee){

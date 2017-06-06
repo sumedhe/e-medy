@@ -24,6 +24,13 @@
 	    -fx-background-color: #EEEFF3;
 }
 
+.dashboard-title {
+	 	-fx-font-family: "Roboto bold";
+ 		-fx-font-size: 17.0;
+        -fx-background-color: #7C858E;
+        -fx-text-fill: white;
+}
+
 .edit-view-label {
 	    -fx-font-family: "Roboto regular";
 	    -fx-font-size: 14.0;

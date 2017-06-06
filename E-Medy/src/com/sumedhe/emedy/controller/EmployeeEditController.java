@@ -213,14 +213,15 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 			employee.setMobile(this.mobileInput.getText());
 			employee.setStartDate(Date.valueOf(this.startDateInput.getValue().toString()));
 			employee.setDesignationId(this.designationInput.getValue().getDesignationId());
-
+			EmployeeData.save(employee);
+			
 			if (this.designationInput.getValue().isDoctor()) {
 				Doctor d = new Doctor();
 				d.setBranchId(this.branchInput.getValue().getBranchId());
 				d.setEmployeeId(employee.getEmployeeId());
 				DoctorData.save(d);
 			} else {
-				EmployeeData.save(employee);
+//				EmployeeData.save(employee);
 			}
 
 			// Update EmployeeWards

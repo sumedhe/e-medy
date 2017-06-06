@@ -16,6 +16,7 @@ public class WardData {
 
 	static Cache<Ward> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -35,6 +36,7 @@ public class WardData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Ward ward) throws DBException {
 		boolean isNew = ward.getWardId() == 0;
 		try {
@@ -70,6 +72,7 @@ public class WardData {
 
 	}
 
+	// Deleting an item //
 	public static void delete(int wardId) throws DBException {
 		try {
 			DB.open();
@@ -109,10 +112,12 @@ public class WardData {
 	}
 	
 
+	// Get the list of items //
 	public static List<Ward> getList() {
 		return cache.getItemList();
 	}
 
+	// Get the list of items //
 	public static List<Ward> getBySearch(String keyword) throws DBException {
 		return cache.getStream()
 				.filter(x -> String.format("%s %s", x.getName().toLowerCase(), Integer.toString(x.getWardNo()))

@@ -1,10 +1,12 @@
 package com.sumedhe.emedy.controller;
 
 import java.io.IOException;
+import java.util.EventObject;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.sumedhe.emedy.common.CacheEventListener;
 import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.common.Tabular;
 import com.sumedhe.emedy.config.Global;
@@ -66,6 +68,12 @@ public class EmployeeController  extends AnchorPane implements Tabular{
 	// Set handlers for the the UI components
 	@Override
 	public void setHandlers() {
+		EmployeeData.getCache().addCacheEventListener(new CacheEventListener() {
+			@Override
+			public void updated(EventObject e) {
+				loadData();
+			}
+		});
 		newButton.setOnAction(e -> {
 			Global.getHome().setWorkPanel(new EmployeeEditController(new Employee(), this));	
 		});

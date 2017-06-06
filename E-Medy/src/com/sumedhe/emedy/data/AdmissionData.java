@@ -36,6 +36,7 @@ public class AdmissionData {
 		}
 	}
 	
+	// Saving data //
 	public static void save(Admission admission) throws DBException {
 		boolean isNew = admission.getAdmissionId() == 0;
 
@@ -81,7 +82,7 @@ public class AdmissionData {
 
 	}
 
-
+	// Deleting an item //
 	public static void delete(int admissionId) throws DBException {
 		try {
 			DB.open();
@@ -96,6 +97,7 @@ public class AdmissionData {
 		}
 	}
 
+	// Get the item by it's id //
 	public static Admission getById(int id) {
 		if (id == 0) {
 			return null;
@@ -119,17 +121,19 @@ public class AdmissionData {
 		return a;
 	}
 
+	// Get the list of items //
 	public static List<Admission> getList()  {
 		return cache.getItemList();
 	}
 	
+	// Search and get the result as a list //
 	public static List<Admission> getBySearch(String keyword) throws DBException {
 		return cache.getStream().filter(
 				x -> String.format(" %s %s %s", x.getPatient(), x.getWard(), x.getCustodianName()).toLowerCase().contains(keyword.toLowerCase()))
 				.collect(Collectors.toList());
 	}
 
-	
+	// Convert ResultSet to Item //
 	private static Admission toAdmission(ResultSet rs) throws SQLException {
 		Admission a = new Admission();
 		a.setAdmissionId(rs.getInt("admission_id"));
@@ -147,7 +151,7 @@ public class AdmissionData {
 		return a;
 	}
 
-
+	// Return the cache //
 	public static Cache<Admission> getCache(){
 		return cache;
 	}

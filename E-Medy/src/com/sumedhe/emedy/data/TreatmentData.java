@@ -16,6 +16,7 @@ public class TreatmentData {
 	static Cache<Treatment> cache = new Cache<>();
 	
 	
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -35,6 +36,7 @@ public class TreatmentData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Treatment treatment) throws DBException {
 		boolean isNew = treatment.getTreatmentId() == 0;
 		try {
@@ -68,6 +70,7 @@ public class TreatmentData {
 	}
 
 
+	// Deleting an item //
 	public static void delete(int treatmentId) throws DBException {
 		try {
 			DB.open();
@@ -106,6 +109,7 @@ public class TreatmentData {
 		return t;
 	}
 
+	// Get the list of items //
 	public static List<Treatment> getList()  {
 
 		return cache.getItemList();

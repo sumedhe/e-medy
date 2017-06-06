@@ -18,6 +18,7 @@ public class PatientData {
 
 	public static Cache<Patient> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -37,6 +38,7 @@ public class PatientData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Patient patient) throws DBException {
 		boolean isNew = patient.getPatientId() == 0;
 		try {
@@ -82,6 +84,7 @@ public class PatientData {
 
 	}
 
+	// Deleting an item //
 	public static void delete(int patientId) throws DBException {
 		try {
 			DB.open();
@@ -120,10 +123,12 @@ public class PatientData {
 		return p;
 	}
 
+	// Get the list of items //
 	public static List<Patient> getList() {
 		return cache.getItemList();
 	}
 
+	// Get the list of items //
 	public static List<Patient> getBySearch(String keyword) throws DBException {
 		return cache.getStream().filter(
 				x -> String.format(" %s %s", x.getName(), x.getNic()).toLowerCase().contains(keyword.toLowerCase()))

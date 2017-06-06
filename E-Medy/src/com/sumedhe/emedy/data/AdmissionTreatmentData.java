@@ -17,6 +17,7 @@ public class AdmissionTreatmentData {
 	static Cache<AdmissionTreatment> cache = new Cache<>();
 	
 	
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -37,6 +38,7 @@ public class AdmissionTreatmentData {
 	}
 	
 	
+	// Saving data //
 	public static void save(AdmissionTreatment admissionTreatment) throws DBException{
 		boolean isNew = admissionTreatment.getAdmissionTreatmentId() == 0;
 
@@ -73,6 +75,7 @@ public class AdmissionTreatmentData {
 
 	}
 	
+	// Deleting an item //
 	public static void delete(int admissionTreatmentId) throws DBException {
 		try {
 			DB.open();
@@ -110,10 +113,12 @@ public class AdmissionTreatmentData {
 		return at;
 	}
 	
+	// Get the list of items //
 	public static List<AdmissionTreatment> getList()  {
 		return cache.getItemList();
 	}
 	
+	// Get the list of items //
 	public static List<AdmissionTreatment> getByAdmissionId(int admissionId) {
 		return cache.getStream().filter(x -> x.getAdmissionId() == admissionId).collect(Collectors.toList());
 	}

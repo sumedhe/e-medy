@@ -15,6 +15,7 @@ public class BranchData {
 
 	static Cache<Branch> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -34,6 +35,7 @@ public class BranchData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Branch branch) throws DBException {
 		boolean isNew = branch.getBranchId() == 0;
 		try {
@@ -65,6 +67,7 @@ public class BranchData {
 		}
 	}
 
+	// Deleting an item //
 	public static void delete(int branchId) throws DBException {
 		try {
 			DB.open();
@@ -102,6 +105,7 @@ public class BranchData {
 		return b;
 	}
 
+	// Get the list of items //
 	public static List<Branch> getList() {
 
 		return cache.getItemList();

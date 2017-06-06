@@ -17,6 +17,7 @@ public class EmployeeWardData {
 	static Cache<EmployeeWard> cache = new Cache<>();
 	
     
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -36,6 +37,7 @@ public class EmployeeWardData {
 		}
 	}
 	
+	// Saving data //
 	public static void save(EmployeeWard employeeWard) throws DBException{
 		boolean isNew = employeeWard.getEmployeeWardId() == 0;
 		
@@ -71,6 +73,7 @@ public class EmployeeWardData {
 
 	}
 	
+	// Deleting an item //
 	public static void delete(int employeeWardId) throws DBException {
 		try {
 			DB.open();
@@ -108,10 +111,12 @@ public class EmployeeWardData {
 		return ew;
 	}
 	
+	// Get the list of items //
 	public static List<EmployeeWard> getList()  {
 		return cache.getItemList();
 	}
 	
+	// Get the list of items //
 	public static List<EmployeeWard> getListByEmployeeId(int employeeId) {
 		return cache.getStream().filter(x -> x.getEmployeeId() == employeeId).collect(Collectors.toList());
 	}

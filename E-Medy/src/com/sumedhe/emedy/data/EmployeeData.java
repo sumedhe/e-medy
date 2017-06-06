@@ -18,6 +18,7 @@ public class EmployeeData {
 	
 	static Cache<Employee> cache = new Cache<>();
 	
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -37,6 +38,7 @@ public class EmployeeData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Employee employee) throws DBException{
         boolean isNew = employee.getEmployeeId() == 0;
 		try {
@@ -58,7 +60,7 @@ public class EmployeeData {
             sqry.setString(7, employee.getPhone());
             sqry.setString(8, employee.getMobile());
             sqry.setDate(9, (Date)employee.getStartDate());
-            sqry.setInt(10, employee.getDesignationId());          
+            sqry.setInt(10, employee.getDesignationId());  
             if (!isNew) { sqry.setInt(11, employee.getEmployeeId()); }
             
             sqry.executeUpdate();
@@ -118,6 +120,7 @@ public class EmployeeData {
 		return cache.getItemList();
     }
     
+	// Get the list of items //
 	public static List<Employee> getBySearch(String keyword) throws DBException {
 		if (cache.isEmpty()) {
 			updateCache();

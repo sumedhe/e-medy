@@ -17,6 +17,7 @@ public class AdmissionTestData {
 	static Cache<AdmissionTest> cache = new Cache<>();
 	
     
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -36,6 +37,7 @@ public class AdmissionTestData {
 		}
 	}
 	
+	// Saving data //
 	public static void save(AdmissionTest admissionTest) throws DBException{
 		boolean isNew = admissionTest.getAdmissionTestId() == 0;
 
@@ -72,6 +74,7 @@ public class AdmissionTestData {
 
 	}
 	
+	// Deleting an item //
 	public static void delete(int admissionTestId) throws DBException {
 		try {
 			DB.open();
@@ -109,10 +112,12 @@ public class AdmissionTestData {
 		return t;
 	}
 	
+	// Get the list of items //
 	public static List<AdmissionTest> getList()  {
 		return cache.getItemList();
 	}
 	
+	// Get the list of items //
 	public static List<AdmissionTest> getByAdmissionId(int admissionId) {
 		return cache.getStream().filter(x -> x.getAdmissionId() == admissionId).collect(Collectors.toList());
 	}

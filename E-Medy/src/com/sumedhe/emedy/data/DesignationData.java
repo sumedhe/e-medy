@@ -16,6 +16,7 @@ public class DesignationData {
 	static Cache<Designation> cache = new Cache<>();
 	
 	
+	// Updating the cache //
 	public static void updateCache()  {
 		try {
 			DB.open();
@@ -35,6 +36,7 @@ public class DesignationData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Designation designation) throws DBException {
 		boolean isNew = designation.getDesignationId() == 0;
 		try {
@@ -68,6 +70,7 @@ public class DesignationData {
 		}
 	}
 
+	// Deleting an item //
 	public static void delete(int designationId) throws DBException {
 		try {
 			DB.open();
@@ -105,6 +108,7 @@ public class DesignationData {
 		return d;
 	}
 
+	// Get the list of items //
 	public static List<Designation> getList() {
 
 		return cache.getItemList();

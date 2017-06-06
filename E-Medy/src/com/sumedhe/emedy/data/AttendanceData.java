@@ -17,6 +17,7 @@ public class AttendanceData {
 
 	static Cache<Attendance> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -36,6 +37,7 @@ public class AttendanceData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Attendance attendance) throws DBException {
 		boolean isNew = attendance.getAttendanceId() == 0;
 		try {
@@ -68,6 +70,7 @@ public class AttendanceData {
 		}
 	}
 
+	// Deleting an item //
 	public static void delete(int attendanceId) throws DBException {
 		try {
 			DB.open();
@@ -105,10 +108,12 @@ public class AttendanceData {
 		return b;
 	}
 
+	// Get the list of items //
 	public static List<Attendance> getList() {
 		return cache.getItemList();
 	}
 	
+	// Get the list of items //
 	public static List<Attendance> getByDate(Date date){
 		return cache.getStream().filter(x -> x.getDate().toString().equals(date.toString())).collect(Collectors.toList());
 	}

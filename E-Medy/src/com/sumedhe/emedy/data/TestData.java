@@ -16,6 +16,7 @@ public class TestData {
 	static Cache<Test> cache = new Cache<>();
 	
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -35,6 +36,7 @@ public class TestData {
 		}
 	}
 	
+	// Saving data //
 	public static void save(Test test) throws DBException {
 		boolean isNew = test.getTestId() == 0;
 		try {
@@ -68,6 +70,7 @@ public class TestData {
 	}
 
 
+	// Deleting an item //
 	public static void delete(int testId) throws DBException {
 		try {
 			DB.open();
@@ -106,6 +109,7 @@ public class TestData {
 		return t;
 	}
 
+	// Get the list of items //
 	public static List<Test> getList()  {
 
 		return cache.getItemList();

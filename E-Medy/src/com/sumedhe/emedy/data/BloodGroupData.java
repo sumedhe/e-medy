@@ -15,6 +15,7 @@ public class BloodGroupData {
 
 	static Cache<BloodGroup> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -34,6 +35,7 @@ public class BloodGroupData {
 		}
 	}
 	
+	// Saving data //
 	public static void save(BloodGroup bg) throws DBException {
 		boolean isNew = bg.getBloodGroupId() == 0;
 		try {
@@ -64,6 +66,7 @@ cache.refreshAll();
 
 	}
 
+	// Deleting an item //
 	public static void delete(int bloodGroupId) throws DBException {
 		try {
 			DB.open();
@@ -101,6 +104,7 @@ cache.refreshAll();
 		return bg;
 	}
 
+	// Get the list of items //
 	public static List<BloodGroup> getList()  {
 		return cache.getItemList();
 	}

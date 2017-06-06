@@ -15,6 +15,7 @@ public class DoctorData {
 
 	static Cache<Doctor> cache = new Cache<>();
 
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -34,10 +35,11 @@ public class DoctorData {
 		}
 	}
 
+	// Saving data //
 	public static void save(Doctor doctor) throws DBException {
 		boolean isNew = doctor.getDoctorId() == 0;
 		try {
-			EmployeeData.save(doctor.getEmployee());
+//			EmployeeData.save(doctor.getEmployee());
 
 			DB.open();
 			PreparedStatement sqry;
@@ -68,6 +70,7 @@ public class DoctorData {
 		}
 	}
 
+	// Deleting an item //
 	public static void delete(int doctorId) throws DBException {
 		try {
 			DB.open();
@@ -106,6 +109,7 @@ public class DoctorData {
 		return d;
 	}
 
+	// Get the list of items //
 	public static List<Doctor> getList() {
 		return cache.getItemList();
 	}
