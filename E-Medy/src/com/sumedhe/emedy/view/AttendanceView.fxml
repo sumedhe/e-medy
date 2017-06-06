@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root prefHeight="519.0" prefWidth="763.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+         <children>
+      <AnchorPane layoutX="1.0" layoutY="-1.0" prefHeight="35.0" prefWidth="763.0" styleClass="desktop-pane-top-bar" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <DatePicker fx:id="dateInput" layoutX="8.0" layoutY="9.0" prefHeight="25.0" prefWidth="204.0" promptText="Date" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0" />
+            <Button fx:id="addButton" layoutX="460.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Add" AnchorPane.leftAnchor="460.0" AnchorPane.topAnchor="5.0" />
+            <ComboBox fx:id="employeeInput" layoutX="228.0" layoutY="5.0" prefHeight="25.0" prefWidth="225.0" AnchorPane.leftAnchor="228.0" AnchorPane.topAnchor="5.0" />
+         </children></AnchorPane>
+            <TableView fx:id="table" layoutX="5.0" layoutY="39.0" prefHeight="439.0" prefWidth="742.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="39.0" />
+      <Button fx:id="deleteButton" layoutX="721.0" layoutY="39.0" mnemonicParsing="false" text="-" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="39.0" />
+         </children>
+</fx:root>

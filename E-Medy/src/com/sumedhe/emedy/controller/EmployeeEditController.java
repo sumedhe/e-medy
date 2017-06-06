@@ -56,22 +56,22 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 
 	@FXML
 	ComboBox<Designation> designationInput;
-	
+
 	@FXML
 	ComboBox<Branch> branchInput;
-	
+
 	@FXML
 	ComboBox<Ward> wardSelectInput;
 
 	@FXML
 	Button backButton, saveButton, saveAndNewButton, addWardButton, removeWardButton;
-	
+
 	@FXML
 	Label branchLabel;
-	
+
 	@FXML
 	ListView<EmployeeWard> wardList;
-	
+
 	List<EmployeeWard> deletedEmployeeWards = new ArrayList<>();
 
 	Node prev;
@@ -98,7 +98,7 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 	// Initialization
 	@Override
 	public void initialize() {
-
+		// Prepare the components //
 		genderInput.getItems().addAll(Gender.Male, Gender.Female);
 		designationInput.getItems().addAll(DesignationData.getList());
 		branchInput.getItems().addAll(BranchData.getList());
@@ -116,7 +116,7 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 	@Override
 	public void setHandlers() {
 		branchLabel.visibleProperty().bind(branchInput.visibleProperty());
-		DesignationData.getCache().addCacheEventListener(new CacheEventListener() {			
+		DesignationData.getCache().addCacheEventListener(new CacheEventListener() {
 			@Override
 			public void updated(EventObject e) {
 				designationInput.getItems().clear();
@@ -148,9 +148,9 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 			}
 		});
 		addWardButton.setOnAction(e -> {
-			if (wardSelectInput.getValue() != null){
-				for (EmployeeWard w : wardList.getItems()){
-					if (w.getWardId() == wardSelectInput.getValue().getWardId()){
+			if (wardSelectInput.getValue() != null) {
+				for (EmployeeWard w : wardList.getItems()) {
+					if (w.getWardId() == wardSelectInput.getValue().getWardId()) {
 						return;
 					}
 				}
@@ -159,7 +159,7 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 		});
 		removeWardButton.setOnAction(e -> {
 			EmployeeWard ew = wardList.getSelectionModel().getSelectedItem();
-			if (ew != null && ew.getEmployeeWardId() != 0){
+			if (ew != null && ew.getEmployeeWardId() != 0) {
 				deletedEmployeeWards.add(ew);
 			}
 			wardList.getItems().remove(ew);
@@ -189,13 +189,13 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 		this.mobileInput.setText(employee.getMobile());
 		this.startDateInput.setValue(employee.getStartDate().toLocalDate());
 		this.designationInput.setValue(employee.getDesignation());
-		if (employee.getDesignation() != null && employee.getDesignation().isDoctor()){
+		if (employee.getDesignation() != null && employee.getDesignation().isDoctor()) {
 			branchInput.setValue(DoctorData.getByEmployeeId(employee.getEmployeeId()).getBranch());
 			branchInput.setVisible(true);
 		} else {
 			branchInput.setVisible(false);
 		}
-		
+
 		wardList.getItems().clear();
 		wardList.getItems().addAll(EmployeeWardData.getListByEmployeeId(employee.getEmployeeId()));
 	}
@@ -214,15 +214,15 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 			employee.setStartDate(Date.valueOf(this.startDateInput.getValue().toString()));
 			employee.setDesignationId(this.designationInput.getValue().getDesignationId());
 
-			if (this.designationInput.getValue().isDoctor()){			
+			if (this.designationInput.getValue().isDoctor()) {
 				Doctor d = new Doctor();
 				d.setBranchId(this.branchInput.getValue().getBranchId());
 				d.setEmployeeId(employee.getEmployeeId());
 				DoctorData.save(d);
-			} else {				
+			} else {
 				EmployeeData.save(employee);
 			}
-			
+
 			// Update EmployeeWards
 			wardList.getItems().forEach(x -> {
 				try {
@@ -238,7 +238,7 @@ public class EmployeeEditController extends AnchorPane implements Controllable {
 					Global.logError(e.getMessage());
 				}
 			});
-			
+
 			Global.showNotification("Saved...", NotificationType.Success);
 		} catch (DBException e) {
 			Global.log(e.getMessage());

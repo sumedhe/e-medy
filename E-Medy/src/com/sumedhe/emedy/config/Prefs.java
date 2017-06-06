@@ -7,10 +7,13 @@ import com.sumedhe.emedy.Main;
 public class Prefs {
     static Preferences prefs;
     
+    // Load preferences //
     public static void load(){
         prefs = Preferences.userNodeForPackage(Main.class);
     }
     
+    
+    // Username preference //
     public static void setUser(String username){
         prefs.put("User", username);
     }
@@ -19,6 +22,7 @@ public class Prefs {
         return prefs.get("User", null);
     }
     
+    // Password Preference //
     public static void setPass(String password){
         prefs.put("Pass", password);
     }

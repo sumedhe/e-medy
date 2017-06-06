@@ -15,6 +15,7 @@ public class Global {
 	static int notificationInterval = 2000;
 	static Timer timer = new Timer();
 	
+	// home controller //
 	public static HomeController getHome() {
 		return home;
 	}
@@ -23,6 +24,7 @@ public class Global {
 		Global.home = home;
 	}
 
+	// Logging //
     public static void log(String message){
         System.out.println(message);
     }
@@ -37,6 +39,7 @@ public class Global {
     }
     
     
+    // Config //
     public static int getSearchInterval() {
 		return searchInterval;
 	}

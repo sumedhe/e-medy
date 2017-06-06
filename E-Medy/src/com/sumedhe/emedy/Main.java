@@ -8,6 +8,7 @@ import com.sumedhe.emedy.controller.HomeController;
 import com.sumedhe.emedy.data.AdmissionData;
 import com.sumedhe.emedy.data.AdmissionTestData;
 import com.sumedhe.emedy.data.AdmissionTreatmentData;
+import com.sumedhe.emedy.data.AttendanceData;
 import com.sumedhe.emedy.data.BloodGroupData;
 import com.sumedhe.emedy.data.BranchData;
 import com.sumedhe.emedy.data.DesignationData;
@@ -31,9 +32,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
+		// Load the main controller //
 		try {
 			HomeController homeController = new HomeController();
-//			PatientController homeController = new PatientController();
 			
 			primaryStage.setScene(new Scene(homeController));
 			primaryStage.getScene().getStylesheets().add("/com/sumedhe/emedy/application.css");
@@ -57,16 +58,18 @@ public class Main extends Application {
 		}
 	}
 	
+	// Main //
 	public static void main(String[] args) {
-		
 		configure();
-		
 		launch(args);
 	}
 	
+	// Configure the environment //
 	private static void configure(){
 		
 		Prefs.load();
+		
+		// Update all caches
 		BloodGroupData.updateCache();
 		BranchData.updateCache();
 		DesignationData.updateCache();
@@ -80,7 +83,7 @@ public class Main extends Application {
 		EmployeeWardData.updateCache();
 		AdmissionTreatmentData.updateCache();
 		AdmissionTestData.updateCache();
-		
+		AttendanceData.updateCache();
 		
 		EmployeeData.getCache().addCacheEventListener(new CacheEventListener() {
 			@Override

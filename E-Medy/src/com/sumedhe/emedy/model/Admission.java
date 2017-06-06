@@ -18,6 +18,7 @@ public class Admission {
 	Date admittedOn;
 	boolean isDischarged;
 	Date dischargedOn;
+	boolean isPaid;
 
 	public Admission() {
 		this.admissionId = 0;
@@ -119,6 +120,14 @@ public class Admission {
 
 	public void setDischargedOn(Date dischargedOn){
 		this.dischargedOn = dischargedOn;
+	}
+	
+	public boolean getIsPaid(){
+		return this.isPaid;
+	}
+	
+	public void setIsPaid(boolean isPaid){
+		this.isPaid = isPaid;
 	}
 
 	// Extra //

@@ -81,6 +81,7 @@ public class AdmissionEditController extends AnchorPane implements Controllable 
 	// Initialization
 	@Override
 	public void initialize() {
+		// Prepare the components //
 		patientInput.getItems().addAll(PatientData.getList());
 		confirmedByInput.getItems().addAll(DoctorData.getList());
 		wardInput.getItems().addAll(WardData.getList());

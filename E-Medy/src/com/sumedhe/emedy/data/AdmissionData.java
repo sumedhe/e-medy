@@ -16,7 +16,7 @@ public class AdmissionData {
 	
 	static Cache<Admission> cache = new Cache<>();
 	
-
+	// Updating the cache //
 	public static void updateCache() {
 		try {
 			DB.open();
@@ -44,10 +44,10 @@ public class AdmissionData {
 			PreparedStatement sqry;
 			if (isNew) {
 				sqry = DB.newQuery(
-						"INSERT INTO admission(patient_id, ward_id, recommended_by, confirmed_doctor_id, custodian_name, custodian_nic, custodian_phone, admitted_on, is_discharged, discharged_on) values(?,?,?,?,?,?,?,?,?,?)");
+						"INSERT INTO admission(patient_id, ward_id, recommended_by, confirmed_doctor_id, custodian_name, custodian_nic, custodian_phone, admitted_on, is_discharged, discharged_on, is_paid) values(?,?,?,?,?,?,?,?,?,?,?)");
 			} else {
 				sqry = DB.newQuery(
-						"UPDATE admission SET patient_id = ?, ward_id = ?, recommended_by = ?, confirmed_doctor_id = ?, custodian_name = ?, custodian_nic = ?, custodian_phone = ?, admitted_on = ?, is_discharged = ?, discharged_on = ? WHERE admission_id = ?");
+						"UPDATE admission SET patient_id = ?, ward_id = ?, recommended_by = ?, confirmed_doctor_id = ?, custodian_name = ?, custodian_nic = ?, custodian_phone = ?, admitted_on = ?, is_discharged = ?, discharged_on = ?, is_paid = ? WHERE admission_id = ?");
 			}
 
 			sqry.setInt(1, admission.getPatient().getPatientId());
@@ -60,9 +60,10 @@ public class AdmissionData {
 			sqry.setDate(8, admission.getAdmittedOn());
 			sqry.setBoolean(9, admission.getIsDischarged());
 			sqry.setDate(10, admission.getDischargedOn());
+			sqry.setBoolean(11, admission.getIsPaid());
 			
 			if (!isNew) {
-				sqry.setInt(11, admission.getAdmissionId());
+				sqry.setInt(12, admission.getAdmissionId());
 			}
 
 			sqry.executeUpdate();
@@ -142,6 +143,7 @@ public class AdmissionData {
 		a.setAdmittedOn(rs.getDate("admitted_on"));
 		a.setDischarged(rs.getBoolean("is_discharged"));
 		a.setDischargedOn(rs.getDate("discharged_on"));
+		a.setIsPaid(rs.getBoolean("is_paid"));
 		return a;
 	}
 

@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Timer;
 
 import com.sumedhe.emedy.common.Controllable;
-import com.sumedhe.emedy.common.NotificationType;
 import com.sumedhe.emedy.config.Global;
 
 import javafx.application.Platform;
@@ -27,13 +26,13 @@ public class HomeController extends AnchorPane implements Controllable {
 	AnchorPane workPane;
 
 	@FXML
-	Button dashboardButton, admissionButton, patientButton, employeeButton, wardButton, miscButton;
+	Button dashboardButton, admissionButton, patientButton, employeeButton, attendanceButton, wardButton, miscButton;
 
 	@FXML
 	VBox buttonBox;
 
 	@FXML
-	Button closeButton, testBtn;
+	Button closeButton;
 
 	@FXML
 	Pane notificationPane;
@@ -43,6 +42,7 @@ public class HomeController extends AnchorPane implements Controllable {
 
 	static Timer timer = new Timer();
 
+	// Constructor //
 	public HomeController() {
 		String url = "/com/sumedhe/emedy/view/HomeView.fxml";
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
@@ -56,6 +56,7 @@ public class HomeController extends AnchorPane implements Controllable {
 		}
 	}
 
+	// Initialization //
 	@Override
 	public void initialize() {
 		Global.setHome(this);
@@ -63,15 +64,18 @@ public class HomeController extends AnchorPane implements Controllable {
 		panelList.put("Admission", new AdmissionController());
 		panelList.put("Patient", new PatientController());
 		panelList.put("Employee", new EmployeeController());
+		panelList.put("Attendance", new AttendanceController());
 		panelList.put("Ward", new WardController());
 		panelList.put("Misc", new MiscController());
 
 		setHandlers();
 
-		// **** TMP ****
-		setWorkPanel((Node) panelList.get("Admission"));
+		// Set first page
+		setWorkPanel((Node) panelList.get("Dashboard"));
+		selectButton(dashboardButton);
 	}
 
+	// Setting Handlers //
 	@Override
 	public void setHandlers() {
 		dashboardButton.setOnAction(e -> {
@@ -90,6 +94,10 @@ public class HomeController extends AnchorPane implements Controllable {
 			setWorkPanel((Node) panelList.get("Employee"));
 			selectButton(employeeButton);
 		});
+		attendanceButton.setOnAction(e -> {
+			setWorkPanel((Node) panelList.get("Attendance"));
+			selectButton(attendanceButton);
+		});		
 		wardButton.setOnAction(e -> {
 			setWorkPanel((Node) panelList.get("Ward"));
 			selectButton(wardButton);
@@ -103,12 +111,9 @@ public class HomeController extends AnchorPane implements Controllable {
 			System.exit(0);
 		});
 
-		// test
-		testBtn.setOnAction(e -> {
-			test();
-		});
 	}
 
+	// Set a panel to the workspace //
 	public void setWorkPanel(Node panel) {
 		workPane.getChildren().clear();
 		AnchorPane.setTopAnchor(panel, 0.00);
@@ -118,6 +123,7 @@ public class HomeController extends AnchorPane implements Controllable {
 		workPane.getChildren().add(panel);
 	}
 
+	// Change the color when selecting a button //
 	public void selectButton(Button button) {
 		buttonBox.getChildren().stream().filter(x -> x instanceof Button)
 				.forEach(x -> x.getStyleClass().remove("menu-button-selected"));
@@ -131,62 +137,6 @@ public class HomeController extends AnchorPane implements Controllable {
 
 	public Label getNotificationLabel() {
 		return notificationLabel;
-	}
-
-	// !!! test !!!
-
-	public void test() {
-		// notificationPane.setVisible(false);
-		Global.showNotification("Deleted...", NotificationType.Error);
-		// Global.showNotification("Hello", NotificationType.Success);
-		// Designation d = new Designation("Doctor", 250000);
-		//
-		// try {
-		// DesignationData.save(d);
-		// } catch (DBException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// Map<Integer, Ward> list = new HashMap<Integer, Ward>();
-		// list.put(1, new Ward("ward 1", 100));
-		// list.put(2, new Ward("ward 2", 200));
-		// Ward w = list.get(1);
-		// Global.log(w.toString());
-		// list.put(1, new Ward("ward 1 new", 1000));
-		// Global.log(w.toString());
-
-		// List<Ward> al = list.values().stream().filter(e ->
-		// e.getName().contains("ard 1")).collect(Collectors.toList());
-		// for (Ward w:al){
-		// Global.log(w.getName());
-		// }
-
-		// Global.log("aa");
-		// Global.log("--");
-		// Global.log("!!" + DesignationData.getById(1).getName());
-		// Global.log("!!" + DesignationData.getById(1).getName());
-		// Global.log("--");
-		// List<Designation> list = DesignationData.getList();
-		// for (Designation d : list){
-		// Global.log(d.toString());
-		//// d.setName(d.getName() + " 1");
-		//// DesignationData.save(d);
-		// }
-		// Global.log("eee");
-		// Global.log(DesignationData.getById(1).toString());
-		//
-
-		// Global.log(String.format("sdfsa %s%%", "123"));
-
-		// Map<Integer, String> cache = new HashMap<Integer, String>();
-		// cache.put(1, "One");
-		// cache.put(2, "Two");
-		// cache.put(2, "New Two");
-		//
-		// Global.log(cache.get(4));
-		// Global.log(Integer.toString(cache.keySet().size()));
-
 	}
 
 }

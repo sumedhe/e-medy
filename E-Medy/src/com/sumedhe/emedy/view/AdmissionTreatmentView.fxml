@@ -20,7 +20,7 @@
             <Button fx:id="backButton" layoutX="6.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <Label fx:id="paymentLabel" layoutX="916.0" layoutY="10.0" styleClass="payment-label" stylesheets="@../../../../../../../../Project/e-medy/E-Medy/src/com/sumedhe/emedy/application.css" text="Payment: 0.00" textAlignment="RIGHT" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0" />
          </children></AnchorPane>
-		<AnchorPane layoutY="38.0" prefHeight="481.0" prefWidth="763.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+		<AnchorPane layoutY="38.0" prefHeight="547.0" prefWidth="1006.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
          <children>
             <Accordion layoutX="198.0" layoutY="146.0" />
             <TitledPane fx:id="treatmentPane" animated="false" collapsible="false" layoutX="14.0" layoutY="14.0" prefHeight="522.0" prefWidth="485.0" text="Treatment">

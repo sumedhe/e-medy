@@ -96,6 +96,7 @@ public class AdmissionTreatmentController extends AnchorPane implements Tabular 
 	// Initialization
 	@Override
 	public void initialize() {
+		// Prepare the components //
 		treatmentInput.getItems().addAll(TreatmentData.getList());
 		testInput.getItems().addAll(TestData.getList());
 		new ComboBoxFilterListener<Treatment>(treatmentInput);
@@ -269,6 +270,7 @@ public class AdmissionTreatmentController extends AnchorPane implements Tabular 
 		int sel = getSelectedAdmissionTreatment() == null ? -1
 				: getSelectedAdmissionTreatment().getAdmissionTreatmentId();
 		try {
+			treatmentPayment = 0;
 			List<AdmissionTreatment> list = AdmissionTreatmentData.getByAdmissionId(this.admission.getAdmissionId());
 			admissionTreatmentData.removeAll(admissionTreatmentData);
 			for (AdmissionTreatment p : list) {
@@ -288,6 +290,7 @@ public class AdmissionTreatmentController extends AnchorPane implements Tabular 
 	public void loadTestData() {
 		int sel = getSelectedAdmissionTest() == null ? -1 : getSelectedAdmissionTest().getAdmissionTestId();
 		try {
+			testPayment = 0;
 			List<AdmissionTest> list = AdmissionTestData.getByAdmissionId(this.admission.getAdmissionId());
 			admissionTestData.removeAll(admissionTestData);
 			for (AdmissionTest p : list) {

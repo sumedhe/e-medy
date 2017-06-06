@@ -1,15 +1,16 @@
 .menu-button{
         -fx-font-family: "Roboto regualr";
         -fx-font-size: 16.0;
-        -fx-background-color: #363C62;
-        -fx-text-fill: #7983CA;
+        -fx-background-color: #33363B;
+        -fx-text-fill: #dddddd;
         -fx-text-alignment: left;
         -fx-padding: 1.0;
         }
 
 .menu-button-selected{
  		-fx-font-family: "Roboto bold";
-        -fx-background-color: #414875;
+ 		-fx-font-size: 17.0;
+        -fx-background-color: #2A2D32;
         -fx-text-fill: #FFFFFF;
         -fx-text-alignment: left;
         -fx-padding: 1.0;
@@ -20,7 +21,7 @@
 }
 
 .desktop-pane-top-bar{
-	    -fx-background-color: #FFFFFF;
+	    -fx-background-color: #EEEFF3;
 }
 
 .edit-view-label {
@@ -63,4 +64,53 @@
 	-fx-text-fill: blue;
 }
 
+.close-button {
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+}
 
+.dashboard {
+	-fx-background-color: #eceff1;
+}
+
+.card-01-title {
+	-fx-background-color: #ef6c00;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 18.0;
+	-fx-text-fill: white;
+}
+
+.card-01-body {
+	-fx-background-color: #ef5100;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 36.0;
+	-fx-text-fill: white;
+}
+
+.card-02-title {
+	-fx-background-color: #00e676;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 18.0;
+	-fx-text-fill: white;
+}
+
+.card-02-body {
+	-fx-background-color: #00c853;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 36.0;
+	-fx-text-fill: white;
+}
+
+.card-03-title {
+	-fx-background-color: #00b0ff;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 18.0;
+	-fx-text-fill: white;
+}
+
+.card-03-body {
+	-fx-background-color: #0091ea;
+	-fx-font-family: "Roboto regular";
+	-fx-font-size: 36.0;
+	-fx-text-fill: white;
+}
